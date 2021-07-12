@@ -5,8 +5,8 @@ let context = canvas.getContext("2d");
 
 //TODO create moving ball  / define a drawing loop
 //define starting point in canvas in variables x and y
-let x = canvas.width/2;
-let y = canvas.height -30;
+let x = canvas.width / 2;
+let y = canvas.height - 30;
 
 //define the position + directs the circle is drawn
 let xDrawn = 5; // negative = left, positive = right // also changes speed!
@@ -14,9 +14,10 @@ let yDrawn = -5; // negative = up, positive = down
 
 // make ball
 let ballRadius = 5;
+
 function drawBall() {
     context.beginPath();
-    context.arc(x, y, ballRadius, 0, Math.PI*2);
+    context.arc(x, y, ballRadius, 0, Math.PI * 2);
     context.fillStyle = "#ff1493";
     context.fill();
     context.closePath();
@@ -32,14 +33,14 @@ function moveBall() {
     // y = min 5 max 145
 
     //top + bottom wall
-    if(y + yDrawn <= 1 //if vertical starting point on y axis < 0 (it goes outside top canvas wall)
-        || y + yDrawn > canvas.height-1) {  //if vertical starting point on y axis > canvas height (it goes outside bottom canvas wall)
+    if (y + yDrawn <= 1 //if vertical starting point on y axis < 0 (it goes outside top canvas wall)
+        || y + yDrawn > canvas.height - 1) {  //if vertical starting point on y axis > canvas height (it goes outside bottom canvas wall)
         yDrawn = -yDrawn; //reverse direction on y axis = bounce
     }
 
     //left + right wall
-    if(x + xDrawn <= 1 //if horizontal starting point on x axis < 0 (it goes outside left canvas wall)
-        || x + xDrawn > canvas.width-1) {  //if horizontal starting point on x axis > canvas width (it goes outside right canvas wall)
+    if (x + xDrawn <= 1 //if horizontal starting point on x axis < 0 (it goes outside left canvas wall)
+        || x + xDrawn > canvas.width - 1) {  //if horizontal starting point on x axis > canvas width (it goes outside right canvas wall)
         xDrawn = -xDrawn; //reverse direction on x axis = bounce
     }
 
@@ -49,9 +50,6 @@ function moveBall() {
 }
 
 setInterval(moveBall, 80); // change this timeout to make the ball got faster/slower, lower number = faster
-
-
-
 
 
 //Phase 2
