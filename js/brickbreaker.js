@@ -22,9 +22,8 @@ let paddleHeight = 5 ;
 let paddleWidth = 50;
 let paddleX = (canvas.width-paddleWidth) / 2; // CHECK how to make this appear in window
 
-//TODO enable keyboard controls paddle
-let pressRight = false; // start with boolean false, keys arent's pressed yet
-let pressLeft= false;
+
+
 
 //**FUNCTIONS**
 //TODO create moving ball/ define a drawing loop
@@ -72,6 +71,7 @@ function draw() {
 
     //TODO enable keyboard controls paddle
 }
+
 
 
 
