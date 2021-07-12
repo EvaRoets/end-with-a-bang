@@ -1,0 +1,40 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+
+}
+
+#gameName {
+    font-size: 3rem;
+    padding: 1rem 0;
+
+}
+
+#game {
+    /*display: grid;*/
+    /*grid-template-columns: 500px 300px 300px 300px;*/
+}
+
+#graphic {
+    width: 250px;
+}
+
+#guessedWord {
+    font-size: 1.2rem;
+    padding: 2rem 0 3rem 0;
+}
+
+.buttons {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2rem;
+    width: 3rem;
+    margin: 0.2rem;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.buttons:hover {
+    cursor: pointer;
+}
