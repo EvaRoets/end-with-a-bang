@@ -19,7 +19,7 @@
         }
     }
 
-    const changePlayer = () => {
+    const changePlayer = (a) => {
         if(player == 1){
             player = 2;
         }
@@ -57,51 +57,86 @@
     document.getElementById('add-a').addEventListener('click', () => {
         let a = 0;
         let col = 'a'
-        addDisk(a, col);
-        changePlayer();
+        if(board[a][0] != 0){
+            alert("This column's a bit full, maybe try another one?");
+        }
+        else{
+            addDisk(a, col);
+            changePlayer(a);
+        }
 
     })
 
     document.getElementById('add-b').addEventListener('click', () => {
         let a = 1;
         let col = 'b';
-        addDisk(a, col);
-        changePlayer();
+        if(board[a][0] != 0){
+            alert("This column's a bit full, maybe try another one?");
+        }
+        else{
+            addDisk(a, col);
+            changePlayer(a);
+        }
     })
 
     document.getElementById('add-c').addEventListener('click', () => {
         let a = 2;
         let col = 'c';
-        addDisk(a, col);
-        changePlayer();
+        if(board[a][0] != 0){
+            alert("This column's a bit full, maybe try another one?");
+        }
+        else{
+            addDisk(a, col);
+            changePlayer(a);
+        }
     })
 
     document.getElementById('add-d').addEventListener('click', () => {
         let a = 3;
         let col = 'd';
-        addDisk(a, col);
-        changePlayer();
+        if(board[a][0] != 0){
+            alert("This column's a bit full, maybe try another one?");
+        }
+        else{
+            addDisk(a, col);
+            changePlayer(a);
+        }
     })
 
     document.getElementById('add-e').addEventListener('click', () => {
         let a = 4;
         let col = 'e';
-        addDisk(a, col);
-        changePlayer();
+        if(board[a][0] != 0){
+            alert("This column's a bit full, maybe try another one?");
+        }
+        else{
+            addDisk(a, col);
+            changePlayer(a);
+        }
     })
 
     document.getElementById('add-f').addEventListener('click', () => {
         let a = 5;
         let col = 'f';
-        addDisk(a, col);
-        changePlayer();
+        if(board[a][0] != 0){
+            alert("This column's a bit full, maybe try another one?");
+        }
+        else{
+            addDisk(a, col);
+            changePlayer(a);
+        }
     })
 
     document.getElementById('add-g').addEventListener('click', () => {
         let a = 6;
         let col = 'g';
-        addDisk(a, col);
-        changePlayer();
+        if(board[a][0] != 0){
+            alert("This column's a bit full, maybe try another one?");
+        }
+        else{
+            addDisk(a, col);
+            changePlayer(a);
+        }
     })
 
     document.getElementById('reset').addEventListener('click', () => {
