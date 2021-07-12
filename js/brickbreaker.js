@@ -20,6 +20,12 @@ function drawBall() {
     context.fillStyle = "#ff1493";
     context.fill();
     context.closePath();
+}
+
+function moveBall() {
+    // clear frame after every interval to make ball instead of line
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
 
     //TODO make ball bounce off the walls/ define start + end canvas
     // x = min 5 max 295
@@ -36,12 +42,7 @@ function drawBall() {
         || x + xDrawn > canvas.width-1) {  //if horizontal starting point on x axis > canvas width (it goes outside right canvas wall)
         xDrawn = -xDrawn; //reverse direction on x axis = bounce
     }
-}
 
-function moveBall() {
-    // clear frame after every interval to make ball instead of line
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    drawBall();
     //update x and y to make ball appear in new position on every update
     x += xDrawn;
     y += yDrawn;
