@@ -39,7 +39,7 @@ function drawBall() {
 function drawPaddle() {
     context.beginPath();
     context.rect(paddleX, canvas.height - paddleHeight - 3, paddleWidth, paddleHeight);
-    context.fillStyle = "#0095DD";
+    context.fillStyle = "#ff1493";
     context.fill();
     context.closePath();
 }
@@ -49,6 +49,7 @@ function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
     drawPaddle();
+    drawBricks();
 
     //TODO make ball bounce off the walls/ define start + end canvas
     // x = min 5 max 295
@@ -129,7 +130,19 @@ setInterval(draw, 80); // change this timeout to make the ball got faster/slower
 // }
 
 
-//TODO create bricks field
+//TODO create brick field
+let brickRowCount = 4;
+let brickColumnCount = 6;
+let brickWidth = 75;
+let brickHeight = 20;
+let brickPadding = 10;
+let brickOffsetTop = 10;
+let brickOffsetLeft = 10;
+let bricks = [];
+
+
+
+
 
 
 //Phase 3
