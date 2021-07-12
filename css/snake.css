@@ -1,3 +1,13 @@
 body {
-   background-color: gray;
+   margin: 0px;
+   padding: 0px;
+   display: flex;
+   flex-direction: column; /* to stack em on top of each other */
+   justify-content: center;
+   align-items: center;
+   background-color: salmon;
+}
+
+canvas {
+   box-shadow: rgb(245,76,85) 0px 19px 38px, rgba(0, 0, 0, 0.10) 0px 15px 12px;  
 }
