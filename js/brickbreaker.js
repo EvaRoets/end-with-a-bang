@@ -26,6 +26,17 @@ let paddleX = (canvas.width - paddleWidth) / 2; // CHECK how to make this appear
 let pressRight = false; // start with boolean false, keys aren't pressed yet
 let pressLeft = false;
 
+//TODO create brick field
+let brickRowCount = 3;
+let brickColumnCount = 5;
+let brickWidth = 75;
+let brickHeight = 20;
+let brickPadding = 10;
+let brickOffsetTop = 10;
+let brickOffsetLeft = 10;
+let bricks = [];
+
+
 //**FUNCTIONS**
 //TODO create moving ball/ define a drawing loop
 function drawBall() {
@@ -42,6 +53,31 @@ function drawPaddle() {
     context.fillStyle = "#ff1493";
     context.fill();
     context.closePath();
+}
+
+//TODO create brick field
+
+for(let col=0; col<brickColumnCount; col++) {
+    bricks[col] = [];
+    for(let row=0; row<brickRowCount; row++) {
+        bricks[col][row] = { x: 0, y: 0 };
+    }
+}
+
+function drawBricks() {
+    for(let col=0; col<brickColumnCount; col++) {
+        for(let row=0; row<brickRowCount; row++) {
+            let brickX = (col*(brickWidth+brickPadding))+brickOffsetLeft;
+            let brickY = (row*(brickHeight+brickPadding))+brickOffsetTop;
+            bricks[col][row].x = brickX;
+            bricks[col][row].y = brickY;
+            context.beginPath();
+            context.rect(0, 0, brickWidth, brickHeight);
+            context.fillStyle = "#ff1493";
+            context.fill();
+            context.closePath();
+        }
+    }
 }
 
 function draw() {
@@ -86,6 +122,7 @@ function draw() {
 
 }
 
+//TODO enable keyboard controls paddle
 //"listen" for key presses
 document.addEventListener("keydown", keyDown, false);
 document.addEventListener("keyup", keyUp, false);
@@ -130,37 +167,6 @@ setInterval(draw, 80); // change this timeout to make the ball got faster/slower
 // }
 
 
-//TODO create brick field
-let brickRowCount = 4;
-let brickColumnCount = 6;
-let brickWidth = 75;
-let brickHeight = 20;
-let brickPadding = 10;
-let brickOffsetTop = 10;
-let brickOffsetLeft = 10;
-let bricks = [];
-for(let col=0; col<brickColumnCount; col++) {
-    bricks[col] = [];
-    for(let row=0; row<brickRowCount; row++) {
-        bricks[col][row] = { x: 0, y: 0 };
-    }
-}
-
-function drawBricks() {
-    for(let col=0; col<brickColumnCount; col++) {
-        for(let row=0; row<brickRowCount; row++) {
-            let brickX = (col*(brickWidth+brickPadding))+brickOffsetLeft;
-            let brickY = (row*(brickHeight+brickPadding))+brickOffsetTop;
-            bricks[col][row].x = brickX;
-            bricks[col][row].y = brickY;
-            context.beginPath();
-            context.rect(0, 0, brickWidth, brickHeight);
-            context.fillStyle = "#ff1493";
-            context.fill();
-            context.closePath();
-        }
-    }
-}
 
 
 
