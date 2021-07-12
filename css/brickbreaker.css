@@ -1,0 +1,32 @@
+/*general css*/
+body {
+    background-color: #FFF;
+}
+
+
+#gameName{
+
+}
+
+h1{
+    font-family: 'Roboto', sans-serif;
+    color: deeppink;
+    font-size: 35px;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px;
+    margin: 20px;
+}
+
+#gameCanvas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 900px;
+    height: 500px;
+    border-radius: 25px;
+    border: deeppink solid 5px;
+    box-shadow: 3px 3px 0 #888888;
+    margin: auto;
+
+}
