@@ -24,6 +24,7 @@ body {
 #guessedWord {
     font-size: 1.2rem;
     padding: 2rem 0 3rem 0;
+    letter-spacing: 0.5rem;
 }
 
 .buttons {
@@ -37,4 +38,14 @@ body {
 
 .buttons:hover {
     cursor: pointer;
+}
+
+#lives {
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+#gameResult {
+    font-size: 3rem;
+    padding: 1rem;
 }

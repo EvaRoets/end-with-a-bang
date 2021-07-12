@@ -28,15 +28,5 @@ h1{
     border: deeppink solid 5px;
     box-shadow: 3px 3px 0 #888888;
     margin: auto;
-}
 
-#gameField{
-    display: flex;
-    width: fit-content;
-    height: fit-content;
-    position: relative;
-    border-radius: 25px;
-    border: deeppink solid 5px;
-    box-shadow: 3px 3px 0 #888888;
-    margin: auto;
 }
