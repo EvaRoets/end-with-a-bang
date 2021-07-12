@@ -71,6 +71,13 @@ function draw() {
     y += yDrawn;
 
     //TODO enable keyboard controls paddle
+    if(pressRight) {
+        paddleX += 7;
+    }
+    else if(pressLeft) {
+        paddleX -= 7;
+    }
+
 }
 
 //"listen" for key presses
