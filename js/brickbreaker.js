@@ -22,8 +22,9 @@ let paddleHeight = 5 ;
 let paddleWidth = 50;
 let paddleX = (canvas.width-paddleWidth) / 2; // CHECK how to make this appear in window
 
-
-
+//TODO enable keyboard controls paddle
+let pressRight = false; // start with boolean false, keys arent's pressed yet
+let pressLeft= false;
 
 //**FUNCTIONS**
 //TODO create moving ball/ define a drawing loop
@@ -72,16 +73,27 @@ function draw() {
     //TODO enable keyboard controls paddle
 }
 
+//"listen" for key presses
+document.addEventListener("keydown", keyDown, false);
+document.addEventListener("keyup", keyUp, false);
 
+function keyDown(event) {
+    if(event.key == "Right" || event.key == "ArrowRight") {
+        pressRight = true;
+    }
+    else if(event.key == "Left" || event.key == "ArrowLeft") {
+        pressLeft = true;
+    }
+}
 
-
-
-
-
-
-
-
-
+function keyUp(event) {
+    if(event.key == "Right" || event.key == "ArrowRight") {
+        pressRight = false;
+    }
+    else if(event.key == "Left" || event.key == "ArrowLeft") {
+        pressLeft = false;
+    }
+}
 
 setInterval(draw, 80); // change this timeout to make the ball got faster/slower, lower number = faster
 
