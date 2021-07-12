@@ -1,44 +1,78 @@
 //**VARIABLES**
-//Phase 1
-//TODO create html canvas + enable drawing
+//create html canvas + enable drawing
 let canvas = document.getElementById("gameCanvas");
 let context = canvas.getContext("2d");
-
-//TODO create moving ball  / define a drawing loop
+// make ball
+let ballRadius = 5;
+//create moving ball  / define a drawing loop
 //define starting point in canvas in variables x and y
 let x = canvas.width / 2;
 let y = canvas.height - 30;
-
 //define the position + directs the circle is drawn
 let xDrawn = 5; // negative = left, positive = right // also changes speed!
 let yDrawn = -5; // negative = up, positive = down
-
-// make ball
-let ballRadius = 5;
-
-//Phase 2
-//TODO create paddle
+//create paddle
 let paddleHeight = 5;
 let paddleWidth = 50;
-let paddleX = (canvas.width - paddleWidth) / 2; // CHECK how to make this appear in window
-
-//TODO enable keyboard controls paddle
+let paddleX = (canvas.width - paddleWidth) / 2;
+//enable keyboard controls paddle
 let pressRight = false; // start with boolean false, keys aren't pressed yet
 let pressLeft = false;
 
-//TODO create brick field
-let brickRowCount = 3;
-let brickColumnCount = 5;
-let brickWidth = 75;
-let brickHeight = 20;
-let brickPadding = 10;
-let brickOffsetTop = 10;
-let brickOffsetLeft = 10;
+//create brick field
+//CHECK center bricks
+let brickRowCount = 4;
+let brickColumnCount = 9;
+let brickWidth = 25;
+let brickHeight = 10;
+let brickPadding = 5;
+let brickOffsetTop = 0;
+let brickOffsetLeft = 18;
+
+//create brick field
 let bricks = [];
+for (let c = 0; c < brickColumnCount; c++) {
+    bricks[c] = [];
+    for (let r = 0; r < brickRowCount; r++) {
+        bricks[c][r] = {x: 0, y: 0};
+    }
+}
+
+//**EVENT LISTENERS**
+//enable keyboard controls paddle
+document.addEventListener("keydown", keyDown, false);
+document.addEventListener("keyup", keyUp, false);
+
+function keyDown(event) {
+    if (event.key === "Right" || event.key === "ArrowRight") {
+        pressRight = true;
+    } else if (event.key === "Left" || event.key === "ArrowLeft") {
+        pressLeft = true;
+    }
+}
+
+function keyUp(event) {
+    if (event.key === "Right" || event.key === "ArrowRight") {
+        pressRight = false;
+    } else if (event.key === "Left" || event.key === "ArrowLeft") {
+        pressLeft = false;
+    }
+}
+
+// enable mouse controls paddle
+// CHECK make mouse movement more sensitive
+document.addEventListener("mousemove", mouseMove, false); //start with boolean false, mouse hasn't moved yet
+
+function mouseMove(event) {
+    let mousePositionOnX = event.clientX - canvas.offsetLeft;
+    if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
+        paddleX = mousePositionOnX - paddleWidth / 2;
+    }
+}
 
 
 //**FUNCTIONS**
-//TODO create moving ball/ define a drawing loop
+//create moving ball/ define a drawing loop
 function drawBall() {
     context.beginPath();
     context.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -49,30 +83,21 @@ function drawBall() {
 
 function drawPaddle() {
     context.beginPath();
-    context.rect(paddleX, canvas.height - paddleHeight - 3, paddleWidth, paddleHeight);
+    context.rect(paddleX, canvas.height - (paddleHeight - 3), paddleWidth, paddleHeight);
     context.fillStyle = "#ff1493";
     context.fill();
     context.closePath();
 }
 
-//TODO create brick field
-
-for(let col=0; col<brickColumnCount; col++) {
-    bricks[col] = [];
-    for(let row=0; row<brickRowCount; row++) {
-        bricks[col][row] = { x: 0, y: 0 };
-    }
-}
-
 function drawBricks() {
-    for(let col=0; col<brickColumnCount; col++) {
-        for(let row=0; row<brickRowCount; row++) {
-            let brickX = (col*(brickWidth+brickPadding))+brickOffsetLeft;
-            let brickY = (row*(brickHeight+brickPadding))+brickOffsetTop;
-            bricks[col][row].x = brickX;
-            bricks[col][row].y = brickY;
+    for (let c = 0; c < brickColumnCount; c++) {
+        for (let r = 0; r < brickRowCount; r++) {
+            let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+            let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+            bricks[c][r].x = brickX;
+            bricks[c][r].y = brickY;
             context.beginPath();
-            context.rect(0, 0, brickWidth, brickHeight);
+            context.rect(brickX, brickY, brickWidth, brickHeight);
             context.fillStyle = "#ff1493";
             context.fill();
             context.closePath();
@@ -122,40 +147,19 @@ function draw() {
 
 }
 
-//TODO enable keyboard controls paddle
-//"listen" for key presses
-document.addEventListener("keydown", keyDown, false);
-document.addEventListener("keyup", keyUp, false);
-
-function keyDown(event) {
-    if (event.key == "Right" || event.key == "ArrowRight") {
-        pressRight = true;
-    } else if (event.key == "Left" || event.key == "ArrowLeft") {
-        pressLeft = true;
-    }
-}
-
-function keyUp(event) {
-    if (event.key == "Right" || event.key == "ArrowRight") {
-        pressRight = false;
-    } else if (event.key == "Left" || event.key == "ArrowLeft") {
-        pressLeft = false;
-    }
-}
-
-//TODO enable mouse controls paddle
-// CHECK make mouse movement more sensitive
-document.addEventListener("mousemove", mouseMove, false); //start with boolean false, mouse hasn't moved yet
-
-function mouseMove(event) {
-    let mousePositionOnX = event.clientX - canvas.offsetLeft;
-    if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
-        paddleX = mousePositionOnX - paddleWidth / 2;
-    }
-}
-
 setInterval(draw, 80); // change this timeout to make the ball got faster/slower, lower number = faster
 
+//Phase 3
+//TODO detect collision/ make bricks disappear when hit by the ball
+//TODO create scoreboard
+//TODO track score
+//TODO win/lose
+
+
+//Phase 4 - extras
+//TODO refactor code
+//TODO make canvas less pixelated
+//TODO make ball change color when it bounces
 //Add getRandomColor() to color of ball
 // function getRandomColor() {
 //     let letters = '0123456789ABCDEF'.split('');
@@ -165,21 +169,10 @@ setInterval(draw, 80); // change this timeout to make the ball got faster/slower
 //     }
 //     return color;
 // }
-
-
-
-
-
-
-//Phase 3
-//TODO detect collision/ make bricks disappear when hit by the ball
-//TODO create scoreboard
-//TODO track score
-//TODO win/lose
-
-//Phase 4 - extras
-//TODO refactor code
-//TODO make canvas less pixelated
+//TODO make the ball move faster when it hits the paddle
 // https://medium.com/@doomgoober/understanding-html-canvas-scaling-and-sizing-c04925d9a830
 //TODO add multiple levels?
 //TODO convert to 3D?
+
+
+
