@@ -1,0 +1,13 @@
+.connectfour{
+    border: 2px solid black;
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px 100px 100px 100px;
+    width: 700px;
+    padding: 5px
+}
+.connectfour div{
+    border: 2px solid black;
+    border-radius: 100%;
+    margin: 5px;
+}
