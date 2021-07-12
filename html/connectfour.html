@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="container">
+        <p class="instructions">Push one of the arrows to insert a disk</p>
         <button id="add-a">&darr;</button><button id="add-b">&darr;</button><button id="add-c">&darr;</button><button id="add-d">&darr;</button><button id="add-e">&darr;</button><button id="add-f">&darr;</button><button id="add-g">&darr;</button>
         <div class="connectfour">
             <div id="a1"></div><div id="b1"></div><div id="c1"></div><div id="d1"></div><div id="e1"></div><div id="f1"></div><div id="g1"></div>
@@ -18,7 +19,9 @@
             <div id="a5"></div><div id="b5"></div><div id="c5"></div><div id="d5"></div><div id="e5"></div><div id="f5"></div><div id="g5"></div>
             <div id="a6"></div><div id="b6"></div><div id="c6"></div><div id="d6"></div><div id="e6"></div><div id="f6"></div><div id="g6"></div>
         </div>
-        <button id="reset">reset</button>
+        <div class="info">
+            <button id="reset">reset</button><div id="player">Player 1's turn</div><div id="score">Score 0 : 0</div>
+        </div>
     </div>
     <script src="../js/connectfour.js"></script>
 </body>

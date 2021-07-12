@@ -3,6 +3,7 @@
         const col = 7;
         const row = 6;
         let board = Array.from(Array(col), () => new Array(row));
+
         for(let i = 0; i < 7; i++){
             for(let j = 0; j < 6; j++){
                 board[i][j] = 0
@@ -19,12 +20,14 @@
         }
     }
 
-    const changePlayer = (a) => {
+    const changePlayer = () => {
         if(player == 1){
             player = 2;
+            document.getElementById('player').innerHTML = "Player 2's turn";
         }
         else{
             player = 1;
+            document.getElementById('player').innerHTML = "Player 1's turn";
         }
     }
 
@@ -54,6 +57,10 @@
         }
     }
 
+    const watchWinner = () => {
+        
+    }
+
     document.getElementById('add-a').addEventListener('click', () => {
         let a = 0;
         let col = 'a'
@@ -62,7 +69,7 @@
         }
         else{
             addDisk(a, col);
-            changePlayer(a);
+            changePlayer();
         }
 
     })
@@ -75,7 +82,7 @@
         }
         else{
             addDisk(a, col);
-            changePlayer(a);
+            changePlayer();
         }
     })
 
@@ -87,7 +94,7 @@
         }
         else{
             addDisk(a, col);
-            changePlayer(a);
+            changePlayer();
         }
     })
 
@@ -99,7 +106,7 @@
         }
         else{
             addDisk(a, col);
-            changePlayer(a);
+            changePlayer();
         }
     })
 
@@ -111,7 +118,7 @@
         }
         else{
             addDisk(a, col);
-            changePlayer(a);
+            changePlayer();
         }
     })
 
@@ -123,7 +130,7 @@
         }
         else{
             addDisk(a, col);
-            changePlayer(a);
+            changePlayer();
         }
     })
 
@@ -135,12 +142,13 @@
         }
         else{
             addDisk(a, col);
-            changePlayer(a);
+            changePlayer();
         }
     })
 
     document.getElementById('reset').addEventListener('click', () => {
         resetBoard();
+        document.getElementById('player').innerHTML = "Player 1's turn";
         player = 1;
         for(let i = 1; i < 7; i++){
             document.getElementById('a' + i).style.backgroundColor = 'inherit';
