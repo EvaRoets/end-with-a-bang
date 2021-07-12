@@ -1,5 +1,7 @@
 const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 const words = ["refrigerator", "swimmingpool", "wardrobe", "carpet", "television"];
+let lives = 6;
+
 
 // Create buttons per letter
 
@@ -30,7 +32,7 @@ console.log(selectedWord)
 
 // User selection of the letter
 
-
+document.getElementById("lives").innerHTML = `Lives left: ${lives}`;
 const buttons = document.querySelectorAll(".buttons")
 for (let button of buttons) {
     button.addEventListener("click", () => {
@@ -42,6 +44,13 @@ for (let button of buttons) {
                     letters[i] = clickedLetter
                     document.getElementById("guessedWord").innerHTML = letters.join("");
                 }
+            }
+        }
+        else {
+            lives -=1
+            document.getElementById("lives").innerHTML = `Lives left: ${lives}`;
+            if (lives === 0) {
+                document.getElementById("gameResult").innerHTML = "game over"
             }
         }
     })
