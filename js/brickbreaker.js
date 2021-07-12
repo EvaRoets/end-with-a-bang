@@ -1,3 +1,4 @@
+//**VARIABLES**
 //Phase 1
 //TODO create html canvas + enable drawing
 let canvas = document.getElementById("gameCanvas");
@@ -15,18 +16,39 @@ let yDrawn = -5; // negative = up, positive = down
 // make ball
 let ballRadius = 5;
 
+//Phase 2
+//TODO create paddle
+let paddleHeight = 5 ;
+let paddleWidth = 50;
+let paddleX = (canvas.width-paddleWidth) / 2; // CHECK how to make this appear in window
+
+//TODO enable keyboard controls paddle
+let pressRight = false; // start with boolean false, keys arent's pressed yet
+let pressLeft= false;
+
+//**FUNCTIONS**
+//TODO create moving ball/ define a drawing loop
 function drawBall() {
     context.beginPath();
     context.arc(x, y, ballRadius, 0, Math.PI * 2);
-    context.fillStyle = "#ff1493";
+    context.fillStyle = "#ff0000";
     context.fill();
     context.closePath();
 }
 
-function moveBall() {
+function drawPaddle() {
+    context.beginPath();
+    context.rect(paddleX, canvas.height-paddleHeight-3, paddleWidth, paddleHeight);
+    context.fillStyle = "#0095DD";
+    context.fill();
+    context.closePath();
+}
+
+function draw() {
     // clear frame after every interval to make ball instead of line
     context.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
+    drawPaddle();
 
     //TODO make ball bounce off the walls/ define start + end canvas
     // x = min 5 max 295
@@ -47,21 +69,38 @@ function moveBall() {
     //update x and y to make ball appear in new position on every update
     x += xDrawn;
     y += yDrawn;
+
+    //TODO enable keyboard controls paddle
 }
 
-setInterval(moveBall, 80); // change this timeout to make the ball got faster/slower, lower number = faster
 
 
-//Phase 2
-//TODO create paddle
-context.beginPath();
-context.rect(150, 140, 25, 5); // stay at y = 140 to make paddle move
-context.fillStyle = "#FF0000";
-context.fill();
-context.closePath();
 
 
-//TODO enable keyboard controls paddle
+
+
+
+
+
+
+setInterval(draw, 80); // change this timeout to make the ball got faster/slower, lower number = faster
+
+//Add getRandomColor() to color of ball
+// function getRandomColor() {
+//     let letters = '0123456789ABCDEF'.split('');
+//     let color = '#';
+//     for (let i = 0; i < 6; i++ ) {
+//         color += letters[Math.floor(Math.random() * 16)];
+//     }
+//     return color;
+// }
+
+
+
+
+
+
+
 //TODO enable mouse controls paddle
 //TODO create bricks field
 
@@ -74,5 +113,7 @@ context.closePath();
 
 //Phase 4 - extras
 //TODO refactor code
+//TODO make canvas less pixelated
+// https://medium.com/@doomgoober/understanding-html-canvas-scaling-and-sizing-c04925d9a830
 //TODO add multiple levels?
 //TODO convert to 3D?
