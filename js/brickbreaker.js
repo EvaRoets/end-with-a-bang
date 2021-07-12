@@ -18,13 +18,13 @@ let ballRadius = 5;
 
 //Phase 2
 //TODO create paddle
-let paddleHeight = 5 ;
+let paddleHeight = 5;
 let paddleWidth = 50;
-let paddleX = (canvas.width-paddleWidth) / 2; // CHECK how to make this appear in window
+let paddleX = (canvas.width - paddleWidth) / 2; // CHECK how to make this appear in window
 
 //TODO enable keyboard controls paddle
-let pressRight = false; // start with boolean false, keys arent's pressed yet
-let pressLeft= false;
+let pressRight = false; // start with boolean false, keys aren't pressed yet
+let pressLeft = false;
 
 //**FUNCTIONS**
 //TODO create moving ball/ define a drawing loop
@@ -38,7 +38,7 @@ function drawBall() {
 
 function drawPaddle() {
     context.beginPath();
-    context.rect(paddleX, canvas.height-paddleHeight-3, paddleWidth, paddleHeight);
+    context.rect(paddleX, canvas.height - paddleHeight - 3, paddleWidth, paddleHeight);
     context.fillStyle = "#0095DD";
     context.fill();
     context.closePath();
@@ -71,11 +71,16 @@ function draw() {
     y += yDrawn;
 
     //TODO enable keyboard controls paddle
-    if(pressRight) {
-        paddleX += 7;
-    }
-    else if(pressLeft) {
-        paddleX -= 7;
+    if (pressRight) {
+        paddleX += 5;
+        if (paddleX + paddleWidth > canvas.width) {
+            paddleX = (canvas.width - 1) - paddleWidth;
+        }
+    } else if (pressLeft) {
+        paddleX -= 5;
+        if (paddleX < 0) {
+            paddleX = 1;
+        }
     }
 
 }
@@ -85,20 +90,29 @@ document.addEventListener("keydown", keyDown, false);
 document.addEventListener("keyup", keyUp, false);
 
 function keyDown(event) {
-    if(event.key == "Right" || event.key == "ArrowRight") {
+    if (event.key == "Right" || event.key == "ArrowRight") {
         pressRight = true;
-    }
-    else if(event.key == "Left" || event.key == "ArrowLeft") {
+    } else if (event.key == "Left" || event.key == "ArrowLeft") {
         pressLeft = true;
     }
 }
 
 function keyUp(event) {
-    if(event.key == "Right" || event.key == "ArrowRight") {
+    if (event.key == "Right" || event.key == "ArrowRight") {
         pressRight = false;
-    }
-    else if(event.key == "Left" || event.key == "ArrowLeft") {
+    } else if (event.key == "Left" || event.key == "ArrowLeft") {
         pressLeft = false;
+    }
+}
+
+//TODO enable mouse controls paddle
+// CHECK make mouse movement more sensitive
+document.addEventListener("mousemove", mouseMove, false); //start with boolean false, mouse hasn't moved yet
+
+function mouseMove(event) {
+    let mousePositionOnX = event.clientX - canvas.offsetLeft;
+    if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
+        paddleX = mousePositionOnX - paddleWidth / 2;
     }
 }
 
@@ -115,12 +129,6 @@ setInterval(draw, 80); // change this timeout to make the ball got faster/slower
 // }
 
 
-
-
-
-
-
-//TODO enable mouse controls paddle
 //TODO create bricks field
 
 

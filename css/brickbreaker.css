@@ -4,11 +4,11 @@ body {
 }
 
 
-#gameName{
+#gameName {
 
 }
 
-h1{
+h1 {
     font-family: 'Roboto', sans-serif;
     color: deeppink;
     font-size: 35px;
@@ -18,7 +18,7 @@ h1{
     margin: 20px;
 }
 
-#gameCanvas{
+#gameCanvas {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,5 +28,7 @@ h1{
     border: deeppink solid 5px;
     box-shadow: 3px 3px 0 #888888;
     margin: auto;
+    object-fit: contain;
+
 
 }
