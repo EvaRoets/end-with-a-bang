@@ -21,44 +21,31 @@ console.log(selectedWordArray)
 
 let letters = []
 for (letter in selectedWord) {
-    letters.push("_ ")
+    letters.push("_")
 }
+console.log(letters)
+
 document.getElementById("guessedWord").innerHTML = letters.join("")
 console.log(selectedWord)
 
 // User selection of the letter
 
+
 const buttons = document.querySelectorAll(".buttons")
-for (const button of buttons) {
+for (let button of buttons) {
     button.addEventListener("click", () => {
         if (selectedWord.indexOf(button.innerHTML) !== -1) {
             let clickedLetter = button.innerHTML.toString();
-            // console.log(clickedLetter)
-            index(clickedLetter)
+            console.log(clickedLetter)
+            for (let i=0; i<selectedWordArray.length; i++) {
+                if (selectedWordArray[i] === clickedLetter) {
+                    letters[i] = clickedLetter
+                    document.getElementById("guessedWord").innerHTML = letters.join("");
+                }
+            }
         }
     })
 }
 
-// Find indexes of the letter in the selectedWord
 
-let index = clickedLetter => {
-    let indexes = [];
-    for (let i = 0; i <= selectedWordArray.length; i++) {
-        if (selectedWordArray[i] === clickedLetter.toString()) {
-            console.log(selectedWordArray[i])
-            indexes.push(i)
-        }
-        else {
-
-        }
-    }
-    // for (item in indexes) {
-    //     let insertLetter = document.getElementById("guessedWord").innerHTML
-    //     document.getElementById("guessedWord").innerHTML = insertLetter[index[item]].replace("_ ", clickedLetter)
-    //     // letters[item] = clickedLetter
-    // }
-    console.log(indexes)
-}
-
-// Replace blank with the letter
 

@@ -24,6 +24,7 @@ body {
 #guessedWord {
     font-size: 1.2rem;
     padding: 2rem 0 3rem 0;
+    letter-spacing: 0.5rem;
 }
 
 .buttons {
