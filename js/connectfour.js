@@ -19,7 +19,17 @@
         }
     }
 
+    const changePlayer = () => {
+        if(player == 1){
+            player = 2;
+        }
+        else{
+            player = 1;
+        }
+    }
+
     let board = initBoard();
+    let player = 1;
 
     const turnRed = (a, b) => {
         document.getElementById(a+b).style.backgroundColor = 'red';
@@ -32,8 +42,13 @@
     const addDisk = (a, c) => {
         for(let i = 5; i >= 0 ; i--){
             if(board[a][i] == 0){
-                turnRed(c, i+1);
-                board[a][i] = 1;
+                if(player == 1){
+                    turnRed(c, i+1);
+                }
+                else{
+                    turnBlue(c, i+1);
+                }
+                board[a][i] = player;
                 break;
             }
         }
@@ -43,46 +58,55 @@
         let a = 0;
         let col = 'a'
         addDisk(a, col);
+        changePlayer();
+
     })
 
     document.getElementById('add-b').addEventListener('click', () => {
         let a = 1;
         let col = 'b';
         addDisk(a, col);
+        changePlayer();
     })
 
     document.getElementById('add-c').addEventListener('click', () => {
         let a = 2;
         let col = 'c';
         addDisk(a, col);
+        changePlayer();
     })
 
     document.getElementById('add-d').addEventListener('click', () => {
         let a = 3;
         let col = 'd';
         addDisk(a, col);
+        changePlayer();
     })
 
     document.getElementById('add-e').addEventListener('click', () => {
         let a = 4;
         let col = 'e';
         addDisk(a, col);
+        changePlayer();
     })
 
     document.getElementById('add-f').addEventListener('click', () => {
         let a = 5;
         let col = 'f';
         addDisk(a, col);
+        changePlayer();
     })
 
     document.getElementById('add-g').addEventListener('click', () => {
         let a = 6;
         let col = 'g';
         addDisk(a, col);
+        changePlayer();
     })
 
     document.getElementById('reset').addEventListener('click', () => {
         resetBoard();
+        player = 1;
         for(let i = 1; i < 7; i++){
             document.getElementById('a' + i).style.backgroundColor = 'inherit';
         }
