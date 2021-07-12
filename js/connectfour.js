@@ -20,6 +20,33 @@
         }
     }
 
+    const reset = () => {
+        resetBoard();
+        document.getElementById('player').innerHTML = "Player 1's turn";
+        player = 1;
+        for(let i = 1; i < 7; i++){
+            document.getElementById('a' + i).style.backgroundColor = 'inherit';
+        }
+        for(let i = 1; i < 7; i++){
+            document.getElementById('b' + i).style.backgroundColor = 'inherit';
+        }
+        for(let i = 1; i < 7; i++){
+            document.getElementById('c' + i).style.backgroundColor = 'inherit';
+        }
+        for(let i = 1; i < 7; i++){
+            document.getElementById('d' + i).style.backgroundColor = 'inherit';
+        }
+        for(let i = 1; i < 7; i++){
+            document.getElementById('e' + i).style.backgroundColor = 'inherit';
+        }
+        for(let i = 1; i < 7; i++){
+            document.getElementById('f' + i).style.backgroundColor = 'inherit';
+        }
+        for(let i = 1; i < 7; i++){
+            document.getElementById('g' + i).style.backgroundColor = 'inherit';
+        }
+    }
+
     const changePlayer = () => {
         if(player == 1){
             player = 2;
@@ -32,7 +59,11 @@
     }
 
     let board = initBoard();
+    console.log(board);
     let player = 1;
+    let score = [];
+    score[1] = 0;
+    score[2] = 0;
 
     const turnRed = (a, b) => {
         document.getElementById(a+b).style.backgroundColor = 'red';
@@ -52,13 +83,95 @@
                     turnBlue(c, i+1);
                 }
                 board[a][i] = player;
+                checkWinner();
+                console.log(board);
                 break;
             }
         }
     }
 
-    const watchWinner = () => {
-        
+    const checkWinner = () => {
+        if(
+            // vertical solutions
+            board[0][0] == player &&  board[1][0] == player &&  board[2][0] == player &&  board[3][0] == player ||
+            board[1][0] == player &&  board[2][0] == player &&  board[3][0] == player &&  board[4][0] == player ||
+            board[2][0] == player &&  board[3][0] == player &&  board[4][0] == player &&  board[5][0] == player ||
+            board[3][0] == player &&  board[4][0] == player &&  board[5][0] == player &&  board[6][0] == player ||
+            board[0][1] == player &&  board[1][1] == player &&  board[2][1] == player &&  board[3][1] == player ||
+            board[1][1] == player &&  board[2][1] == player &&  board[3][1] == player &&  board[4][1] == player ||
+            board[2][1] == player &&  board[3][1] == player &&  board[4][1] == player &&  board[5][1] == player ||
+            board[3][1] == player &&  board[4][1] == player &&  board[5][1] == player &&  board[6][1] == player ||
+            board[0][2] == player &&  board[1][2] == player &&  board[2][2] == player &&  board[3][2] == player ||
+            board[1][2] == player &&  board[2][2] == player &&  board[3][2] == player &&  board[4][2] == player ||
+            board[2][2] == player &&  board[3][2] == player &&  board[4][2] == player &&  board[5][2] == player ||
+            board[3][2] == player &&  board[4][2] == player &&  board[5][2] == player &&  board[6][2] == player ||
+            board[0][3] == player &&  board[1][3] == player &&  board[2][3] == player &&  board[3][3] == player ||
+            board[1][3] == player &&  board[2][3] == player &&  board[3][3] == player &&  board[4][3] == player ||
+            board[2][3] == player &&  board[3][3] == player &&  board[4][3] == player &&  board[5][3] == player ||
+            board[3][3] == player &&  board[4][3] == player &&  board[5][3] == player &&  board[6][3] == player ||
+            board[0][4] == player &&  board[1][4] == player &&  board[2][4] == player &&  board[3][4] == player ||
+            board[1][4] == player &&  board[2][4] == player &&  board[3][4] == player &&  board[4][4] == player ||
+            board[2][4] == player &&  board[3][4] == player &&  board[4][4] == player &&  board[5][4] == player ||
+            board[3][4] == player &&  board[4][4] == player &&  board[5][4] == player &&  board[6][4] == player ||
+            board[0][5] == player &&  board[1][5] == player &&  board[2][5] == player &&  board[3][5] == player ||
+            board[1][5] == player &&  board[2][5] == player &&  board[3][5] == player &&  board[4][5] == player ||
+            board[2][5] == player &&  board[3][5] == player &&  board[4][5] == player &&  board[5][5] == player ||
+            board[3][5] == player &&  board[4][5] == player &&  board[5][5] == player &&  board[6][5] == player ||
+            // horizontal solutions
+            board[0][0] == player &&  board[0][1] == player &&  board[0][2] == player &&  board[0][3] == player ||
+            board[0][1] == player &&  board[0][2] == player &&  board[0][3] == player &&  board[0][4] == player ||
+            board[0][2] == player &&  board[0][3] == player &&  board[0][4] == player &&  board[0][5] == player ||
+            board[1][0] == player &&  board[1][1] == player &&  board[1][2] == player &&  board[1][3] == player ||
+            board[1][1] == player &&  board[1][2] == player &&  board[1][3] == player &&  board[1][4] == player ||
+            board[1][2] == player &&  board[1][3] == player &&  board[1][4] == player &&  board[1][5] == player ||
+            board[2][0] == player &&  board[2][1] == player &&  board[2][2] == player &&  board[2][3] == player ||
+            board[2][1] == player &&  board[2][2] == player &&  board[2][3] == player &&  board[2][4] == player ||
+            board[2][2] == player &&  board[2][3] == player &&  board[2][4] == player &&  board[2][5] == player ||
+            board[3][0] == player &&  board[3][1] == player &&  board[3][2] == player &&  board[3][3] == player ||
+            board[3][1] == player &&  board[3][2] == player &&  board[3][3] == player &&  board[3][4] == player ||
+            board[3][2] == player &&  board[3][3] == player &&  board[3][4] == player &&  board[3][5] == player ||
+            board[4][0] == player &&  board[4][1] == player &&  board[4][2] == player &&  board[4][3] == player ||
+            board[4][1] == player &&  board[4][2] == player &&  board[4][3] == player &&  board[4][4] == player ||
+            board[4][2] == player &&  board[4][3] == player &&  board[4][4] == player &&  board[4][5] == player ||
+            board[5][0] == player &&  board[5][1] == player &&  board[5][2] == player &&  board[5][3] == player ||
+            board[5][1] == player &&  board[5][2] == player &&  board[5][3] == player &&  board[5][4] == player ||
+            board[5][2] == player &&  board[5][3] == player &&  board[5][3] == player &&  board[5][5] == player ||
+            board[6][0] == player &&  board[6][1] == player &&  board[6][2] == player &&  board[6][3] == player ||
+            board[6][1] == player &&  board[6][2] == player &&  board[6][3] == player &&  board[6][4] == player ||
+            board[6][2] == player &&  board[6][3] == player &&  board[6][4] == player &&  board[6][5] == player ||
+            // diagonal \ solutions
+            board[0][0] == player &&  board[1][1] == player &&  board[2][2] == player &&  board[3][3] == player ||
+            board[1][1] == player &&  board[2][2] == player &&  board[3][3] == player &&  board[4][4] == player ||
+            board[2][2] == player &&  board[3][3] == player &&  board[4][4] == player &&  board[5][5] == player ||
+            board[1][0] == player &&  board[2][1] == player &&  board[3][2] == player &&  board[4][3] == player ||
+            board[2][1] == player &&  board[3][2] == player &&  board[4][3] == player &&  board[5][4] == player ||
+            board[3][2] == player &&  board[4][3] == player &&  board[5][4] == player &&  board[6][5] == player ||
+            board[2][0] == player &&  board[3][1] == player &&  board[4][2] == player &&  board[5][3] == player ||
+            board[3][1] == player &&  board[4][2] == player &&  board[5][3] == player &&  board[6][4] == player ||
+            board[3][0] == player &&  board[4][1] == player &&  board[5][2] == player &&  board[6][3] == player ||
+            board[0][1] == player &&  board[1][2] == player &&  board[2][3] == player &&  board[3][4] == player ||
+            board[1][2] == player &&  board[2][3] == player &&  board[3][4] == player &&  board[4][5] == player ||
+            board[0][2] == player &&  board[1][3] == player &&  board[2][4] == player &&  board[3][5] == player ||
+            // diagonal / solutions
+            board[6][0] == player &&  board[5][1] == player &&  board[4][2] == player &&  board[3][3] == player ||
+            board[5][1] == player &&  board[4][2] == player &&  board[3][3] == player &&  board[2][4] == player ||
+            board[4][2] == player &&  board[3][3] == player &&  board[2][4] == player &&  board[1][5] == player ||
+            board[5][0] == player &&  board[4][1] == player &&  board[3][2] == player &&  board[2][3] == player ||
+            board[4][1] == player &&  board[3][2] == player &&  board[2][3] == player &&  board[1][4] == player ||
+            board[3][2] == player &&  board[2][3] == player &&  board[1][4] == player &&  board[0][5] == player ||
+            board[4][0] == player &&  board[3][1] == player &&  board[2][2] == player &&  board[1][3] == player ||
+            board[3][1] == player &&  board[2][2] == player &&  board[1][3] == player &&  board[0][4] == player ||
+            board[3][0] == player &&  board[2][1] == player &&  board[1][2] == player &&  board[0][3] == player ||
+            board[6][1] == player &&  board[5][2] == player &&  board[4][3] == player &&  board[3][4] == player ||
+            board[5][2] == player &&  board[4][3] == player &&  board[3][4] == player &&  board[2][5] == player ||
+            board[6][2] == player &&  board[5][3] == player &&  board[4][4] == player &&  board[3][5] == player 
+            
+        ){
+            alert("Player "+player+" has won!");
+            score[player] += 1;
+            document.getElementById('p'+player).innerHTML = score[player];
+            reset();
+        }
     }
 
     document.getElementById('add-a').addEventListener('click', () => {
@@ -147,29 +260,10 @@
     })
 
     document.getElementById('reset').addEventListener('click', () => {
-        resetBoard();
-        document.getElementById('player').innerHTML = "Player 1's turn";
-        player = 1;
-        for(let i = 1; i < 7; i++){
-            document.getElementById('a' + i).style.backgroundColor = 'inherit';
-        }
-        for(let i = 1; i < 7; i++){
-            document.getElementById('b' + i).style.backgroundColor = 'inherit';
-        }
-        for(let i = 1; i < 7; i++){
-            document.getElementById('c' + i).style.backgroundColor = 'inherit';
-        }
-        for(let i = 1; i < 7; i++){
-            document.getElementById('d' + i).style.backgroundColor = 'inherit';
-        }
-        for(let i = 1; i < 7; i++){
-            document.getElementById('e' + i).style.backgroundColor = 'inherit';
-        }
-        for(let i = 1; i < 7; i++){
-            document.getElementById('f' + i).style.backgroundColor = 'inherit';
-        }
-        for(let i = 1; i < 7; i++){
-            document.getElementById('g' + i).style.backgroundColor = 'inherit';
-        }
+        reset();
+        score[1] = 0;
+        score[2] = 0;
+        document.getElementById('p1').innerHTML = 0;
+        document.getElementById('p2').innerHTML = 0;
     })
 })();
