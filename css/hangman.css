@@ -23,7 +23,7 @@ body {
 
 #guessedWord {
     font-size: 1.2rem;
-    padding: 2rem 0 3rem 0;
+    padding: 1rem 0 3rem 0;
     letter-spacing: 0.5rem;
 }
 
@@ -51,12 +51,16 @@ body {
 }
 
 #playAgain {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-family: 'Permanent Marker', cursive;
     margin-top: 20px;
     padding: 3px 10px;
     border-style: none;
     border-radius: 5px;
     visibility: hidden;
+}
+
+#playAgain:hover {
+    cursor: pointer;
 }
 
