@@ -30,7 +30,7 @@ const result = document.getElementById("result")
 let message = document.getElementById("message");
 const play = document.getElementById("play");
 const playAgain = document.getElementById("playAgain");
-
+let lives = 3;
 
 
 //**EVENT LISTENERS**
@@ -141,6 +141,12 @@ function drawBricks() { //make bricks disappear when hit by the ball
 //     context.fillText("Your score: " + score, 8, canvas.height);
 // }
 
+function drawLives() {
+    context.font = "8px 'Roboto', sans-serif";
+    context.fillStyle = "#ff1493";
+    context.fillText("❤ =" + lives, canvas.width-65, 20); //TODO check position
+}
+
 function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);// clear frame after every interval to make ball instead of line
     drawBall(); //call all draw functions
@@ -148,6 +154,8 @@ function draw() {
     drawBricks();
     collisionDetection();
     // drawScore();
+    drawLives();
+
 
     if (y + yDrawn <= 1) { //when ball goes outside top canvas wall
         yDrawn = -yDrawn; //reverse direction on y axis = bounce
@@ -155,7 +163,22 @@ function draw() {
         if (x > paddleX && //make ball bounce off paddle
             x < paddleX + paddleWidth) {
             yDrawn = -yDrawn; //reverse direction on y axis = bounce
-        } else { // log losing score and reload
+        } else {
+            if (!lives) {
+                message.innerHTML = "Missed the ball and lost all your lives! ☹"
+                document.location.reload();
+                clearInterval(interval);
+            }
+            else {
+                x = canvas.width/2;
+                y = canvas.height-30;
+                dx = 2;
+                dy = -2;
+                paddleX = (canvas.width-paddleWidth)/2;
+
+            }
+
+            // log losing score and reload
             score = 0;
             // TODO add loss of life
             message.innerHTML = "Missed the ball! ☹"
