@@ -12,7 +12,7 @@ let paddleX = (canvas.width - paddleWidth) / 2; //define starting point paddle
 let pressRight = false; //enable keyboard controls paddle
 let pressLeft = false;
 const brickRowCount = 5; //create brick field
-const brickColumnCount = 11;
+const brickColCount = 11;
 const brickWidth = 24.5;
 const brickHeight = 10;
 const brickPadding = 2;
@@ -23,10 +23,9 @@ let lives = 3;
 
 const message = document.getElementById("message");
 const play = document.getElementById("play");
-const playAgain = document.getElementById("playAgain");
 
 let bricks = []; // loop through all bricks (col and row)
-for (let col = 0; col < brickColumnCount; col++) {
+for (let col = 0; col < brickColCount; col++) {
     bricks[col] = [];
     for (let row = 0; row < brickRowCount; row++) {
         bricks[col][row] = {x: 0, y: 0, status: 1}; // status 1 = brick is present
@@ -47,7 +46,7 @@ play.addEventListener("click", () => {
 
 
 //**FUNCTIONS**
-function keyDown(event) {
+const keyDown = (event) => {
     if (event.key === "Right" || event.key === "ArrowRight") {
         pressRight = true;
     } else if (event.key === "Left" || event.key === "ArrowLeft") {
@@ -55,7 +54,7 @@ function keyDown(event) {
     }
 }
 
-function keyUp(event) {
+const keyUp = (event) => {
     if (event.key === "Right" || event.key === "ArrowRight") {
         pressRight = false;
     } else if (event.key === "Left" || event.key === "ArrowLeft") {
@@ -63,15 +62,15 @@ function keyUp(event) {
     }
 }
 
-function mouseMove(event) {
+const mouseMove = (event) => {
     let mousePositionOnX = event.clientX - canvas.offsetLeft;
     if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
         paddleX = mousePositionOnX - paddleWidth / 2;
     }
 }
 
-function collisionDetection() { //detect collision
-    for (let col = 0; col < brickColumnCount; col++) {
+const collisionDetection = () => { //detect collision
+    for (let col = 0; col < brickColCount; col++) {
         for (let row = 0; row < brickRowCount; row++) {
             let brick = bricks[col][row];
             if (brick.status === 1) {
@@ -82,7 +81,7 @@ function collisionDetection() { //detect collision
                     yDrawn = -yDrawn; //bounce
                     brick.status = 0;
                     score++; //track score
-                    if (score === brickRowCount * brickColumnCount) {
+                    if (score === brickRowCount * brickColCount) {
                         setTimeout(function () {
                             message.innerHTML = "You win!🥇";
                         }, 5000);//wait 10 seconds
@@ -94,7 +93,7 @@ function collisionDetection() { //detect collision
     }
 }
 
-function drawBall() { //create moving ball/ define a drawing loop
+const drawBall = () => { //create moving ball/ define a drawing loop
     context.beginPath();
     context.arc(x, y, ballRadius, 0, Math.PI * 2);
     context.fillStyle = "#ff0000";
@@ -102,7 +101,7 @@ function drawBall() { //create moving ball/ define a drawing loop
     context.closePath();
 }
 
-function drawPaddle() {
+const drawPaddle = () => {
     context.beginPath();
     context.rect(paddleX, canvas.height - (paddleHeight - 3), paddleWidth, paddleHeight);
     context.fillStyle = "#ff1493";
@@ -110,8 +109,8 @@ function drawPaddle() {
     context.closePath();
 }
 
-function drawBricks() { //make bricks disappear when hit by the ball
-    for (let col = 0; col < brickColumnCount; col++) {
+const drawBricks = () => { //make bricks disappear when hit by the ball
+    for (let col = 0; col < brickColCount; col++) {
         for (let row = 0; row < brickRowCount; row++) {
             if (bricks[col][row].status === 1) {
                 let brickX = (col * (brickWidth + brickPadding)) + brickOffsetLeft;
@@ -128,19 +127,19 @@ function drawBricks() { //make bricks disappear when hit by the ball
     }
 }
 
-function drawScore() {
-    context.font = "8px 'Roboto', sans-serif"; // CHECK add more/different styling?
-    context.fillStyle = "#ff1493";
-    context.fillText("Your score: " + score, 8, canvas.height); //TODO check position
-}
-
-function drawLives() {
+const drawScore = () => {
     context.font = "8px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("❤ =" + lives, canvas.width - 65, 20); //TODO check position
+    context.fillText("Your score =" + score, canvas.width - 290, canvas.height);
 }
 
-function draw() {
+const drawLives = () => {
+    context.font = "8px 'Roboto', sans-serif";
+    context.fillStyle = "#ff1493";
+    context.fillText("❤ =" + lives, canvas.width - 25, canvas.height);
+}
+
+const draw = () => {
     context.clearRect(0, 0, canvas.width, canvas.height);// clear frame after every interval to make ball instead of line
     drawBall(); //call all draw functions
     drawPaddle();
@@ -149,23 +148,18 @@ function draw() {
     drawLives();
     collisionDetection();
 
-
-
     if (y + yDrawn <= 1) { //when ball goes outside top canvas wall
         yDrawn = -yDrawn;//reverse direction on y axis = bounce
-    }
-    else if (y + yDrawn > canvas.height - 1) { // when ball goes outside bottom canvas wall
+    } else if (y + yDrawn > canvas.height - 1) { // when ball goes outside bottom canvas wall
         if (x > paddleX && //make ball bounce off paddle
             x < paddleX + paddleWidth) {
             yDrawn = -yDrawn; //reverse direction on y axis = bounce
-        }
-        else
-        { lives--;
+        } else {
+            lives--;
             if (!lives) {
-                message.innerHTML = "Missed the ball and lost all your lives! ☹"
+                message.innerHTML = "Missed the ball and lost all your lives! ☹" 
                 document.location.reload();
-            }
-            else {
+            } else {
                 x = canvas.width / 2;
                 y = canvas.height - 30;
                 xDrawn = 2;
@@ -201,13 +195,9 @@ draw();
 
 
 //Phase 4 - extras
-//convert functions to arrow functions where possible
 //convert for loops into for of/for in
 
-
-//TODO go through all check comments
 // CHECK make mouse movement more sensitive
-// CHECK .status not depreciated?
 // CHECK add more/different styling?/replace scoreboard to html tags
 
 
@@ -222,7 +212,6 @@ draw();
 //     }
 //     return color;
 // }
-//TODO add lives?
 //TODO add multiple levels?
 //TODO convert to 3D?
 
