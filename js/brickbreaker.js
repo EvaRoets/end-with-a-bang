@@ -1,47 +1,38 @@
 //**VARIABLES**
-//create html canvas + enable drawing
-let canvas = document.getElementById("gameCanvas");
+let canvas = document.getElementById("gameCanvas"); //create html canvas + enable drawing
 let context = canvas.getContext("2d");
-// make ball
-let ballRadius = 3;
-//create moving ball  / define a drawing loop
-//define starting point in canvas in variables x and y
-let x = canvas.width / 2;
+let ballRadius = 3; // make ball
+let x = canvas.width / 2; //define starting point in canvas in variables x and y
 let y = canvas.height - 30;
-//define the position + directs the circle is drawn
-let xDrawn = 5; // negative = left, positive = right // also changes speed!
-let yDrawn = -5; // negative = up, positive = down
-//create paddle
-let paddleHeight = 8;
+let xDrawn = 5; //define the position + direction the ball is drawn
+let yDrawn = -5; // - = left/up, + = right/down
+let paddleHeight = 8;//create paddle
 let paddleWidth = 50;
-let paddleX = (canvas.width - paddleWidth) / 2;
-//enable keyboard controls paddle
-let pressRight = false; // start with boolean false, keys aren't pressed yet
+let paddleX = (canvas.width - paddleWidth) / 2; //define starting point paddle
+let pressRight = false; //enable keyboard controls paddle
 let pressLeft = false;
-
-//create brick field
-let brickRowCount = 5;
+let brickRowCount = 5; //create brick field
 let brickColumnCount = 11;
 let brickWidth = 24.5;
 let brickHeight = 10;
 let brickPadding = 2;
 let brickOffsetTop = 0;
 let brickOffsetLeft = 5;
-// let brickOffsetRight = 5;
-
-let bricks = [];
+let bricks = []; // loop through all bricks (col and row)
 for (let col = 0; col < brickColumnCount; col++) {
     bricks[col] = [];
     for (let row = 0; row < brickRowCount; row++) {
-        bricks[col][row] = {x: 0, y: 0, status: 1};
+        bricks[col][row] = {x: 0, y: 0, status: 1}; // status 1 = brick is present
     }
 }
+let score = 0; //define score
 
 //**EVENT LISTENERS**
-//enable keyboard controls paddle
-document.addEventListener("keydown", keyDown, false);
+document.addEventListener("keydown", keyDown, false);//enable keyboard controls paddle
 document.addEventListener("keyup", keyUp, false);
+document.addEventListener("mousemove", mouseMove, false); // enable mouse controls paddle
 
+//**FUNCTIONS**
 function keyDown(event) {
     if (event.key === "Right" || event.key === "ArrowRight") {
         pressRight = true;
@@ -58,39 +49,37 @@ function keyUp(event) {
     }
 }
 
-// enable mouse controls paddle
-// CHECK make mouse movement more sensitive
-// document.addEventListener("mousemove", mouseMove, false); //start with boolean false, mouse hasn't moved yet
-//
-// function mouseMove(event) {
-//     let mousePositionOnX = event.clientX - canvas.offsetLeft;
-//     if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
-//         paddleX = mousePositionOnX - paddleWidth / 2;
-//     }
-// }
+function mouseMove(event) {
+    let mousePositionOnX = event.clientX - canvas.offsetLeft;
+    if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
+        paddleX = mousePositionOnX - paddleWidth / 2;
+    }
+}
 
-//detect collision
-function collisionDetection() {
+function collisionDetection() { //detect collision
     for (let col = 0; col < brickColumnCount; col++) {
         for (let row = 0; row < brickRowCount; row++) {
             let brick = bricks[col][row];
-            if (brick.status === 1) { // CHECK .status not depreciated?
+            if (brick.status === 1) {
                 if (x > brick.x &&
                     x < brick.x + brickWidth &&
                     y > brick.y &&
                     y < brick.y + brickHeight) {
                     yDrawn = -yDrawn;
                     brick.status = 0;
+                    score++; //track score
+                    if (score === brickRowCount * brickColumnCount) {
+                        console.log("You win!")
+                        document.location.reload();
+                        clearInterval(interval);
+                    }
                 }
             }
         }
     }
 }
 
-
-//**FUNCTIONS**
-//create moving ball/ define a drawing loop
-function drawBall() {
+function drawBall() { //create moving ball/ define a drawing loop
     context.beginPath();
     context.arc(x, y, ballRadius, 0, Math.PI * 2);
     context.fillStyle = "#ff0000";
@@ -106,8 +95,7 @@ function drawPaddle() {
     context.closePath();
 }
 
-//make bricks disappear when hit by the ball
-function drawBricks() {
+function drawBricks() { //make bricks disappear when hit by the ball
     for (let col = 0; col < brickColumnCount; col++) {
         for (let row = 0; row < brickRowCount; row++) {
             if (bricks[col][row].status === 1) {
@@ -125,50 +113,48 @@ function drawBricks() {
     }
 }
 
+function drawScore() {//create scoreboard
+    context.font = "8px 'Roboto', sans-serif"; // CHECK add more/different styling?
+    context.fillStyle = "#ff1493";
+    context.fillText("Your score: " + score, 8, canvas.height);
+}
+
 function draw() {
-    // clear frame after every interval to make ball instead of line
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    drawBall();
+    context.clearRect(0, 0, canvas.width, canvas.height);// clear frame after every interval to make ball instead of line
+    drawBall(); //call all draw functions
     drawPaddle();
     drawBricks();
     collisionDetection();
+    drawScore();
 
-    //make ball bounce off the walls/ define start + end canvas
-    //top + bottom wall
-    if (y + yDrawn <= 1) { //if vertical starting point on y axis < 0 (it goes outside top canvas wall)
+    if (y + yDrawn <= 1) { //when ball goes outside top canvas wall
         yDrawn = -yDrawn; //reverse direction on y axis = bounce
-    } else if (y + yDrawn > canvas.height - 1) {
-        //make ball bounce off paddle
-        if (x > paddleX &&
+    } else if (y + yDrawn > canvas.height - 1) { // when ball goes outside bottom canvas wall
+        if (x > paddleX && //make ball bounce off paddle
             x < paddleX + paddleWidth) {
             yDrawn = -yDrawn; //reverse direction on y axis = bounce
-        }
-        //you loose when ball misses paddle = go through bottom wall
-        else {
-            console.log("Game Over") //TODO Change this later
+        } else { // log losing score and reload
+            console.log("Game Over")
             document.location.reload();
             clearInterval(interval);
         }
     }
 
-    //left + right wall
-    if (x + xDrawn <= 1 //if horizontal starting point on x axis < 0 (it goes outside left canvas wall)
-        || x + xDrawn > canvas.width - 1) {  //if horizontal starting point on x axis > canvas width (it goes outside right canvas wall)
+    if (x + xDrawn <= 1 //when ball goes outside left canvas wall
+        || x + xDrawn > canvas.width - 1) {  ///when ball goes outside right canvas wall
         xDrawn = -xDrawn; //reverse direction on x axis = bounce
     }
 
-    //update x and y to make ball appear in new position on every update
-    x += xDrawn;
+    x += xDrawn; //update x and y to make ball appear in new position on every update
     y += yDrawn;
 
-    //enable keyboard controls paddle
-    if (pressRight) {
-        paddleX += 18;
+    if (pressRight) {//enable keyboard controls paddle
+        paddleX += 18; // make paddle move right 18px
         if (paddleX + paddleWidth > canvas.width) {
             paddleX = (canvas.width - 1) - paddleWidth;
         }
     } else if (pressLeft) {
-        paddleX -= 18;
+        paddleX -= 18; // make paddle move left 18px
         if (paddleX < 0) {
             paddleX = 1;
         }
@@ -176,25 +162,21 @@ function draw() {
 
 }
 
-let interval = setInterval(draw, 80);// change this timeout to make the ball got faster/slower, lower number = faster
-
-
-//TODO create scoreboard
-let score = 0;
-
-function drawScore() {
-    context.font = "28px 'Roboto', sans-serif"; // CHECK add more/different styling?
-    context.fillStyle = "#ff1493";
-    context.fillText("Your score: " + score, canvas.width/2, canvas.height/2);
-}
-
-
-//TODO track score
+let interval = setInterval(draw, 80);//set interval to reload frame and enable movment
 
 
 //Phase 4 - extras
-//TODO refactor code
+//convert functions to arrow functions where possible
 //convert for loops into for of/for in
+
+
+//TODO go through all check comments
+// CHECK make mouse movement more sensitive
+// CHECK .status not depreciated?
+// CHECK add win/lose message in html?
+// CHECK add more/different styling?/replace scoreboard to html tags
+
+
 //TODO make canvas less pixelated
 //TODO make ball change color when it bounces
 //Add getRandomColor() to color of ball
@@ -206,10 +188,10 @@ function drawScore() {
 //     }
 //     return color;
 // }
-//TODO make the ball move faster when it hits the paddle
-// https://medium.com/@doomgoober/understanding-html-canvas-scaling-and-sizing-c04925d9a830
+//TODO add lives?
 //TODO add multiple levels?
 //TODO convert to 3D?
 
 
+//create moving ball  / define a drawing loop
 
