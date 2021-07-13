@@ -47,5 +47,16 @@ body {
 
 #gameResult {
     font-size: 3rem;
-    padding: 1rem;
+    padding-bottom: 30px;
 }
+
+#playAgain {
+    font-size: 1rem;
+    font-family: 'Permanent Marker', cursive;
+    margin-top: 20px;
+    padding: 3px 10px;
+    border-style: none;
+    border-radius: 5px;
+    visibility: hidden;
+}
+
