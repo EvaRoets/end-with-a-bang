@@ -1,6 +1,7 @@
 const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-const words = ["cat", "dog", "pig", "cow"];
 let lives = 7;
+
+// Set count of wins and losses to 0 in the local storage on load of the window
 
 window.onload = function () {
     if(typeof(Storage) !== "undefined") {
@@ -13,7 +14,6 @@ window.onload = function () {
     }
 }
 
-
 // Create buttons per letter
 
 let createButtons = () => {
@@ -22,15 +22,12 @@ let createButtons = () => {
         button.className = "buttons";
         button.id = letter;
         button.innerHTML = alphabet[letter];
-        document.getElementById("letterButtons").appendChild(button)
+        document.getElementById("letterButtons").appendChild(button);
     }
 }
 createButtons()
 
-// Keep score
-
-// localStorage.setItem("livesSaved", 0);
-// localStorage.setItem("livesLost", 0);
+// Keep score in the local storage
 
 const soulsSaved = () => {
     if(typeof(Storage) !== "undefined") {
@@ -52,14 +49,12 @@ const soulsLost = () => {
     }
 }
 
-const resetScore = () => {
-    localStorage.removeItem("soulsSaved");
-    localStorage.removeItem("soulsLost");
-}
+// Reset score in local storage
 
 document.getElementById("reset").addEventListener("click", () => {
-    resetScore()
-    window.location.reload()
+    localStorage.removeItem("soulsSaved");
+    localStorage.removeItem("soulsLost");
+    window.location.reload();
 })
 
 // Generate a random word
@@ -68,7 +63,7 @@ document.getElementById("reset").addEventListener("click", () => {
 let easyWord = () => {
     fetch("https://random-word-form.herokuapp.com/random/noun")
         .then((response) => {
-            return response.json()
+            return response.json();
         })
         .then ((easyWord) => {
             let selectedWord = easyWord[0];
@@ -81,23 +76,19 @@ let easyWord = () => {
 // GAME
 
 let gameOn = (selectedWord) => {
-    // livesSaved()
-    // livesLost()
-    // Generate a random word from the list & create letter array of this word
-    // let selectedWord = words[Math.floor(Math.random() * words.length)]
 
     // Create blanks for each letter in the word to be guessed
-    let letters = []
-    console.log(selectedWord)
+    let letters = [];
+    console.log(selectedWord);
     for (letter in selectedWord) {letters.push("_")}
-    document.getElementById("guessedWord").innerHTML = letters.join("")
-    console.log(letters)
+    document.getElementById("guessedWord").innerHTML = letters.join("");
+    console.log(letters);
 
     // Keep count of lives left
     document.getElementById("lives").innerHTML = `Lives left: ${lives}`;
 
     // User selection of the letter
-    const buttons = document.querySelectorAll(".buttons")
+    const buttons = document.querySelectorAll(".buttons");
     for (let button of buttons) {
         button.addEventListener("click", () => {
 
@@ -116,10 +107,8 @@ let gameOn = (selectedWord) => {
                             soulsSaved()
                             document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`
                             document.getElementById("playAgain").addEventListener("click", () => {
-                                window.location.reload()
-
+                                window.location.reload();
                             })
-
                         }
                     }
                 }
@@ -129,11 +118,11 @@ let gameOn = (selectedWord) => {
             else {
                 lives -= 1
                 document.getElementById("lives").innerHTML = `Lives left: ${lives}`;
-                console.log(lives)
-                document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`
-                console.log(`../images/hangman-stage${lives}.png`)
+                console.log(lives);
+                document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
+                console.log(`../images/hangman-stage${lives}.png`);
                 if (lives === 0) {
-                    console.log(lives)
+                    console.log(lives);
                     document.getElementById("gameResult").style.visibility = `visible`;
                     document.getElementById("gameResult").innerHTML = `game over.`;
                     document.getElementById("wordWas").style.visibility = `visible`;
@@ -142,20 +131,18 @@ let gameOn = (selectedWord) => {
                     soulsLost()
                     document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`
                     document.getElementById("playAgain").addEventListener("click", () => {
-                        window.location.reload()
+                        window.location.reload();
                     })
                 }
             }
         }, {once: true})
         
     }
-    document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`
-    document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`
+    document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`;
+    document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`;
 
 }
 
-// TODO: add count of lives saved and lives lost
-// TODO: link to API
 // TODO: allow selection (easy, difficult, countries, capitals)
 
 
