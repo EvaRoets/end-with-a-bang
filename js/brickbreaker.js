@@ -18,6 +18,13 @@ const brickHeight = 10;
 const brickPadding = 2;
 const brickOffsetTop = 0;
 const brickOffsetLeft = 5;
+let score = 0;
+let lives = 3;
+
+const message = document.getElementById("message");
+const play = document.getElementById("play");
+const playAgain = document.getElementById("playAgain");
+
 let bricks = []; // loop through all bricks (col and row)
 for (let col = 0; col < brickColumnCount; col++) {
     bricks[col] = [];
@@ -25,30 +32,18 @@ for (let col = 0; col < brickColumnCount; col++) {
         bricks[col][row] = {x: 0, y: 0, status: 1}; // status 1 = brick is present
     }
 }
-let score = 0;
-const result = document.getElementById("result")
-let message = document.getElementById("message");
-const play = document.getElementById("play");
-const playAgain = document.getElementById("playAgain");
-let lives = 3;
-
 
 //**EVENT LISTENERS**
 document.addEventListener("keydown", keyDown, false);//enable keyboard controls paddle
 document.addEventListener("keyup", keyUp, false);
 document.addEventListener("mousemove", mouseMove, false); // enable mouse controls paddle
+
+//TODO functionality play button
 play.addEventListener("click", () => {
     score = 0
-    result.innerHTML = "0";
     message.innerHTML = "Let's go!"
-    });
-playAgain.addEventListener("click", () => {
-    // reset();
-    score = 0
-    result.innerHTML = "0";
-    message.innerHTML = "Let's go!"
-    });
-
+    // playGame();
+});
 
 
 //**FUNCTIONS**
@@ -84,16 +79,14 @@ function collisionDetection() { //detect collision
                     x < brick.x + brickWidth &&
                     y > brick.y &&
                     y < brick.y + brickHeight) {
-                    yDrawn = -yDrawn;
+                    yDrawn = -yDrawn; //bounce
                     brick.status = 0;
-                    //track score
-                    score++;
-                    result.innerHTML =  //TODO add number of broken bricks
-                    result.innerHTML = "+1!"
+                    score++; //track score
                     if (score === brickRowCount * brickColumnCount) {
-                        result.innerHTML = "You win!🥇"
+                        setTimeout(function () {
+                            message.innerHTML = "You win!🥇";
+                        }, 5000);//wait 10 seconds
                         document.location.reload();
-                        clearInterval(interval);
                     }
                 }
             }
@@ -135,16 +128,16 @@ function drawBricks() { //make bricks disappear when hit by the ball
     }
 }
 
-// function drawScore() {//create scoreboard
-//     context.font = "8px 'Roboto', sans-serif"; // CHECK add more/different styling?
-//     context.fillStyle = "#ff1493";
-//     context.fillText("Your score: " + score, 8, canvas.height);
-// }
+function drawScore() {
+    context.font = "8px 'Roboto', sans-serif"; // CHECK add more/different styling?
+    context.fillStyle = "#ff1493";
+    context.fillText("Your score: " + score, 8, canvas.height); //TODO check position
+}
 
 function drawLives() {
     context.font = "8px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("❤ =" + lives, canvas.width-65, 20); //TODO check position
+    context.fillText("❤ =" + lives, canvas.width - 65, 20); //TODO check position
 }
 
 function draw() {
@@ -152,11 +145,10 @@ function draw() {
     drawBall(); //call all draw functions
     drawPaddle();
     drawBricks();
-    collisionDetection();
-    // drawScore();
+    drawScore();
     drawLives();
-
-
+    collisionDetection();
+    
     if (y + yDrawn <= 1) { //when ball goes outside top canvas wall
         yDrawn = -yDrawn; //reverse direction on y axis = bounce
     } else if (y + yDrawn > canvas.height - 1) { // when ball goes outside bottom canvas wall
@@ -164,26 +156,18 @@ function draw() {
             x < paddleX + paddleWidth) {
             yDrawn = -yDrawn; //reverse direction on y axis = bounce
         } else {
+            lives--;
             if (!lives) {
                 message.innerHTML = "Missed the ball and lost all your lives! ☹"
                 document.location.reload();
-                clearInterval(interval);
+            } else {
+                x = canvas.width / 2;
+                y = canvas.height - 30;
+                xDrawn = 2;
+                yDrawn = -2;
+                paddleX = (canvas.width - paddleWidth) / 2;
+                message.innerHTML = "Missed the ball!☹"
             }
-            else {
-                x = canvas.width/2;
-                y = canvas.height-30;
-                dx = 2;
-                dy = -2;
-                paddleX = (canvas.width-paddleWidth)/2;
-
-            }
-
-            // log losing score and reload
-            score = 0;
-            // TODO add loss of life
-            message.innerHTML = "Missed the ball! ☹"
-            document.location.reload();
-            clearInterval(interval);
         }
     }
 
@@ -206,16 +190,15 @@ function draw() {
             paddleX = 1;
         }
     }
-
+    requestAnimationFrame(draw);
 }
 
-let interval = setInterval(draw, 80);//set interval to reload frame and enable movment
+draw();
 
 
 //Phase 4 - extras
 //convert functions to arrow functions where possible
 //convert for loops into for of/for in
-//
 
 
 //TODO go through all check comments
