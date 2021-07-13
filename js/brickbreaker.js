@@ -3,7 +3,7 @@
 let canvas = document.getElementById("gameCanvas");
 let context = canvas.getContext("2d");
 // make ball
-let ballRadius = 5;
+let ballRadius = 3;
 //create moving ball  / define a drawing loop
 //define starting point in canvas in variables x and y
 let x = canvas.width / 2;
@@ -31,10 +31,10 @@ let brickOffsetLeft = 18;
 
 //create brick field
 let bricks = [];
-for (let c = 0; c < brickColumnCount; c++) {
-    bricks[c] = [];
-    for (let r = 0; r < brickRowCount; r++) {
-        bricks[c][r] = {x: 0, y: 0};
+for (let col = 0; col < brickColumnCount; col++) {
+    bricks[col] = [];
+    for (let row = 0; row < brickRowCount; row++) {
+        bricks[col][row] = {x: 0, y: 0};
     }
 }
 
@@ -61,14 +61,14 @@ function keyUp(event) {
 
 // enable mouse controls paddle
 // CHECK make mouse movement more sensitive
-document.addEventListener("mousemove", mouseMove, false); //start with boolean false, mouse hasn't moved yet
-
-function mouseMove(event) {
-    let mousePositionOnX = event.clientX - canvas.offsetLeft;
-    if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
-        paddleX = mousePositionOnX - paddleWidth / 2;
-    }
-}
+// document.addEventListener("mousemove", mouseMove, false); //start with boolean false, mouse hasn't moved yet
+//
+// function mouseMove(event) {
+//     let mousePositionOnX = event.clientX - canvas.offsetLeft;
+//     if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
+//         paddleX = mousePositionOnX - paddleWidth / 2;
+//     }
+// }
 
 
 //**FUNCTIONS**
@@ -90,12 +90,12 @@ function drawPaddle() {
 }
 
 function drawBricks() {
-    for (let c = 0; c < brickColumnCount; c++) {
-        for (let r = 0; r < brickRowCount; r++) {
-            let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
-            let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
-            bricks[c][r].x = brickX;
-            bricks[c][r].y = brickY;
+    for (let col = 0; col < brickColumnCount; col++) {
+        for (let row = 0; row < brickRowCount; row++) {
+            let brickX = (col * (brickWidth + brickPadding)) + brickOffsetLeft;
+            let brickY = (row * (brickHeight + brickPadding)) + brickOffsetTop;
+            bricks[col][row].x = brickX;
+            bricks[col][row].y = brickY;
             context.beginPath();
             context.rect(brickX, brickY, brickWidth, brickHeight);
             context.fillStyle = "#ff1493";
@@ -104,6 +104,23 @@ function drawBricks() {
         }
     }
 }
+//Phase 3
+//detect collision
+function collisionDetection() {
+    for(let col=0; col<brickColumnCount; col++) {
+        for(let row=0; row<brickRowCount; row++) {
+            let brick = bricks[col][row];
+            if (brick.status === 1) {
+                if (x > brick.x && x < brick.x + brickWidth && y > brick.y && y < brick.y + brickHeight) {
+                    yDrawn = -yDrawn;
+                    brick.status = 0;
+                }
+            }
+        }
+    }
+}
+//TODO  make bricks disappear when hit by the ball
+
 
 function draw() {
     // clear frame after every interval to make ball instead of line
@@ -111,6 +128,7 @@ function draw() {
     drawBall();
     drawPaddle();
     drawBricks();
+    collisionDetection();
 
     //TODO make ball bounce off the walls/ define start + end canvas
     // x = min 5 max 295
@@ -149,8 +167,10 @@ function draw() {
 
 setInterval(draw, 80); // change this timeout to make the ball got faster/slower, lower number = faster
 
-//Phase 3
-//TODO detect collision/ make bricks disappear when hit by the ball
+
+
+
+
 //TODO create scoreboard
 //TODO track score
 //TODO win/lose
@@ -158,6 +178,7 @@ setInterval(draw, 80); // change this timeout to make the ball got faster/slower
 
 //Phase 4 - extras
 //TODO refactor code
+//convert for loops into for of/for in
 //TODO make canvas less pixelated
 //TODO make ball change color when it bounces
 //Add getRandomColor() to color of ball
