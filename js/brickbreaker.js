@@ -133,22 +133,23 @@ function draw() {
     drawBricks();
     collisionDetection();
 
-    //TODO make ball bounce off the walls/ define start + end canvas
-    // x = min 5 max 295
-    // y = min 5 max 145
-
-
-    //TODO win/lose
+    //make ball bounce off the walls/ define start + end canvas
     //top + bottom wall
     if (y + yDrawn <= 1) { //if vertical starting point on y axis < 0 (it goes outside top canvas wall)
         yDrawn = -yDrawn; //reverse direction on y axis = bounce
+    } else if (y + yDrawn > canvas.height - 1) {
+        //make ball bounce off paddle
+        if (x > paddleX &&
+            x < paddleX + paddleWidth) {
+            yDrawn = -yDrawn; //reverse direction on y axis = bounce
         }
-    else if (y + yDrawn > canvas.height - 1) {//You loose when ball misses paddle = go through bottom wall
-        console.log ("Game Over") //TODO Change this later
-        document.location.reload();
-        clearInterval(interval);
+        //you loose when ball misses paddle = go through bottom wall
+        else {
+            console.log("Game Over") //TODO Change this later
+            document.location.reload();
+            clearInterval(interval);
+        }
     }
-
 
     //left + right wall
     if (x + xDrawn <= 1 //if horizontal starting point on x axis < 0 (it goes outside left canvas wall)
@@ -178,12 +179,16 @@ function draw() {
 let interval = setInterval(draw, 80);// change this timeout to make the ball got faster/slower, lower number = faster
 
 
-
-
-
-
-
 //TODO create scoreboard
+let score = 0;
+
+function drawScore() {
+    context.font = "28px 'Roboto', sans-serif"; // CHECK add more/different styling?
+    context.fillStyle = "#ff1493";
+    context.fillText("Your score: " + score, canvas.width/2, canvas.height/2);
+}
+
+
 //TODO track score
 
 
