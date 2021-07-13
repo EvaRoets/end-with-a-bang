@@ -37,7 +37,6 @@ document.addEventListener("keydown", keyDown, false);//enable keyboard controls 
 document.addEventListener("keyup", keyUp, false);
 document.addEventListener("mousemove", mouseMove, false); // enable mouse controls paddle
 
-//TODO functionality play button
 play.addEventListener("click", () => {
     score = 0
     message.innerHTML = "Let's go!"
@@ -157,7 +156,7 @@ const draw = () => {
         } else {
             lives--;
             if (!lives) {
-                message.innerHTML = "Missed the ball and lost all your lives! ☹" 
+                message.innerHTML = "Missed the ball and lost all your lives! ☹"
                 document.location.reload();
             } else {
                 x = canvas.width / 2;
@@ -194,16 +193,19 @@ const draw = () => {
 draw();
 
 
-//Phase 4 - extras
-//convert for loops into for of/for in
+//Phase 5 - priorities
+//TODO functionality play button
+//TODO update message board
+//TODO styling buttons and message board
 
-// CHECK make mouse movement more sensitive
-// CHECK add more/different styling?/replace scoreboard to html tags
 
-
+//Phase 6 - extras
+//TODO convert for loops into for of/for in
+//TODO make mouse movement more sensitive
 //TODO make canvas less pixelated
+//TODO add multiple levels
 //TODO make ball change color when it bounces
-//Add getRandomColor() to color of ball
+
 // function getRandomColor() {
 //     let letters = '0123456789ABCDEF'.split('');
 //     let color = '#';
@@ -212,8 +214,5 @@ draw();
 //     }
 //     return color;
 // }
-//TODO add multiple levels?
-//TODO convert to 3D?
-
 
 
