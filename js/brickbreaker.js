@@ -25,12 +25,18 @@ const message = document.getElementById("message");
 const play = document.getElementById("play");
 
 let bricks = []; // loop through all bricks (col and row)
-for (let col = 0; col < brickColCount; col++) {
-    bricks[col] = [];
-    for (let row = 0; row < brickRowCount; row++) {
-        bricks[col][row] = {x: 0, y: 0, status: 1}; // status 1 = brick is present
+for (let col of brickColCount) {
+    for (let row of brickRowCount){
+        bricks[col][row] = {x: 0, y: 0, status: 1};
     }
 }
+
+// for (let col = 0; col < brickColCount; col++) {
+//     bricks[col] = [];
+//     for (let row = 0; row < brickRowCount; row++) {
+//         bricks[col][row] = {x: 0, y: 0, status: 1}; // status 1 = brick is present
+//     }
+// }
 
 //**EVENT LISTENERS**
 document.addEventListener("keydown", keyDown, false);//enable keyboard controls paddle
@@ -45,7 +51,7 @@ play.addEventListener("click", () => {
 
 
 //**FUNCTIONS**
-const keyDown = (event) => {
+keyDown = (event) => {
     if (event.key === "Right" || event.key === "ArrowRight") {
         pressRight = true;
     } else if (event.key === "Left" || event.key === "ArrowLeft") {
@@ -53,7 +59,7 @@ const keyDown = (event) => {
     }
 }
 
-const keyUp = (event) => {
+keyUp = (event) => {
     if (event.key === "Right" || event.key === "ArrowRight") {
         pressRight = false;
     } else if (event.key === "Left" || event.key === "ArrowLeft") {
@@ -61,7 +67,7 @@ const keyUp = (event) => {
     }
 }
 
-const mouseMove = (event) => {
+mouseMove = (event) => {
     let mousePositionOnX = event.clientX - canvas.offsetLeft;
     if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
         paddleX = mousePositionOnX - paddleWidth / 2;
@@ -69,8 +75,8 @@ const mouseMove = (event) => {
 }
 
 const collisionDetection = () => { //detect collision
-    for (let col = 0; col < brickColCount; col++) {
-        for (let row = 0; row < brickRowCount; row++) {
+    for (let col of brickColCount) {
+        for (let row of brickRowCount){
             let brick = bricks[col][row];
             if (brick.status === 1) {
                 if (x > brick.x &&
