@@ -67,7 +67,6 @@ let easyWord = () => {
         })
         .then ((easyWord) => {
             let selectedWord = easyWord[0];
-            console.log(selectedWord);
             gameOn(selectedWord);
         })
 }
@@ -80,12 +79,17 @@ let gameOn = (selectedWord) => {
     // Create blanks for each letter in the word to be guessed
     let letters = [];
     console.log(selectedWord);
-    for (letter in selectedWord) {letters.push("_")}
+    for (let i=0; i<= selectedWord.length; i++) {
+        if (selectedWord[i] === " ") {
+            letters.push(" ")
+        }
+        else if (selectedWord[i] === "-") {
+            letters.push("-")
+        } else {
+            letters.push("_")
+        }
+    }
     document.getElementById("guessedWord").innerHTML = letters.join("");
-    console.log(letters);
-
-    // Keep count of lives left
-    document.getElementById("lives").innerHTML = `Lives left: ${lives}`;
 
     // User selection of the letter
     const buttons = document.querySelectorAll(".buttons");
@@ -106,7 +110,7 @@ let gameOn = (selectedWord) => {
                             document.getElementById("playAgain").style.visibility = "visible";
                             soulsSaved()
                             document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`
-                            document.getElementById("playAgain").addEventListener("click", () => {
+                            document.getElementById("playAgainButton").addEventListener("click", () => {
                                 window.location.reload();
                             })
                         }
@@ -116,13 +120,12 @@ let gameOn = (selectedWord) => {
 
             // If letter not in the word, deduct life
             else {
-                lives -= 1
-                document.getElementById("lives").innerHTML = `Lives left: ${lives}`;
-                console.log(lives);
-                document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
-                console.log(`../images/hangman-stage${lives}.png`);
-                if (lives === 0) {
-                    console.log(lives);
+                if (lives >0) {
+                    lives -= 1
+                    console.log(lives)
+                    document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
+                }
+                else if (lives === 0) {
                     document.getElementById("gameResult").style.visibility = `visible`;
                     document.getElementById("gameResult").innerHTML = `game over.`;
                     document.getElementById("wordWas").style.visibility = `visible`;
@@ -130,7 +133,7 @@ let gameOn = (selectedWord) => {
                     document.getElementById("playAgain").style.visibility = "visible";
                     soulsLost()
                     document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`
-                    document.getElementById("playAgain").addEventListener("click", () => {
+                    document.getElementById("playAgainButton").addEventListener("click", () => {
                         window.location.reload();
                     })
                 }
@@ -140,9 +143,10 @@ let gameOn = (selectedWord) => {
     }
     document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`;
     document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`;
-
 }
 
+// TODO: still able to select letters after game over - need a fix
+// TODO: if space or hyphen in word add it to the blanks as uncovered
 // TODO: allow selection (easy, difficult, countries, capitals)
 
 
