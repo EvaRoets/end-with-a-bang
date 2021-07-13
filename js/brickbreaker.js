@@ -134,12 +134,12 @@ function draw() {
 
     //TODO enable keyboard controls paddle
     if (pressRight) {
-        paddleX += 5;
+        paddleX += 18;
         if (paddleX + paddleWidth > canvas.width) {
             paddleX = (canvas.width - 1) - paddleWidth;
         }
     } else if (pressLeft) {
-        paddleX -= 5;
+        paddleX -= 18;
         if (paddleX < 0) {
             paddleX = 1;
         }
