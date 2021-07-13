@@ -12,7 +12,7 @@ let y = canvas.height - 30;
 let xDrawn = 5; // negative = left, positive = right // also changes speed!
 let yDrawn = -5; // negative = up, positive = down
 //create paddle
-let paddleHeight = 5;
+let paddleHeight = 8;
 let paddleWidth = 50;
 let paddleX = (canvas.width - paddleWidth) / 2;
 //enable keyboard controls paddle
@@ -20,23 +20,26 @@ let pressRight = false; // start with boolean false, keys aren't pressed yet
 let pressLeft = false;
 
 //create brick field
-//CHECK center bricks
-let brickRowCount = 4;
-let brickColumnCount = 9;
-let brickWidth = 25;
+let brickRowCount = 5;
+let brickColumnCount = 11;
+let brickWidth = 24.5;
 let brickHeight = 10;
-let brickPadding = 5;
+let brickPadding = 2;
 let brickOffsetTop = 0;
-let brickOffsetLeft = 18;
+let brickOffsetLeft = 5;
+// let brickOffsetRight = 5;
 
-//create brick field
 let bricks = [];
 for (let col = 0; col < brickColumnCount; col++) {
     bricks[col] = [];
     for (let row = 0; row < brickRowCount; row++) {
-        bricks[col][row] = {x: 0, y: 0};
+        bricks[col][row] = {x: 0, y: 0, status: 1};
     }
 }
+
+
+
+
 
 //**EVENT LISTENERS**
 //enable keyboard controls paddle
@@ -69,6 +72,27 @@ function keyUp(event) {
 //         paddleX = mousePositionOnX - paddleWidth / 2;
 //     }
 // }
+
+//Phase 3
+//detect collision
+function collisionDetection() {
+    for (let col = 0; col < brickColumnCount; col++) {
+        for (let row = 0; row < brickRowCount; row++) {
+            let brick = bricks[col][row];
+            if (brick.status === 1) { // CHECK .status not depreciated?
+                if (x > brick.x &&
+                    x < brick.x + brickWidth &&
+                    y > brick.y &&
+                    y < brick.y + brickHeight) {
+                    yDrawn = -yDrawn;
+                    brick.status = 0;
+                }
+            }
+        }
+    }
+}
+
+//TODO  make bricks disappear when hit by the ball
 
 
 //**FUNCTIONS**
@@ -104,22 +128,6 @@ function drawBricks() {
         }
     }
 }
-//Phase 3
-//detect collision
-function collisionDetection() {
-    for(let col=0; col<brickColumnCount; col++) {
-        for(let row=0; row<brickRowCount; row++) {
-            let brick = bricks[col][row];
-            if (brick.status === 1) {
-                if (x > brick.x && x < brick.x + brickWidth && y > brick.y && y < brick.y + brickHeight) {
-                    yDrawn = -yDrawn;
-                    brick.status = 0;
-                }
-            }
-        }
-    }
-}
-//TODO  make bricks disappear when hit by the ball
 
 
 function draw() {
@@ -165,10 +173,7 @@ function draw() {
 
 }
 
-setInterval(draw, 80); // change this timeout to make the ball got faster/slower, lower number = faster
-
-
-
+setInterval(draw, 80);// change this timeout to make the ball got faster/slower, lower number = faster
 
 
 //TODO create scoreboard
