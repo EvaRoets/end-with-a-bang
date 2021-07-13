@@ -69,7 +69,6 @@ function keyUp(event) {
 //     }
 // }
 
-//Phase 3
 //detect collision
 function collisionDetection() {
     for (let col = 0; col < brickColumnCount; col++) {
@@ -138,11 +137,18 @@ function draw() {
     // x = min 5 max 295
     // y = min 5 max 145
 
+
+    //TODO win/lose
     //top + bottom wall
-    if (y + yDrawn <= 1 //if vertical starting point on y axis < 0 (it goes outside top canvas wall)
-        || y + yDrawn > canvas.height - 1) {  //if vertical starting point on y axis > canvas height (it goes outside bottom canvas wall)
+    if (y + yDrawn <= 1) { //if vertical starting point on y axis < 0 (it goes outside top canvas wall)
         yDrawn = -yDrawn; //reverse direction on y axis = bounce
+        }
+    else if (y + yDrawn > canvas.height - 1) {//You loose when ball misses paddle = go through bottom wall
+        console.log ("Game Over") //TODO Change this later
+        document.location.reload();
+        clearInterval(interval);
     }
+
 
     //left + right wall
     if (x + xDrawn <= 1 //if horizontal starting point on x axis < 0 (it goes outside left canvas wall)
@@ -169,12 +175,16 @@ function draw() {
 
 }
 
-setInterval(draw, 80);// change this timeout to make the ball got faster/slower, lower number = faster
+let interval = setInterval(draw, 80);// change this timeout to make the ball got faster/slower, lower number = faster
+
+
+
+
+
 
 
 //TODO create scoreboard
 //TODO track score
-//TODO win/lose
 
 
 //Phase 4 - extras
