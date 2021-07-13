@@ -37,10 +37,6 @@ for (let col = 0; col < brickColumnCount; col++) {
     }
 }
 
-
-
-
-
 //**EVENT LISTENERS**
 //enable keyboard controls paddle
 document.addEventListener("keydown", keyDown, false);
@@ -92,8 +88,6 @@ function collisionDetection() {
     }
 }
 
-//TODO  make bricks disappear when hit by the ball
-
 
 //**FUNCTIONS**
 //create moving ball/ define a drawing loop
@@ -113,22 +107,24 @@ function drawPaddle() {
     context.closePath();
 }
 
+//make bricks disappear when hit by the ball
 function drawBricks() {
     for (let col = 0; col < brickColumnCount; col++) {
         for (let row = 0; row < brickRowCount; row++) {
-            let brickX = (col * (brickWidth + brickPadding)) + brickOffsetLeft;
-            let brickY = (row * (brickHeight + brickPadding)) + brickOffsetTop;
-            bricks[col][row].x = brickX;
-            bricks[col][row].y = brickY;
-            context.beginPath();
-            context.rect(brickX, brickY, brickWidth, brickHeight);
-            context.fillStyle = "#ff1493";
-            context.fill();
-            context.closePath();
+            if (bricks[col][row].status === 1) {
+                let brickX = (col * (brickWidth + brickPadding)) + brickOffsetLeft;
+                let brickY = (row * (brickHeight + brickPadding)) + brickOffsetTop;
+                bricks[col][row].x = brickX;
+                bricks[col][row].y = brickY;
+                context.beginPath();
+                context.rect(brickX, brickY, brickWidth, brickHeight);
+                context.fillStyle = "#ff1493";
+                context.fill();
+                context.closePath();
+            }
         }
     }
 }
-
 
 function draw() {
     // clear frame after every interval to make ball instead of line
@@ -158,7 +154,7 @@ function draw() {
     x += xDrawn;
     y += yDrawn;
 
-    //TODO enable keyboard controls paddle
+    //enable keyboard controls paddle
     if (pressRight) {
         paddleX += 18;
         if (paddleX + paddleWidth > canvas.width) {
