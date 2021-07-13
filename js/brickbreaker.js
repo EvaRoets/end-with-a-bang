@@ -148,19 +148,24 @@ function draw() {
     drawScore();
     drawLives();
     collisionDetection();
-    
+
+
+
     if (y + yDrawn <= 1) { //when ball goes outside top canvas wall
-        yDrawn = -yDrawn; //reverse direction on y axis = bounce
-    } else if (y + yDrawn > canvas.height - 1) { // when ball goes outside bottom canvas wall
+        yDrawn = -yDrawn;//reverse direction on y axis = bounce
+    }
+    else if (y + yDrawn > canvas.height - 1) { // when ball goes outside bottom canvas wall
         if (x > paddleX && //make ball bounce off paddle
             x < paddleX + paddleWidth) {
             yDrawn = -yDrawn; //reverse direction on y axis = bounce
-        } else {
-            lives--;
+        }
+        else
+        { lives--;
             if (!lives) {
                 message.innerHTML = "Missed the ball and lost all your lives! ☹"
                 document.location.reload();
-            } else {
+            }
+            else {
                 x = canvas.width / 2;
                 y = canvas.height - 30;
                 xDrawn = 2;
@@ -192,7 +197,6 @@ function draw() {
     }
     requestAnimationFrame(draw);
 }
-
 draw();
 
 
@@ -204,9 +208,7 @@ draw();
 //TODO go through all check comments
 // CHECK make mouse movement more sensitive
 // CHECK .status not depreciated?
-// CHECK add win/lose message in html?
 // CHECK add more/different styling?/replace scoreboard to html tags
-// TODO add reset button
 
 
 //TODO make canvas less pixelated
