@@ -14,6 +14,9 @@ window.onload = function () {
     }
 }
 
+document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`;
+document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`;
+
 // Create buttons per letter
 
 let createButtons = () => {
@@ -52,8 +55,8 @@ const soulsLost = () => {
 // Reset score in local storage
 
 document.getElementById("reset").addEventListener("click", () => {
-    localStorage.removeItem("soulsSaved");
-    localStorage.removeItem("soulsLost");
+    localStorage.setItem("soulsSaved", 0);
+    localStorage.setItem("soulsLost", 0);
     window.location.reload();
 })
 
@@ -140,27 +143,31 @@ let gameOn = (selectedWord) => {
     const buttons = document.querySelectorAll(".buttons");
     for (let button of buttons) {
         button.addEventListener("click", () => {
+            if (document.getElementById("gameResult").innerHTML === `game over`) {
 
-            // If letter in word, substitute blank with letter
-            if (selectedWord.indexOf(button.innerHTML) !== -1) {
-                let clickedLetter = button.innerHTML.toString();
-                for (let i=0; i<selectedWord.length; i++) {
-                    if (selectedWord[i] === clickedLetter) {
-                        letters[i] = clickedLetter
-                        document.getElementById("guessedWord").innerHTML = letters.join("");
-                        if (letters.includes("_") === false) {
-                            document.getElementById("gameResult").style.visibility = "visible";
-                            document.getElementById("gameResult").innerHTML = "You win!";
-                            document.getElementById("playAgainButton").style.visibility = "visible";
-                            soulsSaved()
-                            document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`
-                            document.getElementById("playAgainButton").addEventListener("click", () => {
-                                window.location.reload();
-                            })
+            }
+            else if
+                // If letter in word, substitute blank with letter
+                (selectedWord.indexOf(button.innerHTML) !== -1) {
+                    let clickedLetter = button.innerHTML.toString();
+                    for (let i = 0; i < selectedWord.length; i++) {
+                        if (selectedWord[i] === clickedLetter) {
+                            letters[i] = clickedLetter
+                            document.getElementById("guessedWord").innerHTML = letters.join("");
+                            if (letters.includes("_") === false) {
+                                document.getElementById("gameResult").style.visibility = "visible";
+                                document.getElementById("gameResult").innerHTML = "You win!";
+                                document.getElementById("playAgainButton").style.visibility = "visible";
+                                soulsSaved()
+                                document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`
+                                document.getElementById("playAgainButton").addEventListener("click", () => {
+                                    window.location.reload();
+                                })
+                            }
                         }
                     }
                 }
-            }
+
 
             // If letter not in the word, deduct life
             else {
@@ -185,10 +192,9 @@ let gameOn = (selectedWord) => {
         }, {once: true})
 
     }
-    document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`;
-    document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`;
 }
 
-// TODO: still able to select letters after game over - need a fix
+// TODO: still able to select letters after game over
+// TODO: check no of lives against graphics
 
 
