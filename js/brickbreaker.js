@@ -62,17 +62,17 @@ const drawBricks = () => { //make bricks disappear when hit by the ball
     }
 }
 const drawScore = () => {
-    context.font = "8px 'Roboto', sans-serif";
+    context.font = "10px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
     context.fillText("Your score = " + score, canvas.width - 293, canvas.height - 142);
 }
 const drawLives = () => {
-    context.font = "8px 'Roboto', sans-serif";
+    context.font = "10px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
     context.fillText("❤ = " + lives, canvas.width - 28, canvas.height - 142);
 }
 const drawLevels = () => {
-    context.font = "8px 'Roboto', sans-serif";
+    context.font = "10px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
     context.fillText("Level " + levels, canvas.width - 160, canvas.height - 142);
 }
@@ -85,7 +85,6 @@ const stopBall = () => {
     x = canvas.width / 2;
     y = canvas.height - 30;
 }
-
 
 // Set count of wins to 3 and losses to 0 in the local storage on load of the window
 const livesUp = () => {
@@ -106,7 +105,6 @@ const livesDown = () => {
             localStorage.setItem("livesDown", 0);
         }
     }
-
 }
 
 const levelUp = () => {
@@ -249,5 +247,8 @@ play.addEventListener("click", () => {
     }
     draw();
 });
+
+//TODO Add sound when bricks are breaking
+//TODO make responsive
 
 
