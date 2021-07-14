@@ -16,11 +16,25 @@
 <h1 id="gameName">HANGMAN</h1>
 
 <div id="game">
-    <img src="../images/hangman.png" alt="hangman" id="graphic">
+    <div id="levels">
+        <button class="level" id="easy">Easy</button>
+        <button class="level" id="difficult">Difficult</button>
+        <button class="level" id="countries">Countries</button>
+        <button class="level" id="capitals">Capitals</button>
+    </div>
+    <div id="containerGraph">
+        <img src="../images/hangman-stage7.png" alt="hangman" id="graphic">
+            <div id="score">
+                <p id="soulsSaved"></p>
+                <p id="soulsLost"></p>
+                <button id="reset">Reset score</button>
+            </div>
+    </div>
     <div id="guessedWord"></div>
+    <p id="wordWas"></p>
     <div id="letterButtons"></div>
-    <p id="lives"></p>
     <p id="gameResult"></p>
+    <button id="playAgainButton">Play again</button>
 </div>
 
 

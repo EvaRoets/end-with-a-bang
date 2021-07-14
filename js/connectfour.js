@@ -84,7 +84,6 @@
                 }
                 board[a][i] = player;
                 checkWinner();
-                console.log(board);
                 break;
             }
         }
