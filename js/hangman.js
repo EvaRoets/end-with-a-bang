@@ -171,7 +171,7 @@ let gameOn = (selectedWord) => {
 
             // If letter not in the word, deduct life
             else {
-                if (lives > 0) {
+                if (lives > 0 && document.getElementById("gameResult").innerHTML === ``) {
                     lives -= 1
                     console.log(lives)
                     document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
@@ -194,7 +194,6 @@ let gameOn = (selectedWord) => {
     }
 }
 
-// TODO: still able to select letters after game over
 // TODO: check no of lives against graphics
 
 
