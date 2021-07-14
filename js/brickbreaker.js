@@ -1,39 +1,57 @@
 //**VARIABLES**
-let canvas = document.getElementById("gameCanvas"); //create html canvas + enable drawing
-let context = canvas.getContext("2d");
-let ballRadius = 3; // make ball
+const canvas = document.getElementById("gameCanvas"); //create html canvas + enable drawing
+const context = canvas.getContext("2d");
+const ballRadius = 3; // make ball
 let x = canvas.width / 2; //define starting point in canvas in variables x and y
 let y = canvas.height - 30;
 let xDrawn = 5; //define the position + direction the ball is drawn
 let yDrawn = -5; // - = left/up, + = right/down
-let paddleHeight = 8;//create paddle
-let paddleWidth = 50;
+const paddleHeight = 8;//create paddle
+const paddleWidth = 50;
 let paddleX = (canvas.width - paddleWidth) / 2; //define starting point paddle
 let pressRight = false; //enable keyboard controls paddle
 let pressLeft = false;
-let brickRowCount = 5; //create brick field
-let brickColumnCount = 11;
-let brickWidth = 24.5;
-let brickHeight = 10;
-let brickPadding = 2;
-let brickOffsetTop = 0;
-let brickOffsetLeft = 5;
+const brickRowCount = 5; //create brick field
+const brickColCount = 11;
+const brickWidth = 24.5;
+const brickHeight = 10;
+const brickPadding = 2;
+const brickOffsetTop = 0;
+const brickOffsetLeft = 5;
+let score = 0;
+let lives = 3;
+
+const message = document.getElementById("message");
+const play = document.getElementById("play");
+
 let bricks = []; // loop through all bricks (col and row)
-for (let col = 0; col < brickColumnCount; col++) {
-    bricks[col] = [];
-    for (let row = 0; row < brickRowCount; row++) {
-        bricks[col][row] = {x: 0, y: 0, status: 1}; // status 1 = brick is present
+for (let col of brickColCount) {
+    for (let row of brickRowCount){
+        bricks[col][row] = {x: 0, y: 0, status: 1};
     }
 }
-let score = 0; //define score
+
+// for (let col = 0; col < brickColCount; col++) {
+//     bricks[col] = [];
+//     for (let row = 0; row < brickRowCount; row++) {
+//         bricks[col][row] = {x: 0, y: 0, status: 1}; // status 1 = brick is present
+//     }
+// }
 
 //**EVENT LISTENERS**
 document.addEventListener("keydown", keyDown, false);//enable keyboard controls paddle
 document.addEventListener("keyup", keyUp, false);
 document.addEventListener("mousemove", mouseMove, false); // enable mouse controls paddle
 
+play.addEventListener("click", () => {
+    score = 0
+    message.innerHTML = "Let's go!"
+    // playGame();
+});
+
+
 //**FUNCTIONS**
-function keyDown(event) {
+keyDown = (event) => {
     if (event.key === "Right" || event.key === "ArrowRight") {
         pressRight = true;
     } else if (event.key === "Left" || event.key === "ArrowLeft") {
@@ -41,7 +59,7 @@ function keyDown(event) {
     }
 }
 
-function keyUp(event) {
+keyUp = (event) => {
     if (event.key === "Right" || event.key === "ArrowRight") {
         pressRight = false;
     } else if (event.key === "Left" || event.key === "ArrowLeft") {
@@ -49,29 +67,30 @@ function keyUp(event) {
     }
 }
 
-function mouseMove(event) {
+mouseMove = (event) => {
     let mousePositionOnX = event.clientX - canvas.offsetLeft;
     if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
         paddleX = mousePositionOnX - paddleWidth / 2;
     }
 }
 
-function collisionDetection() { //detect collision
-    for (let col = 0; col < brickColumnCount; col++) {
-        for (let row = 0; row < brickRowCount; row++) {
+const collisionDetection = () => { //detect collision
+    for (let col of brickColCount) {
+        for (let row of brickRowCount){
             let brick = bricks[col][row];
             if (brick.status === 1) {
                 if (x > brick.x &&
                     x < brick.x + brickWidth &&
                     y > brick.y &&
                     y < brick.y + brickHeight) {
-                    yDrawn = -yDrawn;
+                    yDrawn = -yDrawn; //bounce
                     brick.status = 0;
                     score++; //track score
-                    if (score === brickRowCount * brickColumnCount) {
-                        console.log("You win!")
+                    if (score === brickRowCount * brickColCount) {
+                        setTimeout(function () {
+                            message.innerHTML = "You win!🥇";
+                        }, 5000);//wait 10 seconds
                         document.location.reload();
-                        clearInterval(interval);
                     }
                 }
             }
@@ -79,7 +98,7 @@ function collisionDetection() { //detect collision
     }
 }
 
-function drawBall() { //create moving ball/ define a drawing loop
+const drawBall = () => { //create moving ball/ define a drawing loop
     context.beginPath();
     context.arc(x, y, ballRadius, 0, Math.PI * 2);
     context.fillStyle = "#ff0000";
@@ -87,7 +106,7 @@ function drawBall() { //create moving ball/ define a drawing loop
     context.closePath();
 }
 
-function drawPaddle() {
+const drawPaddle = () => {
     context.beginPath();
     context.rect(paddleX, canvas.height - (paddleHeight - 3), paddleWidth, paddleHeight);
     context.fillStyle = "#ff1493";
@@ -95,8 +114,8 @@ function drawPaddle() {
     context.closePath();
 }
 
-function drawBricks() { //make bricks disappear when hit by the ball
-    for (let col = 0; col < brickColumnCount; col++) {
+const drawBricks = () => { //make bricks disappear when hit by the ball
+    for (let col = 0; col < brickColCount; col++) {
         for (let row = 0; row < brickRowCount; row++) {
             if (bricks[col][row].status === 1) {
                 let brickX = (col * (brickWidth + brickPadding)) + brickOffsetLeft;
@@ -113,30 +132,46 @@ function drawBricks() { //make bricks disappear when hit by the ball
     }
 }
 
-function drawScore() {//create scoreboard
-    context.font = "8px 'Roboto', sans-serif"; // CHECK add more/different styling?
+const drawScore = () => {
+    context.font = "8px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("Your score: " + score, 8, canvas.height);
+    context.fillText("Your score =" + score, canvas.width - 290, canvas.height);
 }
 
-function draw() {
+const drawLives = () => {
+    context.font = "8px 'Roboto', sans-serif";
+    context.fillStyle = "#ff1493";
+    context.fillText("❤ =" + lives, canvas.width - 25, canvas.height);
+}
+
+const draw = () => {
     context.clearRect(0, 0, canvas.width, canvas.height);// clear frame after every interval to make ball instead of line
     drawBall(); //call all draw functions
     drawPaddle();
     drawBricks();
-    collisionDetection();
     drawScore();
+    drawLives();
+    collisionDetection();
 
     if (y + yDrawn <= 1) { //when ball goes outside top canvas wall
-        yDrawn = -yDrawn; //reverse direction on y axis = bounce
+        yDrawn = -yDrawn;//reverse direction on y axis = bounce
     } else if (y + yDrawn > canvas.height - 1) { // when ball goes outside bottom canvas wall
         if (x > paddleX && //make ball bounce off paddle
             x < paddleX + paddleWidth) {
             yDrawn = -yDrawn; //reverse direction on y axis = bounce
-        } else { // log losing score and reload
-            console.log("Game Over")
-            document.location.reload();
-            clearInterval(interval);
+        } else {
+            lives--;
+            if (!lives) {
+                message.innerHTML = "Missed the ball and lost all your lives! ☹"
+                document.location.reload();
+            } else {
+                x = canvas.width / 2;
+                y = canvas.height - 30;
+                xDrawn = 2;
+                yDrawn = -2;
+                paddleX = (canvas.width - paddleWidth) / 2;
+                message.innerHTML = "Missed the ball!☹"
+            }
         }
     }
 
@@ -159,27 +194,24 @@ function draw() {
             paddleX = 1;
         }
     }
-
+    requestAnimationFrame(draw);
 }
-
-let interval = setInterval(draw, 80);//set interval to reload frame and enable movment
-
-
-//Phase 4 - extras
-//convert functions to arrow functions where possible
-//convert for loops into for of/for in
+draw();
 
 
-//TODO go through all check comments
-// CHECK make mouse movement more sensitive
-// CHECK .status not depreciated?
-// CHECK add win/lose message in html?
-// CHECK add more/different styling?/replace scoreboard to html tags
+//Phase 5 - priorities
+//TODO functionality play button
+//TODO update message board
+//TODO styling buttons and message board
 
 
+//Phase 6 - extras
+//TODO convert for loops into for of/for in
+//TODO make mouse movement more sensitive
 //TODO make canvas less pixelated
+//TODO add multiple levels
 //TODO make ball change color when it bounces
-//Add getRandomColor() to color of ball
+
 // function getRandomColor() {
 //     let letters = '0123456789ABCDEF'.split('');
 //     let color = '#';
@@ -188,10 +220,5 @@ let interval = setInterval(draw, 80);//set interval to reload frame and enable m
 //     }
 //     return color;
 // }
-//TODO add lives?
-//TODO add multiple levels?
-//TODO convert to 3D?
 
-
-//create moving ball  / define a drawing loop
 
