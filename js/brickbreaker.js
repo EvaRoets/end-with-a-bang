@@ -9,14 +9,14 @@ let y = canvas.height - 50;
 let xDrawn = 1; //define the position + direction the ball is drawn
 let yDrawn = -1; // - = left/up, + = right/down
 const paddleHeight = 8;//create paddle
-const paddleWidth = 50;
+let paddleWidth = 50;
 let paddleX = (canvas.width - paddleWidth) / 2; //define starting point paddle
 let pressRight = false; //enable keyboard controls paddle
 let pressLeft = false;
 let brickRowCount = 3; //create brick field
 const brickColCount = 11;
 const brickWidth = 24.5;
-const brickHeight = 5;
+let brickHeight = 8;
 const brickPadding = 2;
 const brickOffsetTop = 15;
 const brickOffsetLeft = 5;
@@ -85,15 +85,24 @@ const stopBall = () => {
     x = canvas.width / 2;
     y = canvas.height - 30;
 }
-const level2 = () => {
+const levelUp = () => {
     reloadGame();
-    levels = 2;
-    brickRowCount = 4; //create brick field
-    xDrawn = 2; //define the position + direction the ball is drawn
-    yDrawn = -2; // - = left/up, + = right/down
+    levels++
+    brickRowCount++
+    xDrawn++
+    yDrawn++
+    brickHeight--
+    paddleWidth -=5
 }
 
 window.addEventListener('load', () => {
+
+
+
+
+    
+
+
     drawPaddle();
     drawBricks();
     drawScore();
@@ -141,9 +150,10 @@ play.addEventListener("click", () => {
                         if (score === brickRowCount * brickColCount) {
                             message.innerHTML = "YOU WIN! 🥇";
                             levels++
-                     stopBall();
+                            lives++
+                            stopBall();
                             setTimeout(() => {
-                                level2();
+                                levelUp();
                             }, 5000)
                         }
                     }
