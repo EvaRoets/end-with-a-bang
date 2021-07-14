@@ -63,15 +63,15 @@ const drawBricks = () => { //make bricks disappear when hit by the ball
 const drawScore = () => {
     context.font = "8px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("Your score = " + score, canvas.width - 293, canvas.height-142);
+    context.fillText("Your score = " + score, canvas.width - 293, canvas.height - 142);
 }
 const drawLives = () => {
     context.font = "8px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("❤ = " + lives, canvas.width - 28, canvas.height-142);
+    context.fillText("❤ = " + lives, canvas.width - 28, canvas.height - 142);
 }
 const reloadGame = () => {
-    document.location.reload()
+    document.location.reload();
 }
 
 window.addEventListener('load', () => {
@@ -122,11 +122,19 @@ play.addEventListener("click", () => {
                         yDrawn = -yDrawn; //bounce
                         brick.status = 0;
                         score++; //track score
-                        if (score === brickRowCount * brickColCount) {
+                        if (score === brickRowCount * brickColCount/2 ) {
+                            message.innerHTML = "You broke half of the bricks, you win one life";
+                            setTimeout(function () {
+                                message.innerHTML = "You broke half of the bricks, you win one life";
+                            }, 5000)
+                            message.innerHTML= "";
+                        }
+                        else if (score === brickRowCount * brickColCount) {
                             setTimeout(function () {
                                 message.innerHTML = "You win! 🥇";
                             }, 5000);
                             reloadGame();
+
                         }
                     }
                 }
@@ -134,11 +142,10 @@ play.addEventListener("click", () => {
         }
     }
 
-
     const draw = () => {
         context.clearRect(0, 0, canvas.width, canvas.height);// clear frame after every interval to make ball instead of line
         collisionDetection();
-        drawBall(); //call all draw functions
+        drawBall();
         drawPaddle();
         drawBricks();
         drawScore();
@@ -154,20 +161,18 @@ play.addEventListener("click", () => {
                 lives--;
                 if (lives <= 0) {
                     lives = 0;
-
-                    // wait with moving ball loading
-                    message.innerHTML = "You missed the ball and lost all your lives! ☹";
+                    message.innerHTML = "You've lost all your lives! ☹";
+                    //stop ball from moving = stop drawBall()
                     setTimeout(() => {
                         reloadGame();
-                    }, 70000)
-
+                    }, 5000)
                 } else {
                     x = canvas.width / 2;
                     y = canvas.height - 30;
                     xDrawn = 2;
                     yDrawn = -2;
                     paddleX = (canvas.width - paddleWidth) / 2;
-                    message.innerHTML = "Oh, missed the ball! ☹"
+                    message.innerHTML = "Oh, you missed the ball! ☹"
                 }
             }
         }
@@ -177,7 +182,7 @@ play.addEventListener("click", () => {
             xDrawn = -xDrawn; //reverse direction on x axis = bounce
         }
 
-        x += xDrawn; //update x and y to make ball appear in new position on every update
+        x += xDrawn; //update x and y to make ball appear in new position on every frame update
         y += yDrawn;
 
         if (pressRight) {//enable keyboard controls paddle
@@ -200,23 +205,5 @@ play.addEventListener("click", () => {
 //Phase 5 - priorities
 // add timer to game over display
 // add timer to ball moving
-
-
-//Phase 6 - extras
-//TODO add random messages when each brick breaks
-//TODO convert for loops into for of/for in
-//TODO make mouse movement more sensitive
-//TODO make canvas less pixelated
-//TODO add multiple levels
-//TODO make ball change color when it bounces
-
-// function getRandomColor() {
-//     let letters = '0123456789ABCDEF'.split('');
-//     let color = '#';
-//     for (let i = 0; i < 6; i++ ) {
-//         color += letters[Math.floor(Math.random() * 16)];
-//     }
-//     return color;
-// }
 
 
