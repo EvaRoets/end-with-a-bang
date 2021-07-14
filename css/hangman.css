@@ -17,6 +17,19 @@ body {
     /*grid-template-columns: 500px 300px 300px 300px;*/
 }
 
+.level {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 1.5rem;
+    width: 8rem;
+    margin: 1.5rem 0.2rem 0;
+    border-radius: 5px;
+    border-style: none;
+}
+
+.level:hover {
+    cursor: pointer;
+}
+
 #graphic {
     width: 250px;
 }
