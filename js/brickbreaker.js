@@ -18,11 +18,10 @@ const brickColCount = 11;
 const brickWidth = 24.5;
 const brickHeight = 10;
 const brickPadding = 2;
-const brickOffsetTop = 0;
+const brickOffsetTop = 15;
 const brickOffsetLeft = 5;
 let score = 0;
 let lives = 3;
-
 let bricks = []; // loop through all bricks (col and row)
 for (let col = 0; col < brickColCount; col++) {
     bricks[col] = [];
@@ -30,7 +29,6 @@ for (let col = 0; col < brickColCount; col++) {
         bricks[col][row] = {x: 0, y: 0, status: 1}; // status 1 = brick is present
     }
 }
-
 const drawBall = () => {
     context.beginPath();
     context.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -38,7 +36,6 @@ const drawBall = () => {
     context.fill();
     context.closePath();
 }
-
 const drawPaddle = () => {
     context.beginPath();
     context.rect(paddleX, canvas.height - (paddleHeight - 3), paddleWidth, paddleHeight);
@@ -46,7 +43,6 @@ const drawPaddle = () => {
     context.fill();
     context.closePath();
 }
-
 const drawBricks = () => { //make bricks disappear when hit by the ball
     for (let col = 0; col < brickColCount; col++) {
         for (let row = 0; row < brickRowCount; row++) {
@@ -64,35 +60,29 @@ const drawBricks = () => { //make bricks disappear when hit by the ball
         }
     }
 }
-
 const drawScore = () => {
     context.font = "8px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("Your score = " + score, canvas.width - 290, canvas.height);
+    context.fillText("Your score = " + score, canvas.width - 293, canvas.height-142);
 }
-
 const drawLives = () => {
     context.font = "8px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("❤ = " + lives, canvas.width - 25, canvas.height);
+    context.fillText("❤ = " + lives, canvas.width - 28, canvas.height-142);
+}
+const reloadGame = () => {
+    document.location.reload()
 }
 
 window.addEventListener('load', () => {
-    drawBall(); //call all draw functions
     drawPaddle();
     drawBricks();
     drawScore();
     drawLives();
 });
-
 play.addEventListener("click", () => {
     score = 0;
     message.innerHTML = "Let's go!";
-    setTimeout(() => {
-        message.innerHTML = "";
-        }, 1500)
-
-//**FUNCTIONS**
     const keyDown = (event) => {
         if (event.key === "Right" || event.key === "ArrowRight") {
             pressRight = true;
@@ -134,9 +124,9 @@ play.addEventListener("click", () => {
                         score++; //track score
                         if (score === brickRowCount * brickColCount) {
                             setTimeout(function () {
-                                message.innerHTML = "You win!🥇";
-                            }, 5000);//wait 5 seconds
-                            document.location.reload();
+                                message.innerHTML = "You win! 🥇";
+                            }, 5000);
+                            reloadGame();
                         }
                     }
                 }
@@ -164,11 +154,13 @@ play.addEventListener("click", () => {
                 lives--;
                 if (lives <= 0) {
                     lives = 0;
+
                     // wait with moving ball loading
                     message.innerHTML = "You missed the ball and lost all your lives! ☹";
-                    setTimeout(function () {
-                        document.location.reload()
+                    setTimeout(() => {
+                        reloadGame();
                     }, 70000)
+
                 } else {
                     x = canvas.width / 2;
                     y = canvas.height - 30;
@@ -207,9 +199,8 @@ play.addEventListener("click", () => {
 
 //Phase 5 - priorities
 // add timer to game over display
-// add timer to beginning game
 // add timer to ball moving
-//
+
 
 //Phase 6 - extras
 //TODO add random messages when each brick breaks
