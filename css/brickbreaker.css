@@ -17,15 +17,13 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 450px;
-    height: 250px;
+    width: 600px;
+    height: 350px;
     border-radius: 25px;
     border: deeppink solid 5px;
     box-shadow: 5px 10px 18px #2e3351;
     margin: auto;
     object-fit: contain;
-
-
 }
 
 #message {
