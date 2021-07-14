@@ -81,6 +81,33 @@ body {
     cursor: pointer;
 }
 
+.tooltip:before {
+    content: attr(data-text);
+    position:absolute;
+
+    /* vertically center */
+    top:50%;
+    transform:translateY(-50%);
+
+    /* move to right */
+    left:50%;
+    margin-left:15px; /* and add a small left margin */
+
+    /* basic styles */
+    width:200px;
+    padding:10px;
+    border-radius:10px;
+    background: white;
+    color: black;
+    text-align:center;
+
+    display:none; /* hide by default */
+}
+
+.tooltip:hover:before {
+    display:block;
+}
+
 #guessedWord {
     font-size: 1.5rem;
     padding: 0 15px 2rem 15px;

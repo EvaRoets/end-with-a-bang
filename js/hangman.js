@@ -154,7 +154,7 @@ let gameOn = (selectedWord, hint) => {
         console.log(hint)
         lives -= 1;
         document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
-    })
+    }, {once: true})
 
     // User selection of the letter
     const buttons = document.querySelectorAll(".buttons");
