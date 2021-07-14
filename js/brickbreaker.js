@@ -31,12 +31,6 @@ for (let col of brickColCount) {
     }
 }
 
-// for (let col = 0; col < brickColCount; col++) {
-//     bricks[col] = [];
-//     for (let row = 0; row < brickRowCount; row++) {
-//         bricks[col][row] = {x: 0, y: 0, status: 1}; // status 1 = brick is present
-//     }
-// }
 
 //**EVENT LISTENERS**
 document.addEventListener("keydown", keyDown, false);//enable keyboard controls paddle
@@ -46,7 +40,6 @@ document.addEventListener("mousemove", mouseMove, false); // enable mouse contro
 play.addEventListener("click", () => {
     score = 0
     message.innerHTML = "Let's go!"
-    // playGame();
 });
 
 
