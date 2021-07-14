@@ -6,14 +6,14 @@ const context = canvas.getContext("2d");
 const ballRadius = 3; // make ball
 let x = canvas.width / 2; //define starting point in canvas in variables x and y
 let y = canvas.height - 50;
-let xDrawn = 5; //define the position + direction the ball is drawn
-let yDrawn = -5; // - = left/up, + = right/down
+let xDrawn = 1; //define the position + direction the ball is drawn
+let yDrawn = -1; // - = left/up, + = right/down
 const paddleHeight = 8;//create paddle
 const paddleWidth = 50;
 let paddleX = (canvas.width - paddleWidth) / 2; //define starting point paddle
 let pressRight = false; //enable keyboard controls paddle
 let pressLeft = false;
-const brickRowCount = 5; //create brick field
+let brickRowCount = 3; //create brick field
 const brickColCount = 11;
 const brickWidth = 24.5;
 const brickHeight = 5;
@@ -22,6 +22,7 @@ const brickOffsetTop = 15;
 const brickOffsetLeft = 5;
 let score = 0;
 let lives = 3;
+let levels = 1;
 let bricks = []; // loop through all bricks (col and row)
 for (let col = 0; col < brickColCount; col++) {
     bricks[col] = [];
@@ -70,14 +71,26 @@ const drawLives = () => {
     context.fillStyle = "#ff1493";
     context.fillText("❤ = " + lives, canvas.width - 28, canvas.height - 142);
 }
+const drawLevels = () => {
+    context.font = "8px 'Roboto', sans-serif";
+    context.fillStyle = "#ff1493";
+    context.fillText("Level " + levels, canvas.width - 160, canvas.height - 142);
+}
 const reloadGame = () => {
     document.location.reload();
 }
 const stopBall = () => {
-     xDrawn = 0;
-     yDrawn = 0;
-     x = canvas.width / 2;
-     y = canvas.height - 30;
+    xDrawn = 0;
+    yDrawn = 0;
+    x = canvas.width / 2;
+    y = canvas.height - 30;
+}
+const level2 = () => {
+    reloadGame();
+    levels = 2;
+    brickRowCount = 4; //create brick field
+    xDrawn = 2; //define the position + direction the ball is drawn
+    yDrawn = -2; // - = left/up, + = right/down
 }
 
 window.addEventListener('load', () => {
@@ -85,6 +98,7 @@ window.addEventListener('load', () => {
     drawBricks();
     drawScore();
     drawLives();
+    drawLevels();
     const keyDown = (event) => {
         if (event.key === "Right" || event.key === "ArrowRight") {
             pressRight = true;
@@ -92,7 +106,6 @@ window.addEventListener('load', () => {
             pressLeft = true;
         }
     }
-
     const keyUp = (event) => {
         if (event.key === "Right" || event.key === "ArrowRight") {
             pressRight = false;
@@ -100,21 +113,18 @@ window.addEventListener('load', () => {
             pressLeft = false;
         }
     }
-
     const mouseMove = (event) => {
         let mousePositionOnX = event.clientX - canvas.offsetLeft;
         if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
             paddleX = mousePositionOnX - paddleWidth / 2;
         }
     }
-
     document.addEventListener("keydown", keyDown, false);//enable keyboard controls paddle
     document.addEventListener("keyup", keyUp, false);
     document.addEventListener("mousemove", mouseMove, false); // enable mouse controls paddle
-
 });
+
 play.addEventListener("click", () => {
-    score = 0;
     message.innerHTML = "Let's go!";
     const collisionDetection = () => { //detect collision
         for (let col = 0; col < brickColCount; col++) {
@@ -130,9 +140,10 @@ play.addEventListener("click", () => {
                         score++; //track score
                         if (score === brickRowCount * brickColCount) {
                             message.innerHTML = "YOU WIN! 🥇";
-                            stopBall();
+                            levels++
+                     stopBall();
                             setTimeout(() => {
-                                reloadGame();
+                                level2();
                             }, 5000)
                         }
                     }
@@ -140,16 +151,16 @@ play.addEventListener("click", () => {
             }
         }
     }
-
     const draw = () => {
-        context.clearRect(0, 0, canvas.width, canvas.height);// clear frame after every interval to make ball instead of line
+        context.clearRect(0, 0, canvas.width, canvas.height);
         collisionDetection();
         drawBall();
         drawPaddle();
         drawBricks();
         drawScore();
         drawLives();
-
+        drawLevels();
+        requestAnimationFrame(draw);
         if (y + yDrawn <= 1) { //when ball goes outside top canvas wall
             yDrawn = -yDrawn;//reverse direction on y axis = bounce
         } else if (y + yDrawn > canvas.height - 1) { // when ball goes outside bottom canvas wall
@@ -175,7 +186,6 @@ play.addEventListener("click", () => {
                 }
             }
         }
-
         if (x + xDrawn <= 1 //when ball goes outside left canvas wall
             || x + xDrawn > canvas.width - 1) {  ///when ball goes outside right canvas wall
             xDrawn = -xDrawn; //reverse direction on x axis = bounce
@@ -183,26 +193,20 @@ play.addEventListener("click", () => {
 
         x += xDrawn; //update x and y to make ball appear in new position on every frame update
         y += yDrawn;
-
         if (pressRight) {//enable keyboard controls paddle
-            paddleX += 10; // make paddle move right 18px
+            paddleX += 5; // move paddle right
             if (paddleX + paddleWidth > canvas.width) {
                 paddleX = (canvas.width - 1) - paddleWidth;
             }
         } else if (pressLeft) {
-            paddleX -= 10; // make paddle move left 18px
+            paddleX -= 5; // move paddle  left
             if (paddleX < 0) {
                 paddleX = 1;
             }
         }
-        requestAnimationFrame(draw);
     }
     draw();
 });
 
 
-//Phase 5 - priorities
-// add timer to game over display
-// add timer to ball moving
-
-
+//Add extra levels?
