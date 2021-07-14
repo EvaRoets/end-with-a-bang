@@ -9,9 +9,8 @@ class SnakePart {
    }
 }
 
-
-let speed = 10;
-let tileCount = 20; // 25 tiles horiwontally and vertically accros the canvas.
+let speed = 8;
+let tileCount = 20; // 20 tiles horiwontally and vertically accros the canvas.
 let tileSize = canvas.width / tileCount - 2;
 let headX = 10; // head of the snake 
 let headY = 10; // tail of the snake 
@@ -28,8 +27,6 @@ let score = 0;
 // adding audio:
 const gulpSound = new Audio('/audio/gulp.mp3');
 const gameOverSound = new Audio('/audio/over.wav');
-
-
 
 // here we set the game loop: We will use setTimeOut : This will give us help us change how often our screen gets updated. 
 
@@ -106,12 +103,9 @@ function isGameOver() {
       }
    }
 
-
-
-
    // Game Over Text:
    if (gameOver) {
-      ctx.fillStyle = 'black';
+      ctx.fillStyle = 'white';
       ctx.font = "50px Verdana";
       ctx.fillText("Game Over!", canvas.width / 6.5, canvas.height / 2);
     }
@@ -121,7 +115,7 @@ function isGameOver() {
 
 // here we set the score:
 function drawScore() {
-   ctx.fillStyle = 'black';
+   ctx.fillStyle = 'white';
    ctx.font = '10px Verdana';
    ctx.fillText('Score ' + score, canvas.width - 50, 10);
 }
@@ -130,14 +124,14 @@ function drawScore() {
 //clearScreen function's job is to just clear the screen. 
 
 function clearScreen() {
-   ctx.fillStyle = 'salmon';
+   ctx.fillStyle = 'black';
    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 
 function drawSnake() {
    // body parts that will grow upon collision
-   ctx.fillStyle = 'blue';
+   ctx.fillStyle = 'green';
    for (let i = 0; i < snakeParts.length; i++) {
       let part = snakeParts[i];
       ctx.fillRect(part.x * tileCount, part.y * tileCount, tileSize, tileSize);
@@ -146,7 +140,7 @@ function drawSnake() {
    if (snakeParts.length > tailLength) {
       snakeParts.shift(); // here we remove the furthest item from the snake parts if have more than our tail size.
    }
-   ctx.fillStyle = 'purple';
+   ctx.fillStyle = 'white';
    ctx.fillRect(headX * tileCount, headY * tileCount, tileSize, tileSize);
 }
 
@@ -171,7 +165,6 @@ function checkAppleCollision() {
       gulpSound.play();
    }
 }
-
 
 
 document.body.addEventListener('keydown', keyDown);
