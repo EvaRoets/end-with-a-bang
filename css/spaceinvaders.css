@@ -1,29 +1,28 @@
 .battlefield {
-	width: 300px;
-	height: 300px;
+	width: 450px;
+	height: 450px;
 	border: solid black 1px;
 	display: flex;
 	flex-wrap: wrap;
 }
 
 .battlefield div {
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
 }
 
 .invader {
-	background-color: red;
-	border-radius: 100%;
+	background-image: url(../images/alien.png);
 }
 
 .shooter {
-	background-color: green;
+	background-image: url(../images/shooter.png);
 }
 
 .laser {
-	background-color: yellow;
+	background-image: url(../images/laser.png);
 }
 
 .boom {
-	background-color: orange;
+	background-image: url(../images/boom.png);
 }
