@@ -3,25 +3,23 @@ body {
     color: white;
     font-family: 'Permanent Marker', cursive;
     text-align: center;
-
 }
 
 #gameName {
     font-size: 3rem;
     padding: 1rem 0;
-
 }
 
-#game {
-    /*display: grid;*/
-    /*grid-template-columns: 500px 300px 300px 300px;*/
+#levels {
+    width: 300px;
+    margin: 0 auto;
 }
 
 .level {
     font-family: 'Permanent Marker', cursive;
-    font-size: 1.5rem;
-    width: 8rem;
-    margin: 1.5rem 0.2rem 0;
+    font-size: 1rem;
+    width: 7rem;
+    margin: 0.4rem 0.2rem;
     border-radius: 5px;
     border-style: none;
 }
@@ -30,20 +28,53 @@ body {
     cursor: pointer;
 }
 
+#containerGraph {
+    display: inline-flex;
+    margin: 0 auto;
+}
+
 #graphic {
     width: 250px;
+    margin-left: -10px;
+}
+
+#score {
+    flex-direction: column;
+    margin-top: 50px;
+    margin-left: -50px;
+    font-size: 0.8rem;
+}
+
+#soulsSaved, #soulsLost {
+    line-height: 1.5;
+    margin: 10px;
+}
+
+#reset {
+    font-family: 'Permanent Marker', cursive;
+    width: 100px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+#reset:hover {
+    cursor: pointer;
 }
 
 #guessedWord {
     font-size: 1.2rem;
-    padding: 1rem 0 3rem 0;
+    padding: 0 0 2rem 0;
     letter-spacing: 0.5rem;
+}
+
+#wordWas {
+    margin-bottom: 1rem;
 }
 
 .buttons {
     font-family: 'Permanent Marker', cursive;
-    font-size: 2rem;
-    width: 3rem;
+    font-size: 1.5rem;
+    width: 2.5rem;
     margin: 0.2rem;
     border-radius: 5px;
     border-style: none;
@@ -53,14 +84,10 @@ body {
     cursor: pointer;
 }
 
-#lives {
-    font-size: 1.5rem;
-    padding: 1rem;
-}
-
 #gameResult {
     font-size: 3rem;
-    padding-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 #playAgainButton {
@@ -77,21 +104,4 @@ body {
     cursor: pointer;
 }
 
-#soulsSaved, #soulsLost {
-    line-height: 1.5;
-    margin: 10px;
-}
-
-#reset {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 1.2rem;
-    width: 150px;
-    margin: 10px;
-    border-radius: 5px;
-    border-style: none;
-}
-
-#reset:hover {
-    cursor: pointer;
-}
 
