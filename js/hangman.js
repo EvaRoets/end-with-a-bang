@@ -14,6 +14,9 @@ window.onload = function () {
     }
 }
 
+document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`;
+document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`;
+
 // Create buttons per letter
 
 let createButtons = () => {
@@ -52,13 +55,16 @@ const soulsLost = () => {
 // Reset score in local storage
 
 document.getElementById("reset").addEventListener("click", () => {
-    localStorage.removeItem("soulsSaved");
-    localStorage.removeItem("soulsLost");
+    localStorage.setItem("soulsSaved", 0);
+    localStorage.setItem("soulsLost", 0);
     window.location.reload();
 })
 
-// Generate a random word
+// Generate a random word based on the selected level
 
+document.getElementById("easy").addEventListener("click", () => {
+    easyWord()
+}, {once: true})
 
 let easyWord = () => {
     fetch("https://random-word-form.herokuapp.com/random/noun")
@@ -67,83 +73,144 @@ let easyWord = () => {
         })
         .then ((easyWord) => {
             let selectedWord = easyWord[0];
-            console.log(selectedWord);
             gameOn(selectedWord);
         })
 }
 
+document.getElementById("difficult").addEventListener("click", () => {
+    difficultWord()
+}, {once: true})
+
+let difficultWord = () => {
+    fetch("https://random-words-api.vercel.app/word")
+        .then((response) => {
+            return response.json();
+        })
+        .then((difficultWord) => {
+            let selectedWord = difficultWord[0].word.toLowerCase();
+            let hint = difficultWord[0].definition;
+            gameOn(selectedWord, hint)
+        })
+}
+
+document.getElementById("countries").addEventListener("click", () => {
+    country()
+}, {once: true})
+
+let country = () => {
+    fetch("https://restcountries.eu/rest/v2/all")
+        .then((response) => {
+            return response.json();
+        })
+        .then((country) => {
+            let word = country[Math.floor(Math.random()*250)];
+            let selectedWord = word.name.toLowerCase();
+            let hint = word.subregion;
+            gameOn(selectedWord, hint)
+        })
+}
+
+document.getElementById("capitals").addEventListener("click", () => {
+    capital()
+}, {once: true})
+
+let capital = () => {
+    fetch("https://restcountries.eu/rest/v2/all")
+        .then((response) => {
+            return response.json();
+        })
+        .then((capital) => {
+            let word = capital[Math.floor(Math.random()*250)];
+            let selectedWord = word.capital.toLowerCase();
+            let hint = word.name;
+            gameOn(selectedWord, hint)
+        })
+}
 
 // GAME
 
-let gameOn = (selectedWord) => {
+let gameOn = (selectedWord, hint) => {
+
 
     // Create blanks for each letter in the word to be guessed
     let letters = [];
     console.log(selectedWord);
-    for (letter in selectedWord) {letters.push("_")}
+    console.log(hint);
+    for (let i=0; i< selectedWord.length; i++) {
+        if (alphabet.includes(selectedWord[i])) {
+            letters.push("_")
+        }
+        else {
+           letters.push(selectedWord[i])
+        }
+    }
     document.getElementById("guessedWord").innerHTML = letters.join("");
-    console.log(letters);
 
-    // Keep count of lives left
-    document.getElementById("lives").innerHTML = `Lives left: ${lives}`;
+    // Get a hint
+
+    document.getElementById("hintButton").addEventListener("click", () => {
+        document.getElementById("hint").style.visibility = "visible";
+        document.getElementById("hint").innerHTML = hint;
+        console.log(hint)
+        lives -= 1;
+        document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
+    }, {once: true})
 
     // User selection of the letter
     const buttons = document.querySelectorAll(".buttons");
     for (let button of buttons) {
         button.addEventListener("click", () => {
+            if (document.getElementById("gameResult").innerHTML === `game over`) {
 
-            // If letter in word, substitute blank with letter
-            if (selectedWord.indexOf(button.innerHTML) !== -1) {
-                let clickedLetter = button.innerHTML.toString();
-                for (let i=0; i<selectedWord.length; i++) {
-                    if (selectedWord[i] === clickedLetter) {
-                        letters[i] = clickedLetter
-                        document.getElementById("guessedWord").innerHTML = letters.join("");
-                        if (letters.includes("_") === false) {
-                            console.log(letters)
-                            document.getElementById("gameResult").style.visibility = "visible";
-                            document.getElementById("gameResult").innerHTML = "You win!";
-                            document.getElementById("playAgain").style.visibility = "visible";
-                            soulsSaved()
-                            document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`
-                            document.getElementById("playAgain").addEventListener("click", () => {
-                                window.location.reload();
-                            })
+            }
+            else if
+                // If letter in word, substitute blank with letter
+                (selectedWord.indexOf(button.innerHTML) !== -1) {
+                    let clickedLetter = button.innerHTML.toString();
+                    for (let i = 0; i < selectedWord.length; i++) {
+                        if (selectedWord[i] === clickedLetter) {
+                            letters[i] = clickedLetter
+                            document.getElementById("guessedWord").innerHTML = letters.join("");
+                            if (letters.includes("_") === false) {
+                                document.getElementById("gameResult").style.visibility = "visible";
+                                document.getElementById("gameResult").innerHTML = "You win!";
+                                document.getElementById("playAgainButton").style.visibility = "visible";
+                                soulsSaved()
+                                document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`
+                                document.getElementById("playAgainButton").addEventListener("click", () => {
+                                    window.location.reload();
+                                })
+                            }
                         }
                     }
                 }
-            }
+
 
             // If letter not in the word, deduct life
             else {
-                lives -= 1
-                document.getElementById("lives").innerHTML = `Lives left: ${lives}`;
-                console.log(lives);
-                document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
-                console.log(`../images/hangman-stage${lives}.png`);
-                if (lives === 0) {
-                    console.log(lives);
+                if (lives > 0 && document.getElementById("gameResult").innerHTML === ``) {
+                    lives -= 1
+                    console.log(lives)
+                    document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
+                }
+                else if (lives === 0) {
                     document.getElementById("gameResult").style.visibility = `visible`;
-                    document.getElementById("gameResult").innerHTML = `game over.`;
+                    document.getElementById("gameResult").innerHTML = `game over`;
                     document.getElementById("wordWas").style.visibility = `visible`;
                     document.getElementById("wordWas").innerHTML = `The word was: ${selectedWord}`;
-                    document.getElementById("playAgain").style.visibility = "visible";
+                    document.getElementById("playAgainButton").style.visibility = "visible";
                     soulsLost()
                     document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`
-                    document.getElementById("playAgain").addEventListener("click", () => {
+                    document.getElementById("playAgainButton").addEventListener("click", () => {
                         window.location.reload();
                     })
                 }
             }
         }, {once: true})
-        
-    }
-    document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`;
-    document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`;
 
+    }
 }
 
-// TODO: allow selection (easy, difficult, countries, capitals)
+// TODO: check no of lives against graphics
 
 
-easyWord()
