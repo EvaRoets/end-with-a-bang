@@ -22,29 +22,26 @@ let score = 0;
 let lives = 3;
 
 const message = document.getElementById("message");
+console.log (message)
 const play = document.getElementById("play");
 
 let bricks = []; // loop through all bricks (col and row)
-for (let col of brickColCount) {
-    for (let row of brickRowCount){
-        bricks[col][row] = {x: 0, y: 0, status: 1};
+for (let col = 0; col < brickColCount; col++) {
+    bricks[col] = [];
+    for (let row = 0; row < brickRowCount; row++) {
+        bricks[col][row] = {x: 0, y: 0, status: 1}; // status 1 = brick is present
     }
 }
 
 
-//**EVENT LISTENERS**
-document.addEventListener("keydown", keyDown, false);//enable keyboard controls paddle
-document.addEventListener("keyup", keyUp, false);
-document.addEventListener("mousemove", mouseMove, false); // enable mouse controls paddle
-
 play.addEventListener("click", () => {
     score = 0
     message.innerHTML = "Let's go!"
-});
+
 
 
 //**FUNCTIONS**
-keyDown = (event) => {
+const keyDown = (event) => {
     if (event.key === "Right" || event.key === "ArrowRight") {
         pressRight = true;
     } else if (event.key === "Left" || event.key === "ArrowLeft") {
@@ -52,7 +49,7 @@ keyDown = (event) => {
     }
 }
 
-keyUp = (event) => {
+const keyUp = (event) => {
     if (event.key === "Right" || event.key === "ArrowRight") {
         pressRight = false;
     } else if (event.key === "Left" || event.key === "ArrowLeft") {
@@ -60,16 +57,20 @@ keyUp = (event) => {
     }
 }
 
-mouseMove = (event) => {
+const mouseMove = (event) => {
     let mousePositionOnX = event.clientX - canvas.offsetLeft;
     if (mousePositionOnX > 0 && mousePositionOnX < canvas.width) {
         paddleX = mousePositionOnX - paddleWidth / 2;
     }
 }
 
+document.addEventListener("keydown", keyDown, false);//enable keyboard controls paddle
+document.addEventListener("keyup", keyUp, false);
+document.addEventListener("mousemove", mouseMove, false); // enable mouse controls paddle
+
 const collisionDetection = () => { //detect collision
-    for (let col of brickColCount) {
-        for (let row of brickRowCount){
+    for (let col = 0; col < brickColCount; col++) {
+        for (let row = 0; row < brickRowCount; row++) {
             let brick = bricks[col][row];
             if (brick.status === 1) {
                 if (x > brick.x &&
@@ -128,13 +129,13 @@ const drawBricks = () => { //make bricks disappear when hit by the ball
 const drawScore = () => {
     context.font = "8px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("Your score =" + score, canvas.width - 290, canvas.height);
+    context.fillText("Your score = " + score, canvas.width - 290, canvas.height);
 }
 
 const drawLives = () => {
     context.font = "8px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("❤ =" + lives, canvas.width - 25, canvas.height);
+    context.fillText("❤ = " + lives, canvas.width - 25, canvas.height);
 }
 
 const draw = () => {
@@ -190,6 +191,7 @@ const draw = () => {
     requestAnimationFrame(draw);
 }
 draw();
+});
 
 
 //Phase 5 - priorities

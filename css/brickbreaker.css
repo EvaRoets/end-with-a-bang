@@ -40,3 +40,9 @@ button{
     margin: 50px auto 20px auto;
     box-shadow: 5px 10px 18px #2e3351;
 }
+
+button:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+
+}
