@@ -21,7 +21,7 @@ const invaders = [
   30,31,32,33,34,35,36,37,38,39
 ]
 
-function draw() {
+const draw = () => {
   for (let i = 0; i < invaders.length; i++) {
     if(!aliensRemoved.includes(i)) {
       tiles[invaders[i]].classList.add('invader');
@@ -31,7 +31,7 @@ function draw() {
 
 draw()
 
-function remove() {
+const remove = () => {
   for (let i = 0; i < invaders.length; i++) {
     tiles[invaders[i]].classList.remove('invader');
   }
@@ -40,7 +40,7 @@ function remove() {
 tiles[currentShooterIndex].classList.add('shooter');
 
 
-function moveShooter(e) {
+const moveShooter = (e) => {
   tiles[currentShooterIndex].classList.remove('shooter');
   switch(e.key) {
     case 'ArrowLeft':
@@ -54,7 +54,7 @@ function moveShooter(e) {
 }
 document.addEventListener('keydown', moveShooter);
 
-function moveInvaders() {
+const moveInvaders = () => {
   const leftEdge = invaders[0] % width == 0;
   const rightEdge = invaders[invaders.length - 1] % width == width -1;
   remove();
@@ -99,10 +99,10 @@ function moveInvaders() {
 }
 invadersId = setInterval(moveInvaders, 600);
 
-function shoot(e) {
+const shoot = (e) => {
   let laserId;
   let currentLaserIndex = currentShooterIndex;
-  function moveLaser() {
+  const moveLaser = () => {
     tiles[currentLaserIndex].classList.remove('laser');
     currentLaserIndex -= width;
     tiles[currentLaserIndex].classList.add('laser');
