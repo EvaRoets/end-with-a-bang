@@ -77,7 +77,7 @@ const drawLevels = () => {
     context.fillText("Level " + levels, canvas.width - 160, canvas.height - 142);
 }
 const reloadGame = () => {
-    document.location.reload();
+    window.location.reload();
 }
 const stopBall = () => {
     xDrawn = 0;
@@ -95,13 +95,40 @@ const levelUp = () => {
     paddleWidth -=5
 }
 
+const livesUp = () => {
+    if(typeof(Storage) !== "undefined") {
+        if(localStorage.livesUp) {
+            localStorage.livesUp = Number(localStorage.livesUp) + 1;
+        } else {
+            localStorage.setItem("livesUp", 3);
+        }
+    }
+}
+
+const livesDown = () => {
+    if(typeof(Storage) !== "undefined") {
+        if(localStorage.livesDown) {
+            localStorage.livesDown = Number(localStorage.livesDown) + 1;
+        } else {
+            localStorage.setItem("soulsLost", 0);
+        }
+    }
+}
+
+document.getElementById("livesUp").innerHTML = `Souls saved: ${localStorage.livesUp}`;
+document.getElementById("livesDown").innerHTML = `Souls lost: ${localStorage.livesUp}`;
+
+
+
 window.addEventListener('load', () => {
-
-
-
-
-    
-
+    if(typeof(Storage) !== "undefined") { //set lives to 3 in local storage
+        if (!localStorage.livesUp) {
+            localStorage.setItem("LivesUp", "3");
+        }
+        if(!localStorage.livesDown) {
+            localStorage.setItem("livesDown", "0");
+        }
+    }
 
     drawPaddle();
     drawBricks();
@@ -219,4 +246,3 @@ play.addEventListener("click", () => {
 });
 
 
-//Add extra levels?
