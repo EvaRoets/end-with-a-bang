@@ -85,47 +85,54 @@ const stopBall = () => {
     x = canvas.width / 2;
     y = canvas.height - 30;
 }
-const levelUp = () => {
-    reloadGame();
-    levels++
-    brickRowCount++
-    xDrawn++
-    yDrawn++
-    brickHeight--
-    paddleWidth -=5
-}
 
+
+// Set count of wins to 3 and losses to 0 in the local storage on load of the window
 const livesUp = () => {
-    if(typeof(Storage) !== "undefined") {
-        if(localStorage.livesUp) {
+    if (typeof (Storage) !== "undefined") {
+        if (localStorage.livesUp) {
             localStorage.livesUp = Number(localStorage.livesUp) + 1;
         } else {
-            localStorage.setItem("livesUp", 3);
+            localStorage.setItem("livesUp", 3); // string, not number
         }
     }
 }
 
 const livesDown = () => {
-    if(typeof(Storage) !== "undefined") {
-        if(localStorage.livesDown) {
+    if (typeof (Storage) !== "undefined") {
+        if (localStorage.livesDown) {
             localStorage.livesDown = Number(localStorage.livesDown) + 1;
         } else {
-            localStorage.setItem("soulsLost", 0);
+            localStorage.setItem("livesDown", 0);
         }
     }
+
 }
 
-document.getElementById("livesUp").innerHTML = `Souls saved: ${localStorage.livesUp}`;
-document.getElementById("livesDown").innerHTML = `Souls lost: ${localStorage.livesUp}`;
-
-
+const levelUp = () => {
+    if (typeof (Storage) !== "undefined") {
+        if (localStorage.levelUp) {
+            localStorage.levelUp = Number(localStorage.levelUp) + 1;
+        } else {
+            localStorage.setItem("livesUp", 1); // string, not number
+        }
+    }
+    reloadGame();
+    levels++
+    lives++ // Add/replace with livesUp()?
+    brickRowCount++
+    xDrawn++
+    yDrawn++
+    brickHeight--
+    paddleWidth -= 5
+}
 
 window.addEventListener('load', () => {
-    if(typeof(Storage) !== "undefined") { //set lives to 3 in local storage
+    if (typeof (Storage) !== "undefined") { //set lives to 3 in local storage
         if (!localStorage.livesUp) {
             localStorage.setItem("LivesUp", "3");
         }
-        if(!localStorage.livesDown) {
+        if (!localStorage.livesDown) {
             localStorage.setItem("livesDown", "0");
         }
     }
@@ -175,9 +182,7 @@ play.addEventListener("click", () => {
                         brick.status = 0;
                         score++; //track score
                         if (score === brickRowCount * brickColCount) {
-                            message.innerHTML = "YOU WIN! 🥇";
-                            levels++
-                            lives++
+                            message.innerHTML = `YOU WIN! 🥇 <br> You have ${localStorage.livesUp} ❤.`;
                             stopBall();
                             setTimeout(() => {
                                 levelUp();
@@ -219,7 +224,7 @@ play.addEventListener("click", () => {
                     xDrawn = 2;
                     yDrawn = -2;
                     paddleX = (canvas.width - paddleWidth) / 2;
-                    message.innerHTML = "Oh, you missed the ball! ☹"
+                    message.innerHTML = `Oh, you missed the ball! ☹ <br> You have ${localStorage.livesUp} ❤.`
                 }
             }
         }
