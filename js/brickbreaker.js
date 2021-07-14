@@ -5,7 +5,7 @@ const play = document.getElementById("play");
 const context = canvas.getContext("2d");
 const ballRadius = 3; // make ball
 let x = canvas.width / 2; //define starting point in canvas in variables x and y
-let y = canvas.height - 30;
+let y = canvas.height - 50;
 let xDrawn = 5; //define the position + direction the ball is drawn
 let yDrawn = -5; // - = left/up, + = right/down
 const paddleHeight = 8;//create paddle
@@ -16,7 +16,7 @@ let pressLeft = false;
 const brickRowCount = 5; //create brick field
 const brickColCount = 11;
 const brickWidth = 24.5;
-const brickHeight = 10;
+const brickHeight = 5;
 const brickPadding = 2;
 const brickOffsetTop = 15;
 const brickOffsetLeft = 5;
@@ -32,7 +32,7 @@ for (let col = 0; col < brickColCount; col++) {
 const drawBall = () => {
     context.beginPath();
     context.arc(x, y, ballRadius, 0, Math.PI * 2);
-    context.fillStyle = "#ff0000";
+    context.fillStyle = "#13F0FF";
     context.fill();
     context.closePath();
 }
@@ -73,16 +73,18 @@ const drawLives = () => {
 const reloadGame = () => {
     document.location.reload();
 }
+const stopBall = () => {
+     xDrawn = 0;
+     yDrawn = 0;
+     x = canvas.width / 2;
+     y = canvas.height - 30;
+}
 
 window.addEventListener('load', () => {
     drawPaddle();
     drawBricks();
     drawScore();
     drawLives();
-});
-play.addEventListener("click", () => {
-    score = 0;
-    message.innerHTML = "Let's go!";
     const keyDown = (event) => {
         if (event.key === "Right" || event.key === "ArrowRight") {
             pressRight = true;
@@ -110,6 +112,10 @@ play.addEventListener("click", () => {
     document.addEventListener("keyup", keyUp, false);
     document.addEventListener("mousemove", mouseMove, false); // enable mouse controls paddle
 
+});
+play.addEventListener("click", () => {
+    score = 0;
+    message.innerHTML = "Let's go!";
     const collisionDetection = () => { //detect collision
         for (let col = 0; col < brickColCount; col++) {
             for (let row = 0; row < brickRowCount; row++) {
@@ -122,19 +128,12 @@ play.addEventListener("click", () => {
                         yDrawn = -yDrawn; //bounce
                         brick.status = 0;
                         score++; //track score
-                        if (score === brickRowCount * brickColCount/2 ) {
-                            message.innerHTML = "You broke half of the bricks, you win one life";
-                            setTimeout(function () {
-                                message.innerHTML = "You broke half of the bricks, you win one life";
+                        if (score === brickRowCount * brickColCount) {
+                            message.innerHTML = "YOU WIN! 🥇";
+                            stopBall();
+                            setTimeout(() => {
+                                reloadGame();
                             }, 5000)
-                            message.innerHTML= "";
-                        }
-                        else if (score === brickRowCount * brickColCount) {
-                            setTimeout(function () {
-                                message.innerHTML = "You win! 🥇";
-                            }, 5000);
-                            reloadGame();
-
                         }
                     }
                 }
@@ -161,8 +160,8 @@ play.addEventListener("click", () => {
                 lives--;
                 if (lives <= 0) {
                     lives = 0;
-                    message.innerHTML = "You've lost all your lives! ☹";
-                    //stop ball from moving = stop drawBall()
+                    message.innerHTML = "GAME OVER! <br>You've lost all your lives! ☹";
+                    stopBall();
                     setTimeout(() => {
                         reloadGame();
                     }, 5000)
