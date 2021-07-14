@@ -88,7 +88,8 @@ let difficultWord = () => {
         })
         .then((difficultWord) => {
             let selectedWord = difficultWord[0].word.toLowerCase();
-            gameOn(selectedWord)
+            let hint = difficultWord[0].definition;
+            gameOn(selectedWord, hint)
         })
 }
 
@@ -102,8 +103,10 @@ let country = () => {
             return response.json();
         })
         .then((country) => {
-            let selectedWord = country[Math.floor(Math.random()*250)].name.toLowerCase();
-            gameOn(selectedWord)
+            let word = country[Math.floor(Math.random()*250)];
+            let selectedWord = word.name.toLowerCase();
+            let hint = word.subregion;
+            gameOn(selectedWord, hint)
         })
 }
 
@@ -117,18 +120,22 @@ let capital = () => {
             return response.json();
         })
         .then((capital) => {
-            let selectedWord = capital[Math.floor(Math.random()*250)].capital.toLowerCase();
-            gameOn(selectedWord)
+            let word = capital[Math.floor(Math.random()*250)];
+            let selectedWord = word.capital.toLowerCase();
+            let hint = word.name;
+            gameOn(selectedWord, hint)
         })
 }
 
 // GAME
 
-let gameOn = (selectedWord) => {
+let gameOn = (selectedWord, hint) => {
+
 
     // Create blanks for each letter in the word to be guessed
     let letters = [];
     console.log(selectedWord);
+    console.log(hint);
     for (let i=0; i< selectedWord.length; i++) {
         if (alphabet.includes(selectedWord[i])) {
             letters.push("_")
@@ -138,6 +145,16 @@ let gameOn = (selectedWord) => {
         }
     }
     document.getElementById("guessedWord").innerHTML = letters.join("");
+
+    // Get a hint
+
+    document.getElementById("hintButton").addEventListener("click", () => {
+        document.getElementById("hint").style.visibility = "visible";
+        document.getElementById("hint").innerHTML = hint;
+        console.log(hint)
+        lives -= 1;
+        document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
+    }, {once: true})
 
     // User selection of the letter
     const buttons = document.querySelectorAll(".buttons");

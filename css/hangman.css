@@ -35,7 +35,7 @@ body {
 
 #graphic {
     width: 250px;
-    margin-left: -60px;
+    margin-left: -50px;
 }
 
 #score {
@@ -59,6 +59,53 @@ body {
 
 #reset:hover {
     cursor: pointer;
+}
+
+#hint {
+    width: 200px;
+    height: 40px;
+    padding: 10px 0;
+    display: table-cell;
+    vertical-align: bottom;
+    visibility: hidden;
+}
+
+#hintButton {
+    font-family: 'Permanent Marker', cursive;
+    width: 50px;
+    border-radius: 5px;
+    border-style: none;
+}
+
+#hintButton:hover {
+    cursor: pointer;
+}
+
+.tooltip:before {
+    content: attr(data-text);
+    position:absolute;
+
+    /* vertically center */
+    top:50%;
+    transform:translateY(-50%);
+
+    /* move to right */
+    left:50%;
+    margin-left:15px; /* and add a small left margin */
+
+    /* basic styles */
+    width:200px;
+    padding:10px;
+    border-radius:10px;
+    background: white;
+    color: black;
+    text-align:center;
+
+    display:none; /* hide by default */
+}
+
+.tooltip:hover:before {
+    display:block;
 }
 
 #guessedWord {
@@ -128,6 +175,12 @@ body {
     #score {
         font-size: 1.5rem;
         margin: 80px -100px 0 0;
+    }
+    #hint {
+        font-size: 1rem;
+        max-width: 300px;
+        height: 120px;
+        margin-top: 20px;
     }
     #reset {
         font-size: 1rem;

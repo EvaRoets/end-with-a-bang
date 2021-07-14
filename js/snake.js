@@ -35,7 +35,7 @@ function drawGame() {
    changeSnakePosition();
    let result = isGameOver();
    if (result) {
-      result;
+      return;
    }
    clearScreen();
    checkAppleCollision();
@@ -45,9 +45,58 @@ function drawGame() {
    setTimeout(drawGame, 1000 / speed) // 1000 = 1 second
 }
 
-// Result:
+// GAME END: This is where we define when will the game end and what will happen if it touches any of the walls. 
 function isGameOver() {
    let gameOver = false;
+
+   // here we set our y & x velocities to 0.
+   if (yVelocity === 0 && xVelocity === 0) {
+      return false;
+   }
+
+   // This is for walls: game will end if u hit any wall
+
+   // wall left:
+   if (headX < 0) {
+      gameOver = true;
+   }
+
+   // wall right:
+   else if (headX === tileCount) {
+      gameOver = true;
+   }
+
+   // wall bottom:
+   else if (headY < 0) {
+      gameOver = true;
+   }
+      
+   // wall top:
+   else if (headY === tileCount) {
+      gameOver = true;
+   }
+   
+   // This is for snake body. If u hit your own body game will end
+
+   for (let i = 0; i < snakeParts.length; i++) {
+      let part = snakeParts[i];
+
+      if (part.x === headX && part.y === headY) {
+         gameOver = true;
+         break;
+      }
+   }
+
+
+
+
+   // Game Over Text:
+   if (gameOver) {
+      ctx.fillStyle = 'black';
+      ctx.font = "50px Verdana";
+      ctx.fillText("Game Over!", canvas.width / 6.5, canvas.height / 2);
+    }
+   return gameOver;
 }
 
 
@@ -57,7 +106,6 @@ function drawScore() {
    ctx.font = '10px Verdana';
    ctx.fillText('Score ' + score, canvas.width - 50, 10);
 }
-
 
 
 //clearScreen function's job is to just clear the screen. 
