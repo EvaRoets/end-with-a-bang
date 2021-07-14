@@ -25,6 +25,9 @@ let appleX = 5;
 let appleY = 5;
 let score = 0;
 
+// adding audio:
+const gulpSound = new Audio('/audio/gulp.mp3');
+const gameOverSound = new Audio('/audio/over.wav');
 
 
 
@@ -42,13 +45,25 @@ function drawGame() {
    drawApple();
    drawSnake();
    drawScore();
+
+   // Here we add speed to the game. Upon reaching higher score the snake will move faster. 
+   if (score > 5) {
+      speed = 12;
+   }
+   if (score > 10) {
+      speed = 15;
+   }
+   if (score > 15) {
+      speed = 18;
+   }
+
    setTimeout(drawGame, 1000 / speed) // 1000 = 1 second
 }
 
 // GAME END: This is where we define when will the game end and what will happen if it touches any of the walls. 
 function isGameOver() {
    let gameOver = false;
-
+   
    // here we set our y & x velocities to 0.
    if (yVelocity === 0 && xVelocity === 0) {
       return false;
@@ -59,30 +74,34 @@ function isGameOver() {
    // wall left:
    if (headX < 0) {
       gameOver = true;
+      gameOverSound.play();
    }
 
    // wall right:
    else if (headX === tileCount) {
       gameOver = true;
+      gameOverSound.play();
    }
 
    // wall bottom:
    else if (headY < 0) {
       gameOver = true;
+      gameOverSound.play();
    }
       
    // wall top:
    else if (headY === tileCount) {
       gameOver = true;
+      gameOverSound.play();
    }
    
    // This is for snake body. If u hit your own body game will end
-
    for (let i = 0; i < snakeParts.length; i++) {
       let part = snakeParts[i];
 
       if (part.x === headX && part.y === headY) {
          gameOver = true;
+         gameOverSound.play();
          break;
       }
    }
@@ -149,6 +168,7 @@ function checkAppleCollision() {
       appleY = Math.floor(Math.random() * tileCount);
       tailLength++;
       score++;
+      gulpSound.play();
    }
 }
 
