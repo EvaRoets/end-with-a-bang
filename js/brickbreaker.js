@@ -75,7 +75,7 @@ const drawLives = () => {
     context.fillStyle = "#ff1493";
     context.fillText("❤ = " + `${localStorage.livesUp}`, canvas.width - 32, canvas.height - 142);
 }
-let lives = 3; // delete after livesDown()
+// let lives = 3; // delete after livesDown()
 
 const stopBall = () => {
     xDrawn = 0;
@@ -112,6 +112,7 @@ const levelUp = () => {
             localStorage.setItem("previousLivesUp", localStorage.livesUp);
             localStorage.levelUp = Number(localStorage.levelUp) + 1;
             localStorage.livesUp = Number(localStorage.livesUp) + 1;
+            localStorage.livesDown = Number(localStorage.livesUp) -1;
         } else {
             localStorage.levelUp = 1;
 
@@ -186,7 +187,7 @@ play.addEventListener("click", () => {
                         brick.status = 0;
                         scoreUp();
                         // if (localStorage.scoreUp === brickRowCount * brickColCount) {
-                        if (localStorage.scoreUp == 2) {
+                        if (localStorage.scoreUp == 2) { // for testing purposes only
                             levelUp();
                             stopBall();
                             message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤ <br> Next: level ${localStorage.levelUp}`;
@@ -210,6 +211,9 @@ play.addEventListener("click", () => {
         drawLives();
         drawLevels();
         requestAnimationFrame(draw);
+
+        //TO FIX LOSING LIVES
+
         if (y + yDrawn <= 1) { //when ball goes outside top canvas wall
             yDrawn = -yDrawn;//reverse direction on y axis = bounce
         } else if (y + yDrawn > canvas.height - 1) { // when ball goes outside bottom canvas wall
@@ -229,10 +233,9 @@ play.addEventListener("click", () => {
                     x = canvas.width / 2;
                     y = canvas.height - 30;
                     paddleX = (canvas.width - paddleWidth) / 2;
-                    lives--
-                    message.innerHTML = "Oh, you missed the ball! ☹ <br> You have " + lives + " ❤ left."
-                    // livesDown();
-                    // message.innerHTML = `Oh, you missed the ball! ☹ <br> You have ${localStorage.livesDown} ❤.`
+                    // message.innerHTML = "Oh, you missed the ball! ☹ <br> You have " + lives + " ❤ left."
+                    livesDown();
+                    message.innerHTML = `Oh, you missed the ball! ☹ <br> You have ${localStorage.livesDown} ❤.`
                 }
             }
         }
