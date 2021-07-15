@@ -131,7 +131,6 @@ let capital = () => {
 
 let gameOn = (selectedWord, hint) => {
 
-
     // Create blanks for each letter in the word to be guessed
     let letters = [];
     console.log(selectedWord);
@@ -147,13 +146,14 @@ let gameOn = (selectedWord, hint) => {
     document.getElementById("guessedWord").innerHTML = letters.join("");
 
     // Get a hint
-
     document.getElementById("hintButton").addEventListener("click", () => {
         document.getElementById("hint").style.visibility = "visible";
         document.getElementById("hint").innerHTML = hint;
         console.log(hint)
-        lives -= 1;
-        document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
+        if (lives >0) {
+            lives -= 1;
+            document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
+        }
     }, {once: true})
 
     // User selection of the letter
@@ -164,6 +164,7 @@ let gameOn = (selectedWord, hint) => {
 
             }
             else if
+
                 // If letter in word, substitute blank with letter
                 (selectedWord.indexOf(button.innerHTML) !== -1) {
                     let clickedLetter = button.innerHTML.toString();
@@ -184,7 +185,6 @@ let gameOn = (selectedWord, hint) => {
                         }
                     }
                 }
-
 
             // If letter not in the word, deduct life
             else {
@@ -212,5 +212,6 @@ let gameOn = (selectedWord, hint) => {
 }
 
 // TODO: check no of lives against graphics
+// TODO: only one button to be clicked for level
 
 
