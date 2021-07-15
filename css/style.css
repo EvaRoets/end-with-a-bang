@@ -24,7 +24,7 @@ svg {
     background-color: #212529  !important;
     margin: 1rem;
     border: 2px solid black; /* 20, 247, 41 */
-    box-shadow: rgba(20, 247, 41) 0px 25px 20px -20px;
+    box-shadow: rgba(20, 247, 41) 0px 15px 20px -15px;
     text-align: center;
  }
 
