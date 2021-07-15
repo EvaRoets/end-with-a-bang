@@ -8,16 +8,14 @@ a {
     line-height: 2;
 }
 
-<<<<<<< HEAD
 svg {
     padding-right: 1rem;
 }
 
 .col-4{
     padding: 1rem;
-=======
+}
 @font-face {
     font-family: Emulogic;
     src: url(../font/Emulogic.ttf);
->>>>>>> 67937939b10582759bd7ac6e494b88d944be072d
 }
