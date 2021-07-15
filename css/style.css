@@ -6,6 +6,8 @@ body {
 
 
 a {
+    text-decoration: none;
+    color: #14F729;
     display: block;
     line-height: 2;
 }
