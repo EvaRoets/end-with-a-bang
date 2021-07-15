@@ -34,15 +34,19 @@
     <title>Connect Four</title>
 </head>
 <body>
+
 <div class="container">
-    <p class="instructions">Push one of the arrows to insert a disk</p>
-    <button id="add-a">&darr;</button>
-    <button id="add-b">&darr;</button>
-    <button id="add-c">&darr;</button>
-    <button id="add-d">&darr;</button>
-    <button id="add-e">&darr;</button>
-    <button id="add-f">&darr;</button>
-    <button id="add-g">&darr;</button>
+    <p class="announcement">Push one of the arrows to insert a disk</p>
+    <button id="playAgain">Play Again</button>
+    <div class="arrows">
+        <button id="add-a">&darr;</button>
+        <button id="add-b">&darr;</button>
+        <button id="add-c">&darr;</button>
+        <button id="add-d">&darr;</button>
+        <button id="add-e">&darr;</button>
+        <button id="add-f">&darr;</button>
+        <button id="add-g">&darr;</button>
+    </div>
     <div class="connectfour">
         <div id="a1"></div>
         <div id="b1"></div>
@@ -91,8 +95,8 @@
         <button id="reset">reset</button>
         <div id="player">Player 1's turn</div>
         <div id="score">Score
-            <div id="p1">0</div>
-            <div id="p2">0</div>
+            <div id="p1">p1 0</div>
+            <div id="p2">p2 0</div>
         </div>
     </div>
 </div>

@@ -1,4 +1,6 @@
 (() => {
+    document.getElementById('playAgain').style.display = 'none';
+
     const initBoard = () => {
         const col = 7;
         const row = 6;
@@ -48,7 +50,10 @@
     }
 
     const changePlayer = () => {
-        if(player == 1){
+        if(document.getElementById('player').innerHTML == "Player " + player + " has won!"){
+            
+        }
+        else if(player == 1){
             player = 2;
             document.getElementById('player').innerHTML = "Player 2's turn";
         }
@@ -59,7 +64,6 @@
     }
 
     let board = initBoard();
-    console.log(board);
     let player = 1;
     let score = [];
     score[1] = 0;
@@ -166,10 +170,12 @@
             board[6][2] == player &&  board[5][3] == player &&  board[4][4] == player &&  board[3][5] == player 
             
         ){
-            alert("Player "+player+" has won!");
+            document.getElementById('player').innerHTML = "Player " + player + " has won!";
             score[player] += 1;
-            document.getElementById('p'+player).innerHTML = score[player];
-            reset();
+            document.getElementById('p'+player).innerHTML = "P" + player + " " + score[player];
+            document.querySelector('.arrows').style.display = 'none';
+            document.getElementById('playAgain').style.display = 'block';
+            document.querySelector('.announcement').style.display = 'none';
         }
     }
 
@@ -262,7 +268,15 @@
         reset();
         score[1] = 0;
         score[2] = 0;
-        document.getElementById('p1').innerHTML = 0;
-        document.getElementById('p2').innerHTML = 0;
+        document.getElementById('p1').innerHTML = 'p1' + score[1];
+        document.getElementById('p2').innerHTML = 'p2' + score[2];
+    })
+
+    document.getElementById('playAgain').addEventListener('click', () => {
+        document.querySelector('.announcement').style.display = 'block';
+        document.querySelector('.arrows').style.display = 'grid';
+        document.getElementById('playAgain').style.display = 'none';
+        document.getElementById('player').innerHTML = "Player " + player + "'s turn";
+        reset();
     })
 })();
