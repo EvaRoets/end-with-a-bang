@@ -1,4 +1,5 @@
-//**VARIABLES**
+//TODO make responsive
+
 const canvas = document.getElementById("gameCanvas"); //create html canvas + enable drawing
 const message = document.getElementById("message");
 const playGame = document.getElementById("play");
@@ -91,14 +92,12 @@ const reloadGame = () => {
     window.location.reload();
 }
 
-//TO DELETE - for testing only
 const reset = document.getElementById("reset");
 reset.addEventListener("click", () => {
     localStorage.clear();
     reloadGame();
 })
 
-//store score in local storage, so when all bricks are broken and game is reloaded, score is saved
 const scoreUp = () => {
     if (typeof (Storage) !== "undefined") {
         if (localStorage.scoreUp) {
@@ -116,10 +115,9 @@ const levelUp = () => {
             localStorage.setItem("previousLivesUp", localStorage.livesUp);
             localStorage.levelUp = Number(localStorage.levelUp) + 1;
             localStorage.livesUp = Number(localStorage.livesUp) + 1;
-            localStorage.livesDown = Number(localStorage.livesUp) -1;
+            localStorage.livesDown = Number(localStorage.livesUp) - 1;
         } else {
             localStorage.levelUp = 1;
-
         }
     }
 }
@@ -189,12 +187,13 @@ playGame.addEventListener("click", () => {
                         y < brick.y + brickHeight) {
                         brickBreaking.play();
 
-                        //TODO FIX PLAY SOUND 
+                        //TODO FIX PLAY SOUND
+
                         yDrawn = -yDrawn; //bounce
                         brick.status = 0;
                         scoreUp();
                         if (localStorage.scoreUp === brickRowCount * brickColCount) {
-                        // if (localStorage.scoreUp == 2) { // for testing purposes only
+                            // if (localStorage.scoreUp == 2) { // for testing purposes only
                             winner.play();
                             levelUp();
                             stopBall();
@@ -220,7 +219,7 @@ playGame.addEventListener("click", () => {
         drawLevels();
         requestAnimationFrame(draw);
 
-        //TO FIX LOSING LIVES
+        //TODO check LOSING LIVES
 
         if (y + yDrawn <= 1) { //when ball goes outside top canvas wall
             yDrawn = -yDrawn;//reverse direction on y axis = bounce
@@ -274,4 +273,3 @@ playGame.addEventListener("click", () => {
 });
 
 
-//TODO make responsive
