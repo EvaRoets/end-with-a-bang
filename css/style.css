@@ -6,3 +6,11 @@ a {
     display: block;
     line-height: 2;
 }
+
+svg {
+    padding-right: 1rem;
+}
+
+.col-4{
+    padding: 1rem;
+}
