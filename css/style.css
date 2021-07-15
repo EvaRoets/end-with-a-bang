@@ -1,8 +1,22 @@
 body {
     margin: 2rem;
+    font-family: Emulogic, cursive;
 }
 
 a {
     display: block;
     line-height: 2;
+}
+
+svg {
+    padding-right: 1rem;
+}
+
+.col-4{
+    padding: 1rem;
+}
+
+@font-face {
+    font-family: Emulogic;
+    src: url(../font/Emulogic.ttf);
 }

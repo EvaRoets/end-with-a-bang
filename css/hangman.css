@@ -1,12 +1,12 @@
 body {
     background-color: black;
-    color: white;
-    font-family: 'Permanent Marker', cursive;
+    color: #FE0000;
+    font-family: Emulogic, cursive;
     text-align: center;
 }
 
 #gameName {
-    font-size: 3rem;
+    font-size: 2.5rem;
     padding: 1rem 0;
 }
 
@@ -16,16 +16,18 @@ body {
 }
 
 .level {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 1rem;
+    font-family: Emulogic, cursive;
+    font-size: 0.6rem;
     width: 7rem;
     margin: 0.4rem 0.2rem;
     border-radius: 5px;
     border-style: none;
+    background-color: #14F729;
 }
 
 .level:hover {
     cursor: pointer;
+    background-color: white;
 }
 
 #containerGraph {
@@ -42,7 +44,7 @@ body {
     flex-direction: column;
     margin-top: 50px;
     margin-left: -50px;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
 }
 
 #soulsSaved, #soulsLost {
@@ -51,14 +53,17 @@ body {
 }
 
 #reset {
-    font-family: 'Permanent Marker', cursive;
-    width: 100px;
+    font-family: Emulogic, cursive;
+    font-size: 0.6rem;
+    width: 120px;
     border-radius: 5px;
     border-style: none;
+    background-color: #14F729;
 }
 
 #reset:hover {
     cursor: pointer;
+    background-color: white;
 }
 
 #hint {
@@ -71,37 +76,33 @@ body {
 }
 
 #hintButton {
-    font-family: 'Permanent Marker', cursive;
+    font-family: Emulogic, cursive;
+    font-size: 0.6rem;
     width: 50px;
     border-radius: 5px;
     border-style: none;
+    background-color: #14F729;
 }
 
 #hintButton:hover {
     cursor: pointer;
+    background-color: white;
 }
 
 .tooltip:before {
     content: attr(data-text);
     position:absolute;
-
-    /* vertically center */
     top:50%;
     transform:translateY(-50%);
-
-    /* move to right */
     left:50%;
-    margin-left:15px; /* and add a small left margin */
-
-    /* basic styles */
+    margin-left:15px;
     width:200px;
     padding:10px;
     border-radius:10px;
     background: white;
     color: black;
     text-align:center;
-
-    display:none; /* hide by default */
+    display:none;
 }
 
 .tooltip:hover:before {
@@ -109,13 +110,14 @@ body {
 }
 
 #guessedWord {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     padding: 0 15px 2rem 15px;
     letter-spacing: 0.5rem;
 }
 
 #wordWas {
     margin-bottom: 1rem;
+    font-size: 0.6rem;
 }
 
 #letterButtons {
@@ -124,70 +126,80 @@ body {
 }
 
 .buttons {
-    font-family: 'Permanent Marker', cursive;
-    font-size: 1.5rem;
+    font-family: Emulogic, cursive;
+    font-size: 1rem;
     width: 2.5rem;
     margin: 0.2rem;
     border-radius: 5px;
     border-style: none;
+    background-color: #14F729;
 }
 
 .buttons:hover {
     cursor: pointer;
+    background-color: white;
 }
 
+.buttons:focus {
+    background-color: white;
+}
+
+
 #gameResult {
-    font-size: 3rem;
+    font-size: 2rem;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
 #playAgainButton {
-    font-size: 1.5rem;
-    font-family: 'Permanent Marker', cursive;
+    font-size: 1rem;
+    font-family: Emulogic, cursive;
     padding: 3px 10px;
     margin: 20px;
     border-style: none;
     border-radius: 5px;
     visibility: hidden;
+    background-color: #14F729;
 }
 
 #playAgainButton:hover {
     cursor: pointer;
+    background-color: white;
+
 }
 
 @media only screen and (min-width: 768px) {
     #levels {
-        width: 600px;
+        width: 750px;
         margin-top: 20px;
     }
     .level {
-        font-size: 1.5rem;
-        width: 8rem;
+        font-size: 1rem;
+        width: 10rem;
         z-index: 1;
     }
     #graphic {
         width: 550px;
-        margin-left: -280px;
+        margin-left: -200px;
         margin-top: -70px;
         z-index: -1;
     }
     #score {
-        font-size: 1.5rem;
-        margin: 80px -100px 0 0;
+        font-size: 1rem;
+        margin: 80px -60px 0 0;
+    }
+    #reset {
+        font-size: 0.8rem;
+        width: 160px;
     }
     #hint {
-        font-size: 1rem;
+        font-size: 0.8rem;
         max-width: 300px;
         height: 120px;
         margin-top: 20px;
     }
-    #reset {
-        font-size: 1rem;
-        width: 120px;
-    }
     #guessedWord {
-        font-size: 3rem;
+        font-size: 2rem;
         margin-top: -70px;
     }
     #wordWas {
@@ -197,7 +209,7 @@ body {
         max-width: 750px;
     }
     .buttons {
-        font-size: 2rem;
+        font-size: 1.5rem;
         width: 50px;
     }
 }
