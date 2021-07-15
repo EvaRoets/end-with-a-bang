@@ -67,17 +67,15 @@ const drawScore = () => {
 const drawLevels = () => {
     context.font = "10px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("Level " + `${localStorage.levelUp}`, canvas.width - 160, canvas.height - 142);
+    context.fillText("Level " + `${localStorage.levelUp}`, canvas.width - 165, canvas.height - 142);
 }
 
 const drawLives = () => {
     context.font = "10px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("❤ = " + `${localStorage.livesUp}`, canvas.width - 28, canvas.height - 142);
-    // context.fillText("❤ = " + lives, canvas.width - 32, canvas.height - 142);
-
+    context.fillText("❤ = " + `${localStorage.livesUp}`, canvas.width - 32, canvas.height - 142);
 }
-let lives = 3;
+let lives = 3; // delete after livesDown()
 
 const stopBall = () => {
     xDrawn = 0;
@@ -110,6 +108,8 @@ const scoreUp = () => {
 const levelUp = () => {
     if (typeof (Storage) !== "undefined") {
         if (localStorage.levelUp) {
+            localStorage.setItem("previousLevelUp", localStorage.levelUp);
+            localStorage.setItem("previousLivesUp", localStorage.livesUp);
             localStorage.levelUp = Number(localStorage.levelUp) + 1;
             localStorage.livesUp = Number(localStorage.livesUp) + 1;
         } else {
@@ -118,7 +118,6 @@ const levelUp = () => {
         }
     }
 }
-
 
 window.addEventListener('load', () => {
     if (typeof (Storage) !== "undefined") {
@@ -179,10 +178,9 @@ play.addEventListener("click", () => {
                         scoreUp();
                         // if (localStorage.scoreUp === brickRowCount * brickColCount) {
                         if (localStorage.scoreUp == 2) {
+                            levelUp();
                             stopBall();
-                            // message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤.`;
-                            message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤. <br> Next: level ${localStorage.levelUp}`;
-                            // message.innerHTML = "YOU WIN! 🥇 <br> You now have" + lives + "❤."
+                            message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤ <br> Next: level ${localStorage.levelUp}`;
                             setTimeout(() => {
                                 reloadGame();
                             }, 5000)
@@ -210,7 +208,7 @@ play.addEventListener("click", () => {
                 yDrawn = -yDrawn; //reverse direction on y axis = bounce
             } else {
                 if (livesUp === 0) {
-                // if (lives === 0) { //TO FIX
+                    // if (lives === 0) { //TO FIX
                     stopBall();
                     message.innerHTML = "GAME OVER! <br>You've lost all your lives! ☹";
                     setTimeout(() => {
