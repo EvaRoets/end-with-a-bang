@@ -1,7 +1,6 @@
 body {
     margin: 2rem;
     font-family: Emulogic, cursive;
-    background-color: aquamarine;
 }
 
 
@@ -16,21 +15,26 @@ svg {
     padding-right: 1rem;
 }
 
-.col-md-4, .col-md-2{
+.container-fluid {
     background-color: #212529 !important;
+    padding: 2rem;
 }
 
 .card {
-    padding: 2rem;
+    background-color: #212529  !important;
     margin: 1rem;
-    border: 2px solid black;
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    border: 2px solid black; /* 20, 247, 41 */
+    box-shadow: rgba(20, 247, 41) 0px 25px 20px -20px;
     text-align: center;
  }
 
  a{
     text-decoration: none !important;  
     color: #212529 !important;
+ }
+
+ h6 , h5{
+     color: white;
  }
 
 .footer {
