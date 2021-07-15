@@ -5,21 +5,35 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV702Y1J3N"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
         gtag('config', 'G-MV702Y1J3N');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/hangman.css">
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/hangman.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <meta name="authors" content="Ewelina">
+    <meta name="title" property="og:title" content="Play Hangman"/>
+    <meta name="description" property="og:description"
+          content="Feeling nostalgic for those retro arcade games? Play hangman!"/>
+    <meta property="og:image" content="/images/hangman.png"/>
+    <meta name="keywords" content="arcade, retro, gaming, games, hangman, word game, guessing game">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="10 days">
     <title>Hangman</title>
 </head>
 <body>
@@ -34,13 +48,15 @@
     </div>
     <div id="containerGraph">
         <img src="../images/hangman-stage7.png" alt="hangman" id="graphic">
-            <div id="score">
-                <p id="soulsSaved"></p>
-                <p id="soulsLost"></p>
-                <button id="reset">Reset score</button>
-                <p id="hint"></p>
-                <button id="hintButton" class="tooltip" data-text="One hint per word. Not available for easy option. Costs life.">Hint</button>
-            </div>
+        <div id="score">
+            <p id="soulsSaved"></p>
+            <p id="soulsLost"></p>
+            <button id="reset">Reset score</button>
+            <p id="hint"></p>
+            <button id="hintButton" class="tooltip"
+                    data-text="One hint per word. Not available for easy option. Costs life.">Hint
+            </button>
+        </div>
     </div>
     <div id="guessedWord"></div>
     <p id="wordWas"></p>
@@ -48,7 +64,6 @@
     <p id="gameResult"></p>
     <button id="playAgainButton">Play again</button>
 </div>
-
 
 
 <script src="../js/hangman.js"></script>

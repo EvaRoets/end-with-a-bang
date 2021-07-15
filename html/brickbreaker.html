@@ -1,38 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV702Y1J3N%22%3E</script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MV702Y1J3N"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
         gtag('config', 'G-MV702Y1J3N');
     </script>
-
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Brick Breaker</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/brickbreaker.css">
+    <meta name="authors" content="Eva">
+    <meta name="title" property="og:title" content="Play Brick Breaker"/>
+    <meta name="description" property="og:description"
+          content="Feeling nostalgic for those retro arcade games? Play Brick Breaker!"/>
+    <meta property="og:image" content="/images/brickbreaker"/>
+    <meta name="keywords"
+          content="arcade, retro, gaming, games, brickbreaker, brick breaker, breakout, shooting game, ball">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="10 days">
+    <title>Brick Breaker</title>
 </head>
 <body>
-    <div id="gameName">
-        <h1>Brick Breaker</h1>
+<div id="gameName">
+    <h1>Brick Breaker</h1>
+</div>
+<canvas id="gameCanvas">
+</canvas>
+<div class="scoreBoard">
+    <div id="message">
+        <p></p>
     </div>
-    <canvas id="gameCanvas">
-    </canvas>
-    <div class="scoreBoard">
-        <div id="message">
-            <p> </p>
-        </div>
-        <div class="playButtons">
-            <div class="play">
-                <button id="play">Play</button>
-            </div>
+    <div class="playButtons">
+        <div class="play">
+            <button id="play">Play</button>
         </div>
     </div>
+</div>
 <script src="../js/brickbreaker.js"></script>
 </body>
 </html>

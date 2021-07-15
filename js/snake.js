@@ -25,8 +25,8 @@ let appleY = 5;
 let score = 0;
 
 // adding audio:
-const gulpSound = new Audio('/audio/gulp.mp3');
-const gameOverSound = new Audio('/audio/over.wav');
+const gulpSound = new Audio('../audio/gulp.mp3');
+const gameOverSound = new Audio('../audio/over.wav');
 
 // here we set the game loop: We will use setTimeOut : This will give us help us change how often our screen gets updated. 
 

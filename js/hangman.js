@@ -1,5 +1,9 @@
 const alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 let lives = 7;
+let live = new Audio("../audio/live.wav")
+let death = new Audio("../audio/death.wav")
+let clickSound = new Audio("../audio/hint.wav")
+let letterSound = new Audio("../audio/letter.wav")
 
 // Set count of wins and losses to 0 in the local storage on load of the window
 
@@ -55,6 +59,7 @@ const soulsLost = () => {
 // Reset score in local storage
 
 document.getElementById("reset").addEventListener("click", () => {
+    clickSound.play()
     localStorage.setItem("soulsSaved", 0);
     localStorage.setItem("soulsLost", 0);
     window.location.reload();
@@ -114,10 +119,12 @@ let capital = () => {
 const levels = document.querySelectorAll(".level");
 for (let level of levels) {
     level.addEventListener("click", () => {
+        clickSound.play()
         if (level.id === "easy") {
             document.getElementById("difficult").disabled = true;
             document.getElementById("countries").disabled = true;
             document.getElementById("capitals").disabled = true;
+            document.getElementById("hintButton").disabled = true;
             easyWord();
         }
         else if (level.id === "difficult") {
@@ -161,6 +168,7 @@ let gameOn = (selectedWord, hint) => {
 
     // Get a hint
     document.getElementById("hintButton").addEventListener("click", () => {
+        clickSound.play()
         document.getElementById("hint").style.visibility = "visible";
         document.getElementById("hint").innerHTML = hint;
         console.log(hint)
@@ -174,6 +182,7 @@ let gameOn = (selectedWord, hint) => {
     const buttons = document.querySelectorAll(".buttons");
     for (let button of buttons) {
         button.addEventListener("click", () => {
+            letterSound.play()
             if (document.getElementById("gameResult").innerHTML === `game over`) {
 
             }
@@ -187,6 +196,7 @@ let gameOn = (selectedWord, hint) => {
                             letters[i] = clickedLetter
                             document.getElementById("guessedWord").innerHTML = letters.join("");
                             if (letters.includes("_") === false) {
+                                live.play()
                                 document.getElementById("gameResult").style.visibility = "visible";
                                 document.getElementById("gameResult").innerHTML = "You win!";
                                 document.getElementById("playAgainButton").style.visibility = "visible";
@@ -208,6 +218,7 @@ let gameOn = (selectedWord, hint) => {
                     document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
                 }
                 else if (lives === 0) {
+                    death.play();
                     document.getElementById("gameResult").style.visibility = `visible`;
                     document.getElementById("gameResult").innerHTML = `game over`;
                     document.getElementById("wordWas").style.visibility = `visible`;
