@@ -1,16 +1,22 @@
-/*general css*/
+@font-face {
+    font-family: Emulogic;
+    src: url(../font/Emulogic.ttf);
+}
+
 body {
-    background-color: #FFF;
+    margin: 2rem;
+    background-color: #000;
 }
 
 h1 {
-    font-family: 'Roboto', sans-serif;
-    color: deeppink;
+    color: #14F729;
     font-size: 35px;
     font-weight: 700;
     text-align: center;
     padding: 20px;
     margin: 20px;
+    font-family: inherit;
+
 }
 
 #gameCanvas {
@@ -20,8 +26,8 @@ h1 {
     width: 600px;
     height: 350px;
     border-radius: 25px;
-    border: deeppink solid 5px;
-    box-shadow: 5px 10px 18px #2e3351;
+    border: #14F729 solid 5px;
+    box-shadow: 5px 10px 18px #14F729;
     margin: auto;
     object-fit: contain;
 }
@@ -29,23 +35,26 @@ h1 {
 #message {
     display: block;
     margin: 50px auto 0 auto;
-    color: deeppink;
+    color: #14F729;
     font-size: 20px;
-    font-family: 'Roboto', sans-serif;
     text-align: center;
+    font-family: inherit;
+
 }
 
-button{
+button {
     display: block;
-    background-color: deeppink;
-    border: solid 10px deeppink;
+    background-color: #14F729;
+    border: solid 10px #14F729;
     border-radius: 40px;
-    color: #fff;
+    color: #000;
     font-size: 25px;
     padding: 15px 32px;
     text-align: center;
     margin: 50px auto 20px auto;
-    box-shadow: 5px 10px 18px #2e3351;
+    box-shadow: 5px 10px 18px #14F729;
+    font-family: inherit;
+
 }
 
 button:hover {
