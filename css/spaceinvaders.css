@@ -26,3 +26,7 @@
 .boom {
 	background-image: url(../images/boom.png);
 }
+
+#playAgain{
+	display: none;
+}
