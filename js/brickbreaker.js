@@ -1,7 +1,7 @@
 //**VARIABLES**
 const canvas = document.getElementById("gameCanvas"); //create html canvas + enable drawing
 const message = document.getElementById("message");
-const play = document.getElementById("play");
+const playGame = document.getElementById("play");
 const context = canvas.getContext("2d");
 const ballRadius = 3; // make ball
 let x = canvas.width / 2; //define starting point in canvas in variables x and y
@@ -20,6 +20,11 @@ let brickHeight = 8;
 const brickPadding = 2;
 const brickOffsetTop = 15;
 const brickOffsetLeft = 5;
+const brickBreaking = new Audio("../audio/brickbrick.wav");
+const ballBounce = ("../audio/ballbounce.wav");
+const ballDrop = new Audio("../audio/balldrop.wav");
+const gameOver = new Audio("../audio/game-over.wav");
+const winner = new Audio("../audio/winner-sound-effect.mp3");
 let bricks = []; // loop through all bricks (col and row)
 for (let col = 0; col < brickColCount; col++) {
     bricks[col] = [];
@@ -30,7 +35,7 @@ for (let col = 0; col < brickColCount; col++) {
 const drawBall = () => {
     context.beginPath();
     context.arc(x, y, ballRadius, 0, Math.PI * 2);
-    context.fillStyle = "#0000FF";
+    context.fillStyle = "#FF0000";
     context.fill();
     context.closePath();
 }
@@ -172,7 +177,7 @@ window.addEventListener('load', () => {
     document.addEventListener("mousemove", mouseMove, false); // enable mouse controls paddle
 });
 
-play.addEventListener("click", () => {
+playGame.addEventListener("click", () => {
     message.innerHTML = "Let's go!";
     const collisionDetection = () => { //detect collision
         for (let col = 0; col < brickColCount; col++) {
@@ -185,9 +190,11 @@ play.addEventListener("click", () => {
                         y < brick.y + brickHeight) {
                         yDrawn = -yDrawn; //bounce
                         brick.status = 0;
+                        brickBreaking.play();
                         scoreUp();
                         // if (localStorage.scoreUp === brickRowCount * brickColCount) {
                         if (localStorage.scoreUp == 2) { // for testing purposes only
+                            winner.play();
                             levelUp();
                             stopBall();
                             message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤ <br> Next: level ${localStorage.levelUp}`;
@@ -219,11 +226,13 @@ play.addEventListener("click", () => {
         } else if (y + yDrawn > canvas.height - 1) { // when ball goes outside bottom canvas wall
             if (x > paddleX && //make ball bounce off paddle
                 x < paddleX + paddleWidth) {
+                ballBounce.play();
                 yDrawn = -yDrawn; //reverse direction on y axis = bounce
             } else {
                 if (livesUp === 0) {
                     // if (lives === 0) { //TO FIX
                     stopBall();
+                    gameOver.play();
                     message.innerHTML = "GAME OVER! <br>You've lost all your lives! ☹";
                     setTimeout(() => {
                         localStorage.clear();
@@ -234,6 +243,7 @@ play.addEventListener("click", () => {
                     y = canvas.height - 30;
                     paddleX = (canvas.width - paddleWidth) / 2;
                     // message.innerHTML = "Oh, you missed the ball! ☹ <br> You have " + lives + " ❤ left."
+                    ballDrop.play();
                     livesDown();
                     message.innerHTML = `Oh, you missed the ball! ☹ <br> You have ${localStorage.livesDown} ❤.`
                 }
