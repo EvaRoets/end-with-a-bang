@@ -89,7 +89,7 @@ const scoreUp = () => {
         if (localStorage.scoreUp) {
             localStorage.scoreUp = Number(localStorage.scoreUp) + 1;
         } else {
-            localStorage.setItem("scoreUp", 0);
+            localStorage.setItem("scoreUp", "0");
         }
     }
 }
@@ -98,7 +98,7 @@ const livesDown = () => {
         if (localStorage.livesDown) {
             localStorage.livesDown = Number(localStorage.livesUp) - 1;
         } else {
-            localStorage.setItem("livesDown", 0);
+            localStorage.setItem("livesDown", "0");
         }
     }
 }
@@ -107,7 +107,7 @@ const livesUp = () => {
         if (localStorage.livesUp) {
             localStorage.livesUp = Number(localStorage.livesUp) + 1;
         } else {
-            localStorage.setItem("livesUp", 3); // string, not number
+            localStorage.setItem("livesUp", "3"); // string, not number
         }
     }
     lives = localStorage.livesUp
@@ -117,7 +117,7 @@ const levelUp = () => {
         if (localStorage.levelUp) {
             localStorage.levelUp = Number(localStorage.levelUp) + 1;
         } else {
-            localStorage.setItem("levelUp", 1); // string, not number
+            localStorage.setItem("levelUp", "1"); // string, not number
         }
     }
     levels = localStorage.levelUp
@@ -132,16 +132,16 @@ const levelUp = () => {
 window.addEventListener('load', () => {
     if (typeof (Storage) !== "undefined") { //set lives to 3 in local storage
         if (!localStorage.livesUp) {
-            localStorage.setItem("LivesUp", 3);
+            localStorage.setItem("LivesUp", "3");
         }
         if (!localStorage.livesDown) {
-            localStorage.setItem("livesDown", 0);
+            localStorage.setItem("livesDown", "0");
         }
         if (!localStorage.levelUp) {
-            localStorage.setItem("levelUp", 1);
+            localStorage.setItem("levelUp", "1");
         }
         if (!localStorage.scoreUp) {
-            localStorage.setItem("scoreUp", 0);
+            localStorage.setItem("scoreUp", "0");
         }
     }
     drawPaddle();
