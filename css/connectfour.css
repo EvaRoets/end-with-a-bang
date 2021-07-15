@@ -1,13 +1,13 @@
 body{
     margin: 0px;
     background-color: black;
-    color: green;
+    color: #14F729;
 }
 a{
-    color: green;
+    color: #14F729;
 }
 .connectfour{
-    border: 2px solid green;
+    border: 2px solid #14F729;
     display: grid;
     grid-template-columns: 100px 100px 100px 100px 100px 100px 100px;
     grid-template-rows: 100px 100px 100px 100px 100px 100px;
@@ -20,7 +20,7 @@ a{
     margin: 20px;
 }
 .connectfour div{
-    border: 2px solid green;
+    border: 2px solid #14F729;
     border-radius: 100%;
     margin: 5px;
 }
@@ -38,14 +38,14 @@ a{
 .arrows button{
     background-color: inherit;
     border: none;
-    color: green;
+    color: #14F729;
     font-size: 40px;
     margin: 25px;
 }
 #reset, #playAgain{
     font-size: 20px;
     background-color: inherit;
-    color: green;
+    color: #14F729;
     border: none;
     font-family: inherit;
 }

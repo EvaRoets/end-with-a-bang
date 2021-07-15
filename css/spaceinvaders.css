@@ -1,12 +1,12 @@
 body{
 	margin: 0px;
-	color: green;
+	color: #14F729;
 	background-color: black;
 }
 
 a{
 	text-decoration: none;
-	color: green;
+	color: #14F729;
 }
 
 h1{
@@ -26,7 +26,7 @@ h1{
 .battlefield {
 	width: 450px;
 	height: 450px;
-	border: solid green 1px;
+	border: solid #14F729 1px;
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -53,7 +53,7 @@ button {
 	font-family: inherit;
 	margin-top: 15px;
 	font-size: 26px;
-	border: 2px solid green;
+	border: 2px solid #14F729;
 	background-color: inherit;
 	border-radius: 0%;
 	color: inherit;
