@@ -20,8 +20,6 @@ let brickHeight = 8;
 const brickPadding = 2;
 const brickOffsetTop = 15;
 const brickOffsetLeft = 5;
-let lives = 3;
-let levels = 1;
 let bricks = []; // loop through all bricks (col and row)
 for (let col = 0; col < brickColCount; col++) {
     bricks[col] = [];
@@ -63,18 +61,22 @@ const drawBricks = () => { //make bricks disappear when hit by the ball
 const drawScore = () => {
     context.font = "10px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("Your score = " + score, canvas.width - 293, canvas.height - 142);
+    context.fillText("Your score = " + `${localStorage.scoreUp}`, canvas.width - 293, canvas.height - 142);
 }
 const drawLives = () => {
     context.font = "10px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
-    context.fillText("❤ = " + `${localStorage.livesUp}`, canvas.width - 28, canvas.height - 142);
+    // context.fillText("❤ = " + `${localStorage.livesUp}`, canvas.width - 28, canvas.height - 142);
+    context.fillText("❤ = " + lives, canvas.width - 28, canvas.height - 142);
+
 }
-const drawLevels = () => {
-    context.font = "10px 'Roboto', sans-serif";
-    context.fillStyle = "#ff1493";
-    context.fillText("Level " + `${localStorage.levelsUp}`, canvas.width - 160, canvas.height - 142);
-}
+let lives = 3;
+// const drawLevels = () => {
+//     context.font = "10px 'Roboto', sans-serif";
+//     context.fillStyle = "#ff1493";
+//     context.fillText("Level " + `${localStorage.levelsUp}`, canvas.width - 160, canvas.height - 142);
+// }
+// let levels = 1;
 const stopBall = () => {
     xDrawn = 0;
     yDrawn = 0;
@@ -82,73 +84,89 @@ const stopBall = () => {
     y = canvas.height - 30;
 }
 const reloadGame = () => {
+    localStorage.clear();
+    lives = 3
     window.location.reload();
 }
+
+//TO DELETE - for testing only
+const reset = document.getElementById("reset");
+reset.addEventListener("click", () => {
+    reloadGame();
+})
+
+
+//store score in local storage, so when all bricks are broken and game is reloaded, score is saved
 const scoreUp = () => {
     if (typeof (Storage) !== "undefined") {
         if (localStorage.scoreUp) {
             localStorage.scoreUp = Number(localStorage.scoreUp) + 1;
         } else {
-            localStorage.setItem("scoreUp", "0");
+            localStorage.scoreUp = 1;
         }
     }
 }
-const livesDown = () => {
-    if (typeof (Storage) !== "undefined") {
-        if (localStorage.livesDown) {
-            localStorage.livesDown = Number(localStorage.livesUp) - 1;
-        } else {
-            localStorage.setItem("livesDown", "0");
-        }
-    }
-}
-const livesUp = () => {
-    if (typeof (Storage) !== "undefined") {
-        if (localStorage.livesUp) {
-            localStorage.livesUp = Number(localStorage.livesUp) + 1;
-        } else {
-            localStorage.setItem("livesUp", "3"); // string, not number
-        }
-    }
-    lives = localStorage.livesUp
-}
-const levelUp = () => {
-    if (typeof (Storage) !== "undefined") {
-        if (localStorage.levelUp) {
-            localStorage.levelUp = Number(localStorage.levelUp) + 1;
-        } else {
-            localStorage.setItem("levelUp", "1"); // string, not number
-        }
-    }
-    levels = localStorage.levelUp
-    reloadGame();
-    brickRowCount++
-    xDrawn++
-    yDrawn++
-    brickHeight--
-    paddleWidth -= 5
-}
+// const livesUp = () => {
+//     if (typeof (Storage) !== "undefined") {
+//         if (localStorage.livesUp) {
+//             localStorage.livesUp = Number(localStorage.livesUp) + 1;
+//         } else {
+//             localStorage.livesUp = 3;
+//         }
+//     }
+// }
+// const livesDown = () => {
+//     if (typeof (Storage) !== "undefined") {
+//         if (localStorage.livesDown) {
+//             localStorage.livesDown = Number(localStorage.livesUp) - 1;
+//         } else {
+//             localStorage.livesDown = 1;
+//         }
+//     }
+// }
+// const levelUp = () => {
+//     if (typeof (Storage) !== "undefined") {
+//         if (localStorage.levelUp) {
+//             localStorage.levelUp = Number(localStorage.levelUp) + 1;
+//         } else {
+//             localStorage.setItem("levelUp");
+//             localStorage.livesUp = 1;
+//
+//         }
+//     }
+//     // levels = localStorage.levelUp;
+//     // score = localStorage.scoreUp;
+//     // lives = localStorage.livesUp + localStorage.livesDown
+//     // reloadGame();
+//     // brickRowCount++
+//     // xDrawn++
+//     // yDrawn++
+//     // brickHeight--
+//     // paddleWidth -= 5
+// }
+
 
 window.addEventListener('load', () => {
     if (typeof (Storage) !== "undefined") { //set lives to 3 in local storage
-        if (!localStorage.livesUp) {
-            localStorage.setItem("LivesUp", "3");
-        }
-        if (!localStorage.livesDown) {
-            localStorage.setItem("livesDown", "0");
-        }
-        if (!localStorage.levelUp) {
-            localStorage.setItem("levelUp", "1");
-        }
         if (!localStorage.scoreUp) {
             localStorage.setItem("scoreUp", "0");
         }
+        // if (!localStorage.livesUp) {
+        //     localStorage.setItem("livesUp", "0");
+        // }
+        // if (!localStorage.livesDown) {
+        //     localStorage.setItem("livesDown", "0");
+        // }
+        // if (!localStorage.levelUp) {
+        //     localStorage.setItem("levelUp", "1");
+        // }
     }
     drawPaddle();
     drawBricks();
     drawScore();
     drawLives();
-    drawLevels();
+    // drawLevels();
+
     const keyDown = (event) => {
         if (event.key === "Right" || event.key === "ArrowRight") {
             pressRight = true;
@@ -187,13 +205,17 @@ play.addEventListener("click", () => {
                         y < brick.y + brickHeight) {
                         yDrawn = -yDrawn; //bounce
                         brick.status = 0;
-                        scoreUp(); //track score
+                        scoreUp();
                         if (localStorage.scoreUp === brickRowCount * brickColCount) {
-                            message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤. <br> Next: level ${localStorage.livesUp}`;
+                            // livesUp();
+                            lives++
+                            // message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤.`;
+                            // message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤. <br> Next: level ${localStorage.livesUp}`;
+                            message.innerHTML = "YOU WIN! 🥇 <br> You now have" + lives + "❤."
                             stopBall();
                             setTimeout(() => {
-                                levelUp();
-                                livesUp();
+                                reloadGame();
+                                // levelUp();
                             }, 5000)
                         }
                     }
@@ -209,7 +231,7 @@ play.addEventListener("click", () => {
         drawBricks();
         drawScore();
         drawLives();
-        drawLevels();
+        // drawLevels();
         requestAnimationFrame(draw);
         if (y + yDrawn <= 1) { //when ball goes outside top canvas wall
             yDrawn = -yDrawn;//reverse direction on y axis = bounce
@@ -218,15 +240,12 @@ play.addEventListener("click", () => {
                 x < paddleX + paddleWidth) {
                 yDrawn = -yDrawn; //reverse direction on y axis = bounce
             } else {
-                livesDown();
-                if (livesUp === 0) {
-                    message.innerHTML = "GAME OVER! <br>You've lost all your lives! ☹";
+                // if (livesUp === 0) {
+                if (lives === 0) {
                     stopBall();
+                    message.innerHTML = "GAME OVER! <br>You've lost all your lives! ☹";
                     setTimeout(() => {
                         reloadGame();
-                        //TODO lives = 3
-                        //TODO reset score = 0
-                        //TODO level = 1
                     }, 5000)
                 } else {
                     x = canvas.width / 2;
@@ -234,7 +253,10 @@ play.addEventListener("click", () => {
                     xDrawn = 2;
                     yDrawn = -2;
                     paddleX = (canvas.width - paddleWidth) / 2;
-                    message.innerHTML = `Oh, you missed the ball! ☹ <br> You have ${localStorage.livesDown} ❤.`
+                    lives--
+                    message.innerHTML = "Oh, you missed the ball! ☹ <br> You have " + lives + " ❤ left."
+                    // livesDown();
+                    // message.innerHTML = `Oh, you missed the ball! ☹ <br> You have ${localStorage.livesDown} ❤.`
                 }
             }
         }
@@ -260,7 +282,6 @@ play.addEventListener("click", () => {
     draw();
 });
 
+
 //TODO Add sound when bricks are breaking
 //TODO make responsive
-
-
