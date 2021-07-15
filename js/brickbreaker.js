@@ -64,6 +64,12 @@ const drawScore = () => {
     context.fillText("Your score = " + `${localStorage.scoreUp}`, canvas.width - 293, canvas.height - 142);
 }
 
+const drawLevels = () => {
+    context.font = "10px 'Roboto', sans-serif";
+    context.fillStyle = "#ff1493";
+    context.fillText("Level " + `${localStorage.levelUp}`, canvas.width - 160, canvas.height - 142);
+}
+
 const drawLives = () => {
     context.font = "10px 'Roboto', sans-serif";
     context.fillStyle = "#ff1493";
@@ -71,7 +77,8 @@ const drawLives = () => {
     // context.fillText("❤ = " + lives, canvas.width - 32, canvas.height - 142);
 
 }
-// let lives = 3;
+let lives = 3;
+
 const stopBall = () => {
     xDrawn = 0;
     yDrawn = 0;
@@ -79,13 +86,13 @@ const stopBall = () => {
     y = canvas.height - 30;
 }
 const reloadGame = () => {
-    window.location.reload(); //CHANGE
+    window.location.reload();
 }
 
 //TO DELETE - for testing only
 const reset = document.getElementById("reset");
 reset.addEventListener("click", () => {
-    localStorage.clear();  //CHANGE
+    localStorage.clear();
     reloadGame();
 })
 
@@ -100,17 +107,36 @@ const scoreUp = () => {
     }
 }
 
+const levelUp = () => {
+    if (typeof (Storage) !== "undefined") {
+        if (localStorage.levelUp) {
+            localStorage.levelUp = Number(localStorage.levelUp) + 1;
+            localStorage.livesUp = Number(localStorage.livesUp) + 1;
+        } else {
+            localStorage.levelUp = 1;
+
+        }
+    }
+}
+
+
 window.addEventListener('load', () => {
     if (typeof (Storage) !== "undefined") {
         if (!localStorage.scoreUp) {
             localStorage.setItem("scoreUp", "0");
+        }
+        if (!localStorage.levelUp) {
+            localStorage.setItem("levelUp", "1");
+        }
+        if (!localStorage.livesUp) {
+            localStorage.setItem("livesUp", "3");
         }
     }
     drawPaddle();
     drawBricks();
     drawScore();
     drawLives();
-    // drawLevels();
+    drawLevels();
 
     const keyDown = (event) => {
         if (event.key === "Right" || event.key === "ArrowRight") {
@@ -151,11 +177,11 @@ play.addEventListener("click", () => {
                         yDrawn = -yDrawn; //bounce
                         brick.status = 0;
                         scoreUp();
-                        if (localStorage.scoreUp === brickRowCount * brickColCount) {
-                        // if (localStorage.scoreUp == 2) {
+                        // if (localStorage.scoreUp === brickRowCount * brickColCount) {
+                        if (localStorage.scoreUp == 2) {
                             stopBall();
                             // message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤.`;
-                            // message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤. <br> Next: level ${localStorage.levelUp}`;
+                            message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤. <br> Next: level ${localStorage.levelUp}`;
                             // message.innerHTML = "YOU WIN! 🥇 <br> You now have" + lives + "❤."
                             setTimeout(() => {
                                 reloadGame();
@@ -183,8 +209,8 @@ play.addEventListener("click", () => {
                 x < paddleX + paddleWidth) {
                 yDrawn = -yDrawn; //reverse direction on y axis = bounce
             } else {
-                // if (livesUp === 0) {
-                if (lives === 0) { //TO FIX
+                if (livesUp === 0) {
+                // if (lives === 0) { //TO FIX
                     stopBall();
                     message.innerHTML = "GAME OVER! <br>You've lost all your lives! ☹";
                     setTimeout(() => {
@@ -226,8 +252,3 @@ play.addEventListener("click", () => {
 
 //TODO Add sound when bricks are breaking
 //TODO make responsive
-const drawLevels = () => {
-    context.font = "10px 'Roboto', sans-serif";
-    context.fillStyle = "#ff1493";
-    context.fillText("Level " + `${localStorage.levelUp}`, canvas.width - 160, canvas.height - 142);
-}
