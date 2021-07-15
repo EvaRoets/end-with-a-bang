@@ -7,6 +7,11 @@ let invadersId;
 let goingRight = true;
 let aliensRemoved = [];
 let score = 0;
+const gameTheme = new Audio("../audio/spaceinvaders1.wav");
+const laserSound = new Audio("../audio/shoot.wav");
+const boomSound = new Audio("../audio/boom.wav");
+const gameOver = new Audio("../audio/game-over.wav");
+const winner = new Audio("../audio/winner-sound-effect.mp3");
 
 for (let i = 0; i < 225; i++) {
   const tile = document.createElement('div');
@@ -29,16 +34,11 @@ const draw = () => {
   }
 }
 
-draw()
-
 const remove = () => {
   for (let i = 0; i < invaders.length; i++) {
     tiles[invaders[i]].classList.remove('invader');
   }
 }
-
-tiles[currentShooterIndex].classList.add('shooter');
-
 
 const moveShooter = (e) => {
   tiles[currentShooterIndex].classList.remove('shooter');
@@ -52,7 +52,6 @@ const moveShooter = (e) => {
   }
   tiles[currentShooterIndex].classList.add('shooter');
 }
-document.addEventListener('keydown', moveShooter);
 
 const moveInvaders = () => {
   const leftEdge = invaders[0] % width == 0;
@@ -83,31 +82,39 @@ const moveInvaders = () => {
 
   if (tiles[currentShooterIndex].classList.contains('invader', 'shooter')) {
     scoreDisplay.innerHTML = 'GAME OVER';
+    gameTheme.pause();
+    gameOver.play();
     clearInterval(invadersId);
   }
 
   for (let i = 0; i < invaders.length; i++) {
     if(invaders[i] > (tiles.length)) {
       scoreDisplay.innerHTML = 'GAME OVER';
+      gameTheme.pause();
+      gameOver.play();
       clearInterval(invadersId);
+      break;
     }
   }
   if (aliensRemoved.length == invaders.length) {
     scoreDisplay.innerHTML = 'YOU WIN';
+    gameTheme.pause();
+    winner.play();
     clearInterval(invadersId);
   }
 }
-invadersId = setInterval(moveInvaders, 600);
 
 const shoot = (e) => {
   let laserId;
   let currentLaserIndex = currentShooterIndex;
+
   const moveLaser = () => {
     tiles[currentLaserIndex].classList.remove('laser');
     currentLaserIndex -= width;
     tiles[currentLaserIndex].classList.add('laser');
 
     if (tiles[currentLaserIndex].classList.contains('invader')) {
+      boomSound.play();
       tiles[currentLaserIndex].classList.remove('laser');
       tiles[currentLaserIndex].classList.remove('invader');
       tiles[currentLaserIndex].classList.add('boom');
@@ -126,8 +133,20 @@ const shoot = (e) => {
   }
   switch(e.key) {
     case 'ArrowUp':
+      laserSound.play();
       laserId = setInterval(moveLaser, 100);
   }
 }
 
+const startGame = () => {
+  gameTheme.currentTime = 0;
+  gameTheme.play();
+  draw();
+  tiles[currentShooterIndex].classList.add('shooter');
+  invadersId = setInterval(moveInvaders, 600);
+}
+
+document.getElementById('startGame').addEventListener('click', startGame);
+
+document.addEventListener('keydown', moveShooter);
 document.addEventListener('keydown', shoot);
