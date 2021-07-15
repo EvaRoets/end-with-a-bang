@@ -22,7 +22,6 @@ const brickOffsetTop = 18;
 const brickOffsetLeft = 5;
 const brickBreaking = new Audio("../audio/brickbrick.wav");
 const ballBounce = ("../audio/ballbounce.wav");
-const ballDrop = new Audio("../audio/balldrop.wav");
 const gameOver = new Audio("../audio/game-over.wav");
 const winner = new Audio("../audio/winner-sound-effect.mp3");
 let bricks = []; // loop through all bricks (col and row)
@@ -188,12 +187,14 @@ playGame.addEventListener("click", () => {
                         x < brick.x + brickWidth &&
                         y > brick.y &&
                         y < brick.y + brickHeight) {
+                        brickBreaking.play();
+
+                        //TODO FIX PLAY SOUND 
                         yDrawn = -yDrawn; //bounce
                         brick.status = 0;
-                        brickBreaking.play();
                         scoreUp();
-                        // if (localStorage.scoreUp === brickRowCount * brickColCount) {
-                        if (localStorage.scoreUp == 2) { // for testing purposes only
+                        if (localStorage.scoreUp === brickRowCount * brickColCount) {
+                        // if (localStorage.scoreUp == 2) { // for testing purposes only
                             winner.play();
                             levelUp();
                             stopBall();
@@ -228,8 +229,11 @@ playGame.addEventListener("click", () => {
                 x < paddleX + paddleWidth) {
                 ballBounce.play();
                 yDrawn = -yDrawn; //reverse direction on y axis = bounce
+
+                //TODO fix paddle bounce
+
             } else {
-                if (livesUp === 0) {
+                if (localStorage.livesUp === 0) {
                     // if (lives === 0) { //TO FIX
                     stopBall();
                     gameOver.play();
@@ -243,8 +247,7 @@ playGame.addEventListener("click", () => {
                     y = canvas.height - 30;
                     paddleX = (canvas.width - paddleWidth) / 2;
                     // message.innerHTML = "Oh, you missed the ball! ☹ <br> You have " + lives + " ❤ left."
-                    ballDrop.play();
-                    livesDown();
+                    localStorage.livesDown();
                     message.innerHTML = `Oh, you missed the ball! ☹ <br> You have ${localStorage.livesDown} ❤.`
                 }
             }
@@ -271,5 +274,4 @@ playGame.addEventListener("click", () => {
 });
 
 
-//TODO Add sound when bricks are breaking
 //TODO make responsive
