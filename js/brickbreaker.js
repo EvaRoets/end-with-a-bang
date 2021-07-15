@@ -119,6 +119,15 @@ const levelUp = () => {
     }
 }
 
+const nextLevel = () => {
+    if (!localStorage.previousLevelUp) {
+    } else {
+        //add features here to increase difficulty per level
+        xDrawn = 2;
+        yDrawn = -2;
+    }
+}
+
 window.addEventListener('load', () => {
     if (typeof (Storage) !== "undefined") {
         if (!localStorage.scoreUp) {
@@ -182,6 +191,7 @@ play.addEventListener("click", () => {
                             stopBall();
                             message.innerHTML = `YOU WIN! 🥇 <br> You now have ${localStorage.livesUp} ❤ <br> Next: level ${localStorage.levelUp}`;
                             setTimeout(() => {
+                                nextLevel();
                                 reloadGame();
                             }, 5000)
                         }
