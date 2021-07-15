@@ -62,10 +62,6 @@ document.getElementById("reset").addEventListener("click", () => {
 
 // Generate a random word based on the selected level
 
-document.getElementById("easy").addEventListener("click", () => {
-    easyWord()
-}, {once: true})
-
 let easyWord = () => {
     fetch("https://random-word-form.herokuapp.com/random/noun")
         .then((response) => {
@@ -76,10 +72,6 @@ let easyWord = () => {
             gameOn(selectedWord);
         })
 }
-
-document.getElementById("difficult").addEventListener("click", () => {
-    difficultWord()
-}, {once: true})
 
 let difficultWord = () => {
     fetch("https://random-words-api.vercel.app/word")
@@ -92,10 +84,6 @@ let difficultWord = () => {
             gameOn(selectedWord, hint)
         })
 }
-
-document.getElementById("countries").addEventListener("click", () => {
-    country()
-}, {once: true})
 
 let country = () => {
     fetch("https://restcountries.eu/rest/v2/all")
@@ -110,10 +98,6 @@ let country = () => {
         })
 }
 
-document.getElementById("capitals").addEventListener("click", () => {
-    capital()
-}, {once: true})
-
 let capital = () => {
     fetch("https://restcountries.eu/rest/v2/all")
         .then((response) => {
@@ -125,6 +109,36 @@ let capital = () => {
             let hint = word.name;
             gameOn(selectedWord, hint)
         })
+}
+
+const levels = document.querySelectorAll(".level");
+for (let level of levels) {
+    level.addEventListener("click", () => {
+        if (level.id === "easy") {
+            document.getElementById("difficult").disabled = true;
+            document.getElementById("countries").disabled = true;
+            document.getElementById("capitals").disabled = true;
+            easyWord();
+        }
+        else if (level.id === "difficult") {
+            document.getElementById("easy").disabled = true;
+            document.getElementById("countries").disabled = true;
+            document.getElementById("capitals").disabled = true;
+            difficultWord();
+        }
+        else if (level.id === "countries") {
+            document.getElementById("difficult").disabled = true;
+            document.getElementById("easy").disabled = true;
+            document.getElementById("capitals").disabled = true;
+            country();
+        }
+        else if (level.id === "capitals") {
+            document.getElementById("difficult").disabled = true;
+            document.getElementById("countries").disabled = true;
+            document.getElementById("easy").disabled = true;
+            capital();
+        }
+    }, {once: true})
 }
 
 // GAME
@@ -212,6 +226,5 @@ let gameOn = (selectedWord, hint) => {
 }
 
 // TODO: check no of lives against graphics
-// TODO: only one button to be clicked for level
 
 
