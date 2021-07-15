@@ -4,6 +4,11 @@ body{
 	background-color: black;
 }
 
+a{
+	text-decoration: none;
+	color: green;
+}
+
 h1{
 	font-size: 30px;
 	margin: 15px;
@@ -46,12 +51,13 @@ button {
 	margin: auto;
 	text-align: center;
 	font-family: inherit;
-	margin-top: 10px;
+	margin-top: 15px;
 	font-size: 26px;
-	border: 2px solid black;
+	border: 2px solid green;
 	background-color: inherit;
 	border-radius: 0%;
 	color: inherit;
+	padding: 10px;
 }
 
 button:hover {
