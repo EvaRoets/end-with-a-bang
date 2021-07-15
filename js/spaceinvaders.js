@@ -8,6 +8,7 @@ let invaders = [];
 let goingRight = true;
 let aliensRemoved = [];
 let score = 0;
+let level = 1;
 const gameTheme = new Audio("../audio/spaceinvaders1.wav");
 const laserSound = new Audio("../audio/shoot.wav");
 const boomSound = new Audio("../audio/boom.wav");
@@ -81,6 +82,7 @@ const moveInvaders = () => {
     gameOver.play();
     clearInterval(invadersId);
     document.getElementById('playAgain').style.display = 'block';
+    level = 1;
   }
 
   for (let i = 0; i < invaders.length; i++) {
@@ -90,6 +92,7 @@ const moveInvaders = () => {
       gameTheme.pause();
       gameOver.play();
       document.getElementById('playAgain').style.display = 'block';
+      level = 1;
     }
   }
   if (aliensRemoved.length == invaders.length) {
@@ -97,7 +100,8 @@ const moveInvaders = () => {
     gameTheme.pause();
     winner.play();
     clearInterval(invadersId);
-    document.getElementById('playAgain').style.display = 'block';
+    document.getElementById('nextLevel').style.display = 'block';
+    level++;
   }
 }
 
@@ -127,7 +131,7 @@ const shoot = (e) => {
         const alienRemoved = invaders.indexOf(currentLaserIndex);
         aliensRemoved.push(alienRemoved);
         score++;
-        scoreDisplay.innerHTML = score;
+        scoreDisplay.innerHTML = 'Score : ' + score;
       }
     }
   }
@@ -157,15 +161,10 @@ const startGame = () => {
   }
   currentShooterIndex = 202;
   tiles[currentShooterIndex].classList.add('shooter');
-  invadersId = setInterval(moveInvaders, 600);
+  invadersId = setInterval(moveInvaders, 600/ (level/2));
 }
 
-document.getElementById('startGame').addEventListener('click', () => {
-  document.getElementById('startGame').style.display = 'none';
-  startGame();
-});
-
-document.getElementById('playAgain').addEventListener('click', () => {
+const resetInvaders = () => {
   for(let i = 0; i < tiles.length; i++){
     if(tiles[i].classList.contains('invader')){
       tiles[i].classList.remove('invader');
@@ -177,9 +176,24 @@ document.getElementById('playAgain').addEventListener('click', () => {
   
   invaders = [];
   aliensRemoved = [];
-  
+}
+
+document.getElementById('startGame').addEventListener('click', () => {
+  document.getElementById('startGame').style.display = 'none';
+  startGame();
+});
+
+document.getElementById('playAgain').addEventListener('click', () => {
+  resetInvaders();
   startGame();
   document.getElementById('playAgain').style.display = 'none';
+});
+
+document.getElementById('nextLevel').addEventListener('click', () => {
+  resetInvaders();
+  startGame();
+  document.querySelector('.level').innerHTML = 'Level ' + level;
+  document.getElementById('nextLevel').style.display = 'none';
 });
 
 document.addEventListener('keydown', moveShooter);
