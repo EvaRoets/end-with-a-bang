@@ -106,7 +106,7 @@ function isGameOver() {
    // Game Over Text:
    if (gameOver) {
       ctx.fillStyle = 'white';
-      ctx.font = "50px Verdana";
+      ctx.font = "30px Emulogic";
       ctx.fillText("Game Over!", canvas.width / 6.5, canvas.height / 2);
     }
    return gameOver;
@@ -116,8 +116,8 @@ function isGameOver() {
 // here we set the score:
 function drawScore() {
    ctx.fillStyle = 'white';
-   ctx.font = '10px Verdana';
-   ctx.fillText('Score ' + score, canvas.width - 50, 10);
+   ctx.font = '10px Emulogic';
+   ctx.fillText('Score ' + score, canvas.width - 100, 20);
 }
 
 
