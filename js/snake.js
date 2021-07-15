@@ -131,7 +131,7 @@ function clearScreen() {
 
 function drawSnake() {
    // body parts that will grow upon collision
-   ctx.fillStyle = 'green';
+   ctx.fillStyle = 'aquamarine';
    for (let i = 0; i < snakeParts.length; i++) {
       let part = snakeParts[i];
       ctx.fillRect(part.x * tileCount, part.y * tileCount, tileSize, tileSize);
