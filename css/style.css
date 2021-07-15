@@ -4,6 +4,7 @@ body {
     background-color: aquamarine;
 }
 
+
 a {
     display: block;
     line-height: 2;
@@ -13,7 +14,7 @@ svg {
     padding-right: 1rem;
 }
 
-.col-4 , .col-2{
+.col-md-4, .col-md-2{
     background-color: #212529 !important;
 }
 
@@ -30,7 +31,10 @@ svg {
     color: #212529 !important;
  }
 
-
+.footer {
+    padding-top: 5rem;
+    padding-bottom: 1rem;
+}
  
 @font-face {
     font-family: Emulogic;
