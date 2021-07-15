@@ -5,6 +5,7 @@ body{
 }
 a{
     color: #14F729;
+    text-decoration: none;
 }
 .connectfour{
     border: 2px solid #14F729;
