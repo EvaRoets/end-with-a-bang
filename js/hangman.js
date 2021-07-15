@@ -148,6 +148,12 @@ for (let level of levels) {
     }, {once: true})
 }
 
+// Back to home screen
+
+document.getElementById("home").addEventListener("click", ()=> {
+    clickSound.play()
+})
+
 // GAME
 
 let gameOn = (selectedWord, hint) => {
@@ -237,5 +243,6 @@ let gameOn = (selectedWord, hint) => {
 }
 
 // TODO: check no of lives against graphics
+// TODO: no sound for hint and backhome buttons
 
 

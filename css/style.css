@@ -1,6 +1,7 @@
 body {
     margin: 2rem;
     font-family: Emulogic, cursive;
+    background-color: aquamarine;
 }
 
 a {
@@ -12,10 +13,25 @@ svg {
     padding-right: 1rem;
 }
 
-.col-4{
-    padding: 1rem;
+.col-4 , .col-2{
+    background-color: #212529 !important;
 }
 
+.card {
+    padding: 2rem;
+    margin: 1rem;
+    border: 2px solid black;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    text-align: center;
+ }
+
+ a{
+    text-decoration: none !important;  
+    color: #212529 !important;
+ }
+
+
+ 
 @font-face {
     font-family: Emulogic;
     src: url(../font/Emulogic.ttf);

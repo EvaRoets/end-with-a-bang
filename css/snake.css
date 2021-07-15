@@ -5,15 +5,18 @@ body {
    flex-direction: column; /* to stack em on top of each other */
    justify-content: center;
    align-items: center;
-   background-color: #d8cbc7;
+   font-family: Emulogic, cursive !important;
+   background-color: black;
+
 }
 
 canvas {
-   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+   border: rgb(20, 247, 41) 1px solid;
 }
 
 h1 {
    font-size: 35px;
    font-weight: 700;
    padding: 2rem;
+   color: #14F729;
 }
