@@ -5,9 +5,16 @@ body {
    flex-direction: column; /* to stack em on top of each other */
    justify-content: center;
    align-items: center;
-   background-color: salmon;
+   background-color: #d8cbc7;
 }
 
 canvas {
    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+h1 {
+   font-size: 35px;
+   font-weight: 700;
+   padding: 2rem;
+
 }
