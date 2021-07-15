@@ -165,8 +165,23 @@ body {
 #playAgainButton:hover {
     cursor: pointer;
     background-color: white;
-
 }
+
+#home {
+    font-size: 1rem;
+    font-family: Emulogic, cursive;
+    padding: 3px 10px;
+    margin: 20px;
+    border-style: none;
+    border-radius: 5px;
+    background-color: #14F729;
+}
+
+#home:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
 
 @media only screen and (min-width: 768px) {
     #levels {
