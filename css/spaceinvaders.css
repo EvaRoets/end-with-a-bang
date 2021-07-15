@@ -1,7 +1,32 @@
+body{
+	margin: 0px;
+	color: green;
+	background-color: black;
+}
+
+a{
+	text-decoration: none;
+	color: green;
+}
+
+h1{
+	font-size: 30px;
+	margin: 15px;
+	text-align: center;
+	margin-bottom: 60px;
+}
+
+.container {
+	display: block;
+	margin: auto;
+	width: 450px;
+	margin-top: 50px;
+}
+
 .battlefield {
 	width: 450px;
 	height: 450px;
-	border: solid black 1px;
+	border: solid green 1px;
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -9,6 +34,34 @@
 .battlefield div {
 	width: 30px;
 	height: 30px;
+}
+
+.info {
+	display: grid;
+	grid-template-columns: 225px 225px;
+	margin-bottom: 10px;
+}
+
+.info .level {
+	text-align: right;
+}
+
+button {
+	display: block;
+	margin: auto;
+	text-align: center;
+	font-family: inherit;
+	margin-top: 15px;
+	font-size: 26px;
+	border: 2px solid green;
+	background-color: inherit;
+	border-radius: 0%;
+	color: inherit;
+	padding: 10px;
+}
+
+button:hover {
+	cursor: pointer;
 }
 
 .invader {
@@ -25,4 +78,8 @@
 
 .boom {
 	background-image: url(../images/boom.png);
+}
+
+#playAgain, #nextLevel{
+	display: none;
 }
