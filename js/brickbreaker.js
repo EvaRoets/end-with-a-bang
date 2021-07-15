@@ -18,7 +18,7 @@ const brickColCount = 11;
 const brickWidth = 24.5;
 let brickHeight = 8;
 const brickPadding = 2;
-const brickOffsetTop = 15;
+const brickOffsetTop = 18;
 const brickOffsetLeft = 5;
 const brickBreaking = new Audio("../audio/brickbrick.wav");
 const ballBounce = ("../audio/ballbounce.wav");
@@ -64,21 +64,21 @@ const drawBricks = () => { //make bricks disappear when hit by the ball
     }
 }
 const drawScore = () => {
-    context.font = "10px 'Roboto', sans-serif";
+    context.font = "8px 'Emulogic'";
     context.fillStyle = "#14F729";
-    context.fillText("Your score = " + `${localStorage.scoreUp}`, canvas.width - 293, canvas.height - 142);
+    context.fillText("SCORE : " + `${localStorage.scoreUp}`, canvas.width - 293, canvas.height - 138);
 }
 
 const drawLevels = () => {
-    context.font = "10px 'Roboto', sans-serif";
+    context.font = "8px 'Emulogic'";
     context.fillStyle = "#14F729";
-    context.fillText("Level " + `${localStorage.levelUp}`, canvas.width - 165, canvas.height - 142);
+    context.fillText("LEVEL : " + `${localStorage.levelUp}`, canvas.width - 180, canvas.height - 138);
 }
 
 const drawLives = () => {
-    context.font = "10px 'Roboto', sans-serif";
+    context.font = "8px 'Emulogic'";
     context.fillStyle = "#14F729";
-    context.fillText("❤ = " + `${localStorage.livesUp}`, canvas.width - 32, canvas.height - 142);
+    context.fillText("❤ : " + `${localStorage.livesUp}`, canvas.width - 50, canvas.height - 138);
 }
 // let lives = 3; // delete after livesDown()
 
