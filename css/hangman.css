@@ -3,6 +3,23 @@ body {
     color: #FE0000;
     font-family: Emulogic, cursive;
     text-align: center;
+    margin: 0;
+}
+
+#home {
+    text-decoration: none;
+    color: #14F729;
+    display: block;
+    line-height: 2;
+    text-align: left;
+    font-family: Emulogic, cursive;
+    background-color: black;
+    border-style: none;
+    font-size: 100%;
+}
+
+#home:hover {
+    cursor: pointer;
 }
 
 #gameName {
@@ -92,9 +109,9 @@ body {
 .tooltip:before {
     content: attr(data-text);
     position:absolute;
-    top:50%;
+    top:47%;
     transform:translateY(-50%);
-    left:50%;
+    left:62%;
     margin-left:15px;
     width:200px;
     padding:10px;
@@ -166,22 +183,6 @@ body {
     cursor: pointer;
     background-color: white;
 }
-
-#home {
-    font-size: 1rem;
-    font-family: Emulogic, cursive;
-    padding: 3px 10px;
-    margin: 20px;
-    border-style: none;
-    border-radius: 5px;
-    background-color: #14F729;
-}
-
-#home:hover {
-    cursor: pointer;
-    background-color: white;
-}
-
 
 @media only screen and (min-width: 768px) {
     #levels {

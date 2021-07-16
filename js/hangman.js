@@ -21,6 +21,12 @@ window.onload = function () {
 document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`;
 document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`;
 
+// Back to home screen
+
+document.getElementById("home").addEventListener("click", ()=> {
+    clickSound.play()
+})
+
 // Create buttons per letter
 
 let createButtons = () => {
@@ -62,7 +68,10 @@ document.getElementById("reset").addEventListener("click", () => {
     clickSound.play()
     localStorage.setItem("soulsSaved", 0);
     localStorage.setItem("soulsLost", 0);
-    window.location.reload();
+    setTimeout(function(){
+        window.location.reload();
+    }, 200)
+
 })
 
 // Generate a random word based on the selected level
@@ -147,12 +156,6 @@ for (let level of levels) {
         }
     }, {once: true})
 }
-
-// Back to home screen
-
-document.getElementById("home").addEventListener("click", ()=> {
-    clickSound.play()
-})
 
 // GAME
 
