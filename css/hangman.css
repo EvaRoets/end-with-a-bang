@@ -25,6 +25,7 @@ body {
 #gameName {
     font-size: 2.5rem;
     padding: 1rem 0;
+    color: #14F729;
 }
 
 #levels {
@@ -37,13 +38,14 @@ body {
     font-size: 0.6rem;
     width: 7rem;
     margin: 0.4rem 0.2rem;
-    border-style: none;
-    background-color: #14F729;
+    border-style: solid;
+    border-color: #14F729;
+    background-color: black;
+    color: #14F729;
 }
 
 .level:hover {
     cursor: pointer;
-    background-color: white;
 }
 
 #containerGraph {
@@ -72,13 +74,14 @@ body {
     font-family: Emulogic, cursive;
     font-size: 0.6rem;
     width: 120px;
-    border-style: none;
-    background-color: #14F729;
+    border-style: solid;
+    border-color: #14F729;
+    background-color: black;
+    color: #14F729;
 }
 
 #reset:hover {
     cursor: pointer;
-    background-color: white;
 }
 
 #hint {
@@ -93,14 +96,15 @@ body {
 #hintButton {
     font-family: Emulogic, cursive;
     font-size: 0.6rem;
-    width: 50px;
-    border-style: none;
-    background-color: #14F729;
+    width: 53px;
+    border-style: solid;
+    border-color: #14F729;
+    background-color: black;
+    color: #14F729;
 }
 
 #hintButton:hover {
     cursor: pointer;
-    background-color: white;
 }
 
 .tooltip:before {
@@ -144,19 +148,15 @@ body {
     font-size: 1rem;
     width: 2.5rem;
     margin: 0.2rem;
-    border-style: none;
-    background-color: #14F729;
+    border-style: solid;
+    border-color: #14F729;
+    background-color: black;
+    color: #14F729;
 }
 
 .buttons:hover {
     cursor: pointer;
-    background-color: white;
 }
-
-.buttons:focus {
-    background-color: white;
-}
-
 
 #gameResult {
     font-size: 2rem;
@@ -169,14 +169,15 @@ body {
     font-family: Emulogic, cursive;
     padding: 3px 10px;
     margin: 20px;
-    border-style: none;
     visibility: hidden;
-    background-color: #14F729;
+    border-style: solid;
+    border-color: #14F729;
+    background-color: black;
+    color: #14F729;
 }
 
 #playAgainButton:hover {
     cursor: pointer;
-    background-color: white;
 }
 
 @media only screen and (min-width: 768px) {
