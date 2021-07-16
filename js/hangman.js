@@ -18,8 +18,10 @@ window.onload = function () {
     }
 }
 
-document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`;
-document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`;
+setTimeout(function (){
+    document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`;
+    document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`;
+}, 200);
 
 // Back to home screen
 
