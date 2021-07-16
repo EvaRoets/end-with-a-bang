@@ -163,8 +163,8 @@ let gameOn = (selectedWord, hint) => {
 
     // Create blanks for each letter in the word to be guessed
     let letters = [];
-    console.log(selectedWord);
-    console.log(hint);
+    // console.log(selectedWord);
+    // console.log(hint);
     for (let i=0; i< selectedWord.length; i++) {
         if (alphabet.includes(selectedWord[i])) {
             letters.push("_")
@@ -180,7 +180,6 @@ let gameOn = (selectedWord, hint) => {
         clickSound.play()
         document.getElementById("hint").style.visibility = "visible";
         document.getElementById("hint").innerHTML = hint;
-        console.log(hint)
         if (lives >0) {
             lives -= 1;
             document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
@@ -223,7 +222,6 @@ let gameOn = (selectedWord, hint) => {
             else {
                 if (lives > 0 && document.getElementById("gameResult").innerHTML === ``) {
                     lives -= 1
-                    console.log(lives)
                     document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
                 }
                 else if (lives === 0) {
@@ -244,8 +242,5 @@ let gameOn = (selectedWord, hint) => {
 
     }
 }
-
-// TODO: check no of lives against graphics
-// TODO: no sound for hint and backhome buttons
 
 
