@@ -1,7 +1,6 @@
 body {
     margin: 2rem;
     font-family: Emulogic, cursive;
-    background-color: aquamarine;
 }
 
 
@@ -16,22 +15,37 @@ svg {
     padding-right: 1rem;
 }
 
-.col-md-4, .col-md-2{
+.container-fluid {
     background-color: #212529 !important;
+    padding: 2rem;
 }
 
 .card {
-    padding: 2rem;
+    background-color: #212529  !important;
     margin: 1rem;
-    border: 2px solid black;
-    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    border: 2px solid black; /* 20, 247, 41 */
+    box-shadow: rgba(20, 247, 41) 0px 15px 20px -15px;
     text-align: center;
  }
 
 
+ h6 {
+    color: white;
+}
+
+ .card-title {
+    text-decoration: none;
+    color: white;
+    border: 1px solid #212529;
+    font-size: 20px;
+    font-weight: 700;
+ }
+
 .footer {
     padding-top: 5rem;
     padding-bottom: 1rem;
+    font-weight: 700;
+    font-size: 17px;
 }
  
 @font-face {
