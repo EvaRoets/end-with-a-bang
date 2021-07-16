@@ -180,7 +180,7 @@ playGame.addEventListener("click", () => {
                         brick.status = 0;
                         scoreUp();
                         // if (localStorage.scoreUp === brickRowCount * brickColCount) {
-                        if (localStorage.scoreUp == 2) { // for testing purposes only
+                        if (localStorage.scoreUp == 5) { // for testing purposes only
                             winner.play();
                             lives++
                             // levelUp();
@@ -263,5 +263,3 @@ reset.addEventListener("click", () => {
     localStorage.clear();
     reloadGame();
 })
-
-
