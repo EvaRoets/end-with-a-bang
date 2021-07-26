@@ -198,7 +198,6 @@ let gameOn = (selectedWord, hint) => {
     const buttons = document.querySelectorAll(".buttons");
     for (let button of buttons) {
         button.addEventListener("click", () => {
-            console.log(button)
             letterSound.play()
             document.getElementById(button.id).style.backgroundColor = "#FE0000"
             if (document.getElementById("gameResult").innerHTML === `game over`) {
@@ -234,7 +233,7 @@ let gameOn = (selectedWord, hint) => {
                     lives -= 1
                     document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
                 }
-                else if (lives === 0) {
+                if (lives === 0) {
                     death.play();
                     document.getElementById("gameResult").style.visibility = `visible`;
                     document.getElementById("gameResult").innerHTML = `game over`;
