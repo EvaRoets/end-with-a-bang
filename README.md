@@ -1,4 +1,10 @@
 # End with a bang💥
+
+Watch the result of this project >> [here](https://wizardly-almeida-49c84a.netlify.app/)
+
+
+![arcade games](https://user-images.githubusercontent.com/84382812/136977379-737115e2-2826-414d-b750-772aab021b45.PNG)
+
 ## Objectives
 - Create a platform for people to enjoy during the summer holiday
 - Make sure this project is portfolio-proof piece of art
@@ -9,7 +15,7 @@
 - Use JS best practises
 - Use copyright free images
 
-### Must-have features
+### Must-haves
 - One overview page to feature all possibilities, linking to different sections (min 1 section per team member) with fun content.
 - A consistent look and feel (winter / warmste week / petson & findus / gansta santa / het eiland / whatever you like)
 - Optimized image sizes
