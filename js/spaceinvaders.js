@@ -83,6 +83,7 @@ const moveInvaders = () => {
     clearInterval(invadersId);
     document.getElementById('playAgain').style.display = 'block';
     level = 1;
+    score = 0;
   }
 
   for (let i = 0; i < invaders.length; i++) {
@@ -93,6 +94,7 @@ const moveInvaders = () => {
       gameOver.play();
       document.getElementById('playAgain').style.display = 'block';
       level = 1;
+      score = 0;
     }
   }
   if (aliensRemoved.length == invaders.length) {
@@ -187,6 +189,8 @@ document.getElementById('playAgain').addEventListener('click', () => {
   resetInvaders();
   startGame();
   document.getElementById('playAgain').style.display = 'none';
+  document.querySelector('.level').innerHTML = 'Level ' + level;
+  scoreDisplay.innerHTML = 'Score : ' + score;
 });
 
 document.getElementById('nextLevel').addEventListener('click', () => {

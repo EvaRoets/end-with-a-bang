@@ -18,8 +18,10 @@ window.onload = function () {
     }
 }
 
-document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`;
-document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`;
+setTimeout(function (){
+    document.getElementById("soulsSaved").innerHTML = `Souls saved: ${localStorage.soulsSaved}`;
+    document.getElementById("soulsLost").innerHTML = `Souls lost: ${localStorage.soulsLost}`;
+}, 300);
 
 // Back to home screen
 
@@ -134,24 +136,29 @@ for (let level of levels) {
             document.getElementById("countries").disabled = true;
             document.getElementById("capitals").disabled = true;
             document.getElementById("hintButton").disabled = true;
+            document.getElementById("hintButton").style.backgroundColor = "#555555"
+            document.getElementById("easy").style.backgroundColor = "#555555"
             easyWord();
         }
         else if (level.id === "difficult") {
             document.getElementById("easy").disabled = true;
             document.getElementById("countries").disabled = true;
             document.getElementById("capitals").disabled = true;
+            document.getElementById("difficult").style.backgroundColor = "#555555"
             difficultWord();
         }
         else if (level.id === "countries") {
             document.getElementById("difficult").disabled = true;
             document.getElementById("easy").disabled = true;
             document.getElementById("capitals").disabled = true;
+            document.getElementById("countries").style.backgroundColor = "#555555"
             country();
         }
         else if (level.id === "capitals") {
             document.getElementById("difficult").disabled = true;
             document.getElementById("countries").disabled = true;
             document.getElementById("easy").disabled = true;
+            document.getElementById("capitals").style.backgroundColor = "#555555"
             capital();
         }
     }, {once: true})
@@ -177,6 +184,7 @@ let gameOn = (selectedWord, hint) => {
 
     // Get a hint
     document.getElementById("hintButton").addEventListener("click", () => {
+        document.getElementById("hintButton").style.backgroundColor = "#555555"
         clickSound.play()
         document.getElementById("hint").style.visibility = "visible";
         document.getElementById("hint").innerHTML = hint;
@@ -191,6 +199,7 @@ let gameOn = (selectedWord, hint) => {
     for (let button of buttons) {
         button.addEventListener("click", () => {
             letterSound.play()
+            document.getElementById(button.id).style.backgroundColor = "#555555"
             if (document.getElementById("gameResult").innerHTML === `game over`) {
 
             }
@@ -224,7 +233,7 @@ let gameOn = (selectedWord, hint) => {
                     lives -= 1
                     document.getElementById("graphic").src = `../images/hangman-stage${lives}.png`;
                 }
-                else if (lives === 0) {
+                if (lives === 0) {
                     death.play();
                     document.getElementById("gameResult").style.visibility = `visible`;
                     document.getElementById("gameResult").innerHTML = `game over`;
