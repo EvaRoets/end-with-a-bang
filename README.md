@@ -1,6 +1,6 @@
 # End with a bang💥
 
-Watch the result of this project >> [here](https://wizardly-almeida-49c84a.netlify.app/)
+Watch the result of this project >> [here](https://14-end-with-a-bang.netlify.app/)
 
 ![arcade games](https://user-images.githubusercontent.com/84382812/136977379-737115e2-2826-414d-b750-772aab021b45.PNG)
 ![brick breaker](https://user-images.githubusercontent.com/84382812/136977957-0bb8e015-e083-4eb0-bb0b-c4e97be77f86.PNG)
